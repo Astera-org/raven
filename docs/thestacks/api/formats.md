@@ -100,7 +100,7 @@ The response has these fields:
 ## Find publications
 
 - Every publication is listed in `thestacks.org/sitemaps/sitemap-publications.xml`.
-- Each organization has an RSS feed of its publications at `api.thestacks.org/api/publications/rss/<org-slug>`.
+- Each organization has an [RSS feed](#api:rss-feed) of its publications.
 
 Here's an example that reads the sitemap and downloads the first three publications as Markdown.
 
@@ -116,3 +116,22 @@ for url in urls[:3]:
     markdown = requests.get(f"{url}.md").text
     print(url, len(markdown), "characters")
 ```
+
+(api:rss-feed)=
+## Subscribe to an organization's RSS feed
+
+Each organization has an RSS feed of its publications that you can add to any feed reader.
+Access each feed at:
+
+```
+api.thestacks.org/api/publications/rss/<organization>`
+```
+
+Where `<organization>` is the organization's name with hyphens for spaces.
+For example, [Arcadia Science's feed](https://api.thestacks.org/api/publications/rss/arcadia-science) is the following:
+
+```
+api.thestacks.org/api/publications/rss/arcadia-science
+```
+
+To learn how feeds work, see [organizations in the Raven docs](xref:raven/admins/organizations).

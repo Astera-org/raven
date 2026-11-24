@@ -6,6 +6,7 @@ description: Sign in, comment on publications, and manage notifications.
 
 The Stacks is a platform for scientists to communicate their research to an audience of peers and is designed to be freely accessible without restrictions. _Commenting_ is the only feature for readers on The Stacks that requires an account.
 To read publications from code, see [](../api/formats.md).
+To follow an organization's new publications in a feed reader, subscribe to its [RSS feed](#api:rss-feed).
 
 ## Sign up / Log in
 

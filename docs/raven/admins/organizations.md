@@ -8,6 +8,19 @@ description: Add organizations and members, and turn on DOI minting.
 An organization is an institution, like a lab or a university, that authors belong to.
 Authors can only list an organization as an affiliation if it exists in Raven and they're a member of it.
 
+Each organization gets an RSS feed of its publications at an endpoint like:
+
+```
+<your-api>/api/publications/rss/<organization>
+```
+
+Where `<organization>` is the organization's name with hyphens for spaces.
+
+For example, The Stacks deployment serves [Arcadia Science's feed](https://api.thestacks.org/api/publications/rss/arcadia-science) and documents it for readers in [](xref:thestacks/api/formats).
+
+Feed items link to `thestacks.org` by default, not to your deployment's `BASE_URL_WEB` ([backend settings](../deployers/configuration.md#backend-settings)).
+To link them to your own site, add `?domain=<your-site>` to the feed URL.
+
 ## Add an organization
 
 1. In the [admin UI](#admins:admin-ui), go to {gui}`Organizations` and click {gui}`New organization` ([site admins](#admins:roles) only).
