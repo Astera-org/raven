@@ -16,6 +16,7 @@ project:
     - file: index.md
     - file: deployers/index.md
       children:
+        - file: deployers/architecture.md
         - file: deployers/local.md
         - file: deployers/configuration.md
         - file: deployers/delete-a-user.md

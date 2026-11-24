@@ -36,26 +36,33 @@ pnpm db:push      # push schema directly (dev only)
 
 The server reads `raven.toml` (or a path set via `RAVEN_CONFIG`). Environment variables override TOML values when set.
 
-| Key                       | Default      | Description                                                                                                                                            |
-| ------------------------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `DATABASE_URI`            | —            | MySQL connection string (required)                                                                                                                     |
-| `MIGRATION_DATABASE_URI`  | —            | Connection string for migrations (optional)                                                                                                            |
-| `BASE_URL_WEB`            | —            | Frontend origin (used in emails, CORS)                                                                                                                 |
-| `BASE_URL_ADMIN`          | —            | Admin UI origin                                                                                                                                        |
-| `BASE_URL_API`            | —            | API origin                                                                                                                                             |
-| `SERVER_HOST`             | `0.0.0.0`    | Bind address                                                                                                                                           |
-| `SERVER_PORT`             | `7001`       | Listen port                                                                                                                                            |
-| `JWT_SECRET_KEY`          | —            | JWT signing secret (required)                                                                                                                          |
-| `BETTER_AUTH_SECRET`      | —            | BetterAuth secret (required)                                                                                                                           |
-| `AWS_*`                   | —            | S3 credentials, bucket, and endpoints (see `raven.example.toml` for a local S3-compatible service like Garage)                                         |
-| `MAILGUN_API_KEY`         | —            | Outbound email                                                                                                                                         |
-| `DATACITE_*`              | —            | DOI registration credentials                                                                                                                           |
-| `DATACITE_PREFIX`         | —            | DOI prefix for all minted DOIs. DOIs are only minted for organizations with DOI minting enabled.                                                       |
-| `DATACITE_PUBLISHER`      | `The Stacks` | Publisher name in DOI metadata. When it's `The Stacks`, Astera Institute is also added as the hosting institution, so change it for other deployments. |
-| `ORCID_*`                 | —            | ORCID OAuth                                                                                                                                            |
-| `GOOGLE_*`                | —            | Google OAuth                                                                                                                                           |
-| **Astera Specific Below** | -            | -                                                                                                                                                      |
-| `LINEAR_*`                | -            | Our contact-us form uses the data to crerate a linear task, which requires these keys                                                                  |
+| Key                          | Default                               | Description                                                                                                                                            |
+| ---------------------------- | ------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `DATABASE_URI`               | —                                     | MySQL connection string (required)                                                                                                                     |
+| `MIGRATION_DATABASE_URI`     | —                                     | MySQL connection string for migrations. If unset, MySQL migrations are skipped                                                                         |
+| `PG_DATABASE_URI`            | —                                     | Postgres connection string for the job queue (required). `MIGRATION_PG_DATABASE_URI` defaults to it                                                    |
+| `BASE_URL_WEB`               | —                                     | Frontend origin (used in emails, CORS)                                                                                                                 |
+| `BASE_URL_ADMIN`             | —                                     | Admin UI origin                                                                                                                                        |
+| `BASE_URL_API`               | —                                     | API origin                                                                                                                                             |
+| `SERVER_HOST`                | `0.0.0.0`                             | Bind address                                                                                                                                           |
+| `SERVER_PORT`                | `7001`                                | Listen port                                                                                                                                            |
+| `ENVIRONMENT`                | —                                     | Set to `production` in production. Otherwise notification emails are only logged and auth rate limiting is off                                         |
+| `JWT_SECRET_KEY`             | `dev-secret-key-change-in-production` | JWT signing secret. Must be set in production                                                                                                          |
+| `BETTER_AUTH_SECRET`         | `CHANGE_ME`                           | BetterAuth secret. Must be set in production                                                                                                           |
+| `AWS_*`                      | —                                     | S3 credentials, bucket, and endpoints (see `raven.example.toml` for a local S3-compatible service like Garage)                                         |
+| `IMG_DIR`                    | `imgs/`                               | Local folder for user and organization avatars. Use a persistent volume                                                                                |
+| `MAILGUN_API_KEY`            | —                                     | Outbound email                                                                                                                                         |
+| `MAILGUN_API_URL`            | The Stacks' Mailgun domain            | Mailgun messages endpoint, like `https://api.mailgun.net/v3/<your-domain>/messages`                                                                    |
+| `DATACITE_*`                 | —                                     | DOI registration credentials                                                                                                                           |
+| `DATACITE_PREFIX`            | —                                     | DOI prefix for all minted DOIs. DOIs are only minted for organizations with DOI minting enabled.                                                       |
+| `DATACITE_PUBLISHER`         | `The Stacks`                          | Publisher name in DOI metadata. When it's `The Stacks`, Astera Institute is also added as the hosting institution, so change it for other deployments. |
+| `ORCID_*`                    | —                                     | ORCID OAuth                                                                                                                                            |
+| `GOOGLE_*`                   | —                                     | Google OAuth                                                                                                                                           |
+| `PUBLICATION_CREATOR_ORGS`   | `Arcadia Science, Radial`             | Comma-separated names of the organizations whose members can create publications. Site admins always can. Change it for other deployments              |
+| `REQUIRE_EMAIL_VERIFICATION` | `true`                                | Email/password accounts must verify their email to sign in, so `MAILGUN_API_KEY` must be set. Google and ORCID sign-in are unaffected                  |
+| **Astera Specific Below**    | -                                     | -                                                                                                                                                      |
+| `LINEAR_*`                   | -                                     | Our contact-us form uses the data to create a Linear task, which requires these keys                                                                   |
+| `PDF_QUEUE_URL`              | —                                     | SQS queue that gets a message when a non-MyST version is published. Nothing in the open-source repos reads it, so leave it unset                       |
 
 ---
 

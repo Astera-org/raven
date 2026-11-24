@@ -7,7 +7,7 @@ Raven is an open source, API-first backend for running your own scientific publi
 It's for organizations that want to make their own choices about publishing, like who can publish and what readers see.
 You run Raven and build or adapt a frontend on its API.
 [The Stacks](https://thestacks.org) is one deployment of Raven, run by Astera, and we hope to see many others.
-See [](xref:thestacks#about:raven-and-the-stacks) for how the two relate, and the [deployer guide](./deployers/index.md) for what a deployment needs.
+See [](xref:thestacks#about:raven-and-the-stacks) for how the two relate, and the [architecture](#architecture) for what a deployment needs.
 
 ## Design principles
 

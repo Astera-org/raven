@@ -3,6 +3,8 @@ title: Get started
 description: Set up a development environment and run the backend.
 ---
 
+See [](#architecture) for how the backend, admin UI, CLI, and a frontend fit together.
+
 There are two ways to set up a development environment:
 
 1. Use the provided devcontainer: follow the [devcontainer README](https://github.com/Astera-org/raven/blob/main/.devcontainer/README.md).

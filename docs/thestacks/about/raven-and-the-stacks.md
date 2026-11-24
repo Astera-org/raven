@@ -16,4 +16,6 @@ This allows you to change the workflow, UI, publishing policies, or access contr
 The project is split across two repositories:
 
 - [Raven](https://github.com/Astera-org/raven) has the backend API and database, the [admin UI](xref:raven#admins:admin-ui), and the `raven` CLI.
-- [thestacks](https://github.com/Astera-org/thestacks) has the website, which renders publications ([see how rendering works](xref:raven#developers:myst-publications)), and hosted services like PDF generation. It gets its data from Raven's [HTTP API](https://api.thestacks.org/api/v1/docs).
+- [thestacks](https://github.com/Astera-org/thestacks) has the website, which renders publications ([see how rendering works](xref:raven#developers:myst-publications)). It gets its data from Raven's [HTTP API](https://api.thestacks.org/api/v1/docs).
+
+See [Raven's architecture](https://docs.thestacks.org/raven/deployers/architecture/) for how they fit together.
