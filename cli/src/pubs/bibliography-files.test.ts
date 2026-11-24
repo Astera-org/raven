@@ -1,5 +1,5 @@
 import { CliError, ExitCode } from "#src/errors.js";
-import yaml from "js-yaml";
+import { dump } from "js-yaml";
 import { mkdir, mkdtemp, symlink, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { basename, dirname, join } from "node:path";
@@ -41,7 +41,7 @@ async function expectValidationError(
 }
 
 async function writeProject(project: Record<string, unknown> = {}) {
-  await write("myst.yml", yaml.dump({ version: 1, project }));
+  await write("myst.yml", dump({ version: 1, project }));
   await write("paper.md", "---\ntitle: T\n---\nBody\n");
 }
 
@@ -101,7 +101,7 @@ describe("readBibliographyFiles", () => {
   });
 
   it("sends a file named by both the project and the page once", async () => {
-    await write("myst.yml", yaml.dump({ version: 1, project: {} }));
+    await write("myst.yml", dump({ version: 1, project: {} }));
     await write(
       "paper.md",
       "---\ntitle: T\nbibliography: [refs.bib]\n---\nB\n"

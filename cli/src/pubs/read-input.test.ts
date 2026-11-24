@@ -1,5 +1,5 @@
 import { CliError, ExitCode } from "#src/errors.js";
-import yaml from "js-yaml";
+import { dump } from "js-yaml";
 import { mkdir, mkdtemp, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
@@ -79,7 +79,7 @@ describe("readPublicationInput", () => {
   it("inherits mystmd's fallback keys from the project, not the title", async () => {
     await write(
       "myst.yml",
-      yaml.dump({
+      dump({
         version: 1,
         project: {
           title: "Project title",
@@ -110,7 +110,7 @@ describe("readPublicationInput", () => {
   it("gives a page without numbering or math the project's", async () => {
     await write(
       "myst.yml",
-      yaml.dump({
+      dump({
         version: 1,
         project: {
           numbering: { headings: true },
@@ -132,7 +132,7 @@ describe("readPublicationInput", () => {
   it("combines the page's numbering and math with the project's, the page's winning", async () => {
     await write(
       "myst.yml",
-      yaml.dump({
+      dump({
         version: 1,
         project: {
           numbering: { headings: true, equation: { template: "Eq. %s" } },
@@ -177,7 +177,7 @@ describe("readPublicationInput", () => {
   it("refuses numbering it can't combine", async () => {
     await write(
       "myst.yml",
-      yaml.dump({ version: 1, project: { numbering: "headings" } })
+      dump({ version: 1, project: { numbering: "headings" } })
     );
     await write("paper.md", "---\nnumbering:\n  headings: true\n---\n\nBody\n");
 
@@ -214,7 +214,7 @@ describe("readPublicationInput", () => {
   it("takes the pages from the toc", async () => {
     await write(
       "myst.yml",
-      yaml.dump({
+      dump({
         version: 1,
         project: { toc: [{ file: "paper.md" }] },
       })
@@ -228,7 +228,7 @@ describe("readPublicationInput", () => {
   it("lists nested toc entries and refuses toc patterns", async () => {
     await write(
       "myst.yml",
-      yaml.dump({
+      dump({
         version: 1,
         project: {
           toc: [{ file: "a.md", children: [{ file: "b.md" }] }],
@@ -239,7 +239,7 @@ describe("readPublicationInput", () => {
 
     await write(
       "myst.yml",
-      yaml.dump({ version: 1, project: { toc: [{ pattern: "*.md" }] } })
+      dump({ version: 1, project: { toc: [{ pattern: "*.md" }] } })
     );
     await expectUsageError(readPublicationInput(root), /toc pattern/);
   });

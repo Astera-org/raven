@@ -1,5 +1,5 @@
 import { type MystFrontmatter } from "@raven/core-import-format";
-import yaml from "js-yaml";
+import { dump } from "js-yaml";
 /** What `serializeMyst` writes; `license` is an SPDX ID. */
 export interface MystDocumentFields {
   title: string | undefined;
@@ -40,6 +40,6 @@ export function serializeMyst(fields: MystDocumentFields): string {
   const body = fields.body.endsWith("\n") ? fields.body : `${fields.body}\n`;
   if (Object.keys(yamlFields).length === 0) return body;
 
-  const yamlText = yaml.dump(yamlFields, { lineWidth: -1, noRefs: true });
+  const yamlText = dump(yamlFields, { lineWidth: -1, noRefs: true });
   return `---\n${yamlText}---\n\n${body}`;
 }

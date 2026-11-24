@@ -26,7 +26,7 @@ allowBuilds:
 catalog:
   # --- Runtime: shared ---
   hast-util-from-html: ^2.0.3
-  js-yaml: ^4.3.2
+  js-yaml: ^5.5.0
   # Pinned: the myst-* packages are upgraded together.
   myst-ext-button: 0.0.2
   myst-ext-card: 1.0.9

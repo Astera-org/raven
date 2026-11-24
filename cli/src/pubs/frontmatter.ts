@@ -1,5 +1,5 @@
 import { CliError, ExitCode } from "#src/errors.js";
-import yaml from "js-yaml";
+import { dump, load } from "js-yaml";
 
 export type Frontmatter = Record<string, unknown>;
 
@@ -25,14 +25,14 @@ export function joinFrontmatter(
   frontmatter: Frontmatter,
   body: string
 ): string {
-  const yamlText = yaml.dump(frontmatter, { lineWidth: -1, noRefs: true });
+  const yamlText = dump(frontmatter, { lineWidth: -1, noRefs: true });
   return `---\n${yamlText}---\n${body}`;
 }
 
 export function parseYamlObject(text: string, file: string): Frontmatter {
   let value: unknown;
   try {
-    value = yaml.load(text);
+    value = load(text);
   } catch (error) {
     throw new CliError(
       `invalid YAML in ${file}: ${(error as Error).message}`,
