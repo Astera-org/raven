@@ -87,7 +87,7 @@ services:
   # browser PUT to presigned upload URLs, which MinIO allowed by default. Both
   # use the owner permission that --default-bucket gives the default key.
   garage-init:
-    image: amazon/aws-cli:2.35.3
+    image: amazon/aws-cli:2.40.4
     # Keep this one-shot job out of `compose up --wait`; an exited job is
     # otherwise treated as an unavailable service even when it exits cleanly.
     profiles: ["init"]

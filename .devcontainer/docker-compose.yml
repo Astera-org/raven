@@ -110,7 +110,7 @@ services:
   # bucket policies, so this replaces `mc anonymous set download`). CORS lets the
   # browser PUT to presigned upload URLs, which MinIO allowed by default.
   garage-init:
-    image: amazon/aws-cli:2.35.3
+    image: amazon/aws-cli:2.40.4
     depends_on:
       garage:
         condition: service_healthy

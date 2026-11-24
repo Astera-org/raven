@@ -103,7 +103,7 @@ services:
   # Website access lets Garage's web endpoint serve public reads (so tests can
   # fetch a media asset's publicUrl), and CORS matches what MinIO allowed.
   garage-init-test:
-    image: amazon/aws-cli:2.35.3
+    image: amazon/aws-cli:2.40.4
     depends_on:
       garage-test:
         condition: service_healthy

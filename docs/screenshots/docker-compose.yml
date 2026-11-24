@@ -83,7 +83,7 @@ services:
   # One-shot job that turns on website access (public reads through Garage's
   # web endpoint) and CORS for the media bucket, then exits.
   garage-init:
-    image: amazon/aws-cli:2.35.3
+    image: amazon/aws-cli:2.40.4
     depends_on:
       garage:
         condition: service_healthy
