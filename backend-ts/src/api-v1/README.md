@@ -101,6 +101,16 @@ Make an operation stable before a deployed client (The Stacks, the `raven` CLI, 
 2. Run `pnpm -F @raven/backend-ts v1:contract --regenerate`. This regenerates the tables above and `openapi.stable.json`.
 3. Commit both files with the route change.
 
+## Deprecating and sunsetting an endpoint
+
+To replace an operation, deprecate it instead of removing it. Set `deprecated: true` and keep it working as an alias of its replacement. A deprecated operation can also get a sunset date, after which it returns `410 Gone`:
+
+1. Next to `deprecated: true`, add `"x-deprecation-date"` and `"x-sunset"` as ISO dates (`YYYY-MM-DD`).
+2. On each of its responses, declare the `Deprecation`, `Sunset`, and optional `Link` headers, and add a `410` response.
+3. From the deprecation date, every response carries `Deprecation` (RFC 9745, `@<unix-seconds>`), `Sunset` (RFC 8594, an HTTP-date), and a `Link` to the replacement or a migration guide. From the sunset date, the operation returns `410 Gone`.
+
+No operation has a sunset date yet. The `api-versioning` skill has the details, including the header schema. A deprecated operation without `x-sunset` has no planned removal.
+
 ## Compatibility check
 
 `openapi.stable.json` is the OpenAPI document cut down to the stable operations and the components they use. It is generated, so don't edit it by hand.
@@ -114,4 +124,4 @@ A breaking change is either of:
 
 The `V1 API compatibility` workflow (`.github/workflows/v1-api-compat.yml`) runs `v1:contract` on every pull request and push to `main`, then `v1:contract --base` with the pull request base commit's `openapi.stable.json`. In CI, a missing oasdiff is a failure.
 
-A breaking change to a stable operation is a v2 conversation, not a v1 edit. When one is agreed on anyway (for example, removing a deprecated alias once no client calls it), add the `v1-breaking-change` label to the pull request to skip the `--base` check.
+A breaking change to a stable operation is a v2 conversation, not a v1 edit. When one is agreed on anyway (for example, removing a deprecated alias once no client calls it, or removing an operation after its sunset date), add the `v1-breaking-change` label to the pull request to skip the `--base` check.
