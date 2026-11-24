@@ -1,0 +1,11 @@
+{
+  "body": {
+    "comment_id": 1,
+    "status": "withdrawn"
+  },
+  "bodyKind": "json",
+  "headers": {
+    "content-type": "application/json"
+  },
+  "status": 200
+}

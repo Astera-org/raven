@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "skills": {
+    "hono": {
+      "source": "yusukebe/hono-skill",
+      "sourceType": "github",
+      "skillPath": "skills/hono/SKILL.md",
+      "computedHash": "0e679785f8c2d1932a2b2ffcbef7a65535623fee5ac12675f8a3c2cccdeb6e99"
+    },
+    "typescript-advanced-types": {
+      "source": "wshobson/agents",
+      "sourceType": "github",
+      "skillPath": "plugins/javascript-typescript/skills/typescript-advanced-types/SKILL.md",
+      "computedHash": "8767535f95e190d331ff58eb4257bbcf5a02f1b4273871434740b0be1c917f57"
+    }
+  }
+}

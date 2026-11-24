@@ -1,0 +1,10 @@
+{
+  "body": {
+    "error": "Invalid token"
+  },
+  "bodyKind": "json",
+  "headers": {
+    "content-type": "application/json"
+  },
+  "status": 400
+}

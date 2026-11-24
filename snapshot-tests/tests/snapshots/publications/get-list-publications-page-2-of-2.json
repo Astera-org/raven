@@ -1,0 +1,33 @@
+{
+  "body": {
+    "items": [
+      {
+        "abstract": "A short abstract about neutron transport.",
+        "contributors": [],
+        "created_at": "<<datetime>>",
+        "doi": null,
+        "id": "<<integer>>",
+        "num_comments": 0,
+        "orgs": [],
+        "slug": "neutron-paper",
+        "state": "PUBLISHED",
+        "tags": [
+          "biology",
+          "open-science"
+        ],
+        "title": "Neutron diffusion notes",
+        "version_number": 1
+      }
+    ],
+    "pagination": {
+      "page": 2,
+      "per_page": 2,
+      "total": 3
+    }
+  },
+  "bodyKind": "json",
+  "headers": {
+    "content-type": "application/json"
+  },
+  "status": 200
+}

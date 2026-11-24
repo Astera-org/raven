@@ -1,0 +1,4 @@
+response-optional-property-removed WARN
+response-non-success-status-removed WARN
+response-property-enum-value-added INFO
+response-mediatype-enum-value-added INFO

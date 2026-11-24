@@ -1,0 +1,32 @@
+{
+  "body": {
+    "items": [
+      {
+        "abstract": "A short abstract about calorimetry methods.",
+        "contributors": [],
+        "created_at": "<<datetime>>",
+        "doi": null,
+        "id": "<<integer>>",
+        "num_comments": 0,
+        "orgs": [],
+        "slug": "calorimetry-paper",
+        "state": "PUBLISHED",
+        "tags": [
+          "chemistry"
+        ],
+        "title": "Calorimetry techniques",
+        "version_number": 1
+      }
+    ],
+    "pagination": {
+      "page": 1,
+      "per_page": 10,
+      "total": 1
+    }
+  },
+  "bodyKind": "json",
+  "headers": {
+    "content-type": "application/json"
+  },
+  "status": 200
+}

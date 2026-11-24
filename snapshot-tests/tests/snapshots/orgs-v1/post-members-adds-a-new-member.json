@@ -1,0 +1,14 @@
+{
+  "body": {
+    "endAt": null,
+    "isAdmin": false,
+    "startAt": null,
+    "userId": "00000000010000000000000003",
+    "username": "charlie"
+  },
+  "bodyKind": "json",
+  "headers": {
+    "content-type": "application/json"
+  },
+  "status": 201
+}

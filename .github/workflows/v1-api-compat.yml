@@ -1,0 +1,75 @@
+name: V1 API compatibility
+
+# Stable /api/v1 operations may only change additively. See
+# backend-ts/src/api-v1/README.md.
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+    # `labeled`/`unlabeled` re-run the check when `v1-breaking-change` is
+    # added or removed. `edited` runs it when a PR is retargeted to `main`
+    # (e.g. a stacked PR after the one below it merges), which is otherwise
+    # never checked. It also fires on title/body edits; that isn't filtered
+    # out because a skipped run would replace a failed one on the same commit.
+    types: [opened, synchronize, reopened, labeled, unlabeled, edited]
+
+permissions:
+  contents: read
+
+env:
+  STABLE_SPEC: backend-ts/src/api-v1/openapi.stable.json
+  OASDIFF_VERSION: 1.34.1
+  OASDIFF_SHA256: 75775f65b0adebd26a8e013af51a799342dfdc6262d89efa9e3b7bdf89657d90
+
+jobs:
+  v1-api-compat:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: pnpm/action-setup@v6
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: ".nvmrc"
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      # v1:contract runs oasdiff when it's on PATH, and fails in CI if it isn't.
+      - name: Install oasdiff
+        run: |
+          archive="oasdiff_${OASDIFF_VERSION}_linux_amd64.tar.gz"
+          curl -fsSL -o "$RUNNER_TEMP/$archive" \
+            "https://github.com/oasdiff/oasdiff/releases/download/v${OASDIFF_VERSION}/$archive"
+          echo "$OASDIFF_SHA256  $RUNNER_TEMP/$archive" | sha256sum --check
+          mkdir "$RUNNER_TEMP/oasdiff"
+          tar -xzf "$RUNNER_TEMP/$archive" -C "$RUNNER_TEMP/oasdiff" oasdiff
+          echo "$RUNNER_TEMP/oasdiff" >> "$GITHUB_PATH"
+
+      - name: Check README and stable spec match the routes
+        run: pnpm -F @raven/backend-ts v1:contract
+
+      - name: Get the PR base commit's stable spec
+        id: base
+        if: >-
+          github.event_name == 'pull_request' &&
+          !contains(github.event.pull_request.labels.*.name, 'v1-breaking-change')
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: |
+          git fetch --depth=1 origin "$BASE_SHA"
+          if git show "FETCH_HEAD:$STABLE_SPEC" > "$RUNNER_TEMP/base.json"; then
+            echo "found=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "::notice::$BASE_SHA has no $STABLE_SPEC yet; skipping the compatibility check."
+          fi
+
+      - name: Check stable operations for breaking changes
+        if: steps.base.outputs.found == 'true'
+        run: pnpm -F @raven/backend-ts v1:contract --base "$RUNNER_TEMP/base.json"

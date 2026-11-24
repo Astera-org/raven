@@ -1,0 +1,38 @@
+{
+  "name": "@raven/snapshot-tests",
+  "version": "0.1.0",
+  "private": true,
+  "license": "BSD-3-Clause",
+  "type": "module",
+  "description": "Backend tests harness for the Raven API.",
+  "scripts": {
+    "build": "tsc",
+    "format": "prettier --write . --log-level=warn",
+    "format:check": "prettier --check .",
+    "lint": "eslint",
+    "lint:fix": "eslint --fix && pnpm format",
+    "pretest": "pnpm --filter @raven/backend-ts build",
+    "test": "vitest run",
+    "test:update": "vitest run -u",
+    "test:watch": "vitest",
+    "pretypecheck": "pnpm --filter @raven/backend-ts build",
+    "typecheck": "tsc --noEmit && tsc --noEmit -p tsconfig.root.json"
+  },
+  "dependencies": {
+    "@raven/backend-ts": "workspace:*",
+    "@testcontainers/mysql": "^12.0.1",
+    "@testcontainers/postgresql": "^12.2.0",
+    "drizzle-orm": "^0.45.2",
+    "mysql2": "catalog:",
+    "testcontainers": "^12.0.1"
+  },
+  "devDependencies": {
+    "@raven/eslint-config": "workspace:*",
+    "@types/node": "catalog:",
+    "eslint": "catalog:",
+    "prettier": "catalog:",
+    "typescript": "catalog:",
+    "typescript-eslint": "catalog:",
+    "vitest": "catalog:"
+  }
+}

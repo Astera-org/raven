@@ -1,0 +1,5 @@
+{
+  "trailingComma": "es5",
+  "bracketSameLine": false,
+  "plugins": ["prettier-plugin-organize-imports"]
+}

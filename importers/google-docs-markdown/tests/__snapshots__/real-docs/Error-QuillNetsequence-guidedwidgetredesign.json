@@ -1,0 +1,228 @@
+{
+  "version": {
+    "title": "QuillNet: sequence-guided widget redesign",
+    "subtitle": "_Dolor in reprehenderit in ≤ 280-voluptate velit esse cillum dolore eu fugiat. Nulla pariatur excepteur sint occaecat cupidatat non proident sunt in culpa qui officia deserunt mollit? Anim id est laborum lorem ipsum dolor sit amet_\n\nConsectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna. Aliqua ut enim ad minim veniam, quis 3,197 nostrud, exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat duis aute.",
+    "abstract": "Irure dolor in reprehenderit in voluptate velit esse cillum dolore eu: fugiat nulla pariatur excepteur sint occaecat cupidatat non proident sunt in culpa qui officia deserunt mollit anim id est laborum lorem ipsum. Dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam quis nostrud. Exercitation-ullamco laboris, nisi, ut aliquip ex ea commodo consequat-duis aute irure dolor in, reprehenderit in voluptate velit esse-cillum dolore eu fugiat nulla pariatur excepteur sint occaecat cupidatat. Non, proident sunt in culpa qui-officia deserunt mollit anim id est laborum lorem ipsum dolor sit amet consectetur, adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam quis. Nostrud exercitation ullamco laboris nisi ut (Aliquip; Ex Ea00813, 363 commodo), consequat duis aute irure Dolor-in reprehenderit in voluptate :[velit](https://doi.org/10.5555/mock.25), esse cillum dolore-eu fugiat nulla pariatur excepteur sint occaecat cupidatat non proident sunt. In culpa Qui officia deserunt mollit anim id est laborum lorem Ipsum, dolor sit amet consectetur adipiscing (Elit), sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim. Ad minim veniam quis, nostrud exercitation 3,197 ullamco laboris nisi ut aliquip ex ea commodo, consequat duis, aute irure dolor. In reprehenderit in 3,132 voluptate, velit esse cillum dolore eu fugiat nulla pariatur 24 excepteur sint occaecat cupidatat. Non proident sunt in culpa qui officia, deserunt mollit anim, id est laborum lorem ipsum dolor sit amet."
+  },
+  "media": [
+    {
+      "ref": "raven-media://media-1",
+      "source": {
+        "type": "bytes",
+        "filename": "image-1.png",
+        "mimeType": "image/png",
+        "byteLength": 69,
+        "sha256": "c22d209a82cfa98f522882b02e518052e6838859299e9c2f14118f95981d1dd0"
+      },
+      "figureType": "image"
+    },
+    {
+      "ref": "raven-media://media-2",
+      "source": {
+        "type": "bytes",
+        "filename": "image-2.png",
+        "mimeType": "image/png",
+        "byteLength": 69,
+        "sha256": "11fc00acbe546f5fd4380c60736e187e986d5299185e2f876fcd252c1c775b18"
+      },
+      "figureType": "image"
+    },
+    {
+      "ref": "raven-media://media-3",
+      "source": {
+        "type": "bytes",
+        "filename": "image-3.png",
+        "mimeType": "image/png",
+        "byteLength": 69,
+        "sha256": "b0436c0a141e981a659e402570a6e874690bb1ce73bdab770c038dd338408e98"
+      },
+      "figureType": "image"
+    },
+    {
+      "ref": "raven-media://media-4",
+      "source": {
+        "type": "bytes",
+        "filename": "image-4.png",
+        "mimeType": "image/png",
+        "byteLength": 69,
+        "sha256": "0adbe143a24eec65b935f2d981d77d7efe1f287aa6061364b4fb856c8eea704c"
+      },
+      "figureType": "image"
+    },
+    {
+      "ref": "raven-media://media-5",
+      "source": {
+        "type": "bytes",
+        "filename": "image-5.png",
+        "mimeType": "image/png",
+        "byteLength": 69,
+        "sha256": "e60b6013640a29de7e60945711b751f68231e95022aa8e574221265c11b8823a"
+      },
+      "figureType": "image"
+    },
+    {
+      "ref": "raven-media://media-6",
+      "source": {
+        "type": "bytes",
+        "filename": "image-6.png",
+        "mimeType": "image/png",
+        "byteLength": 69,
+        "sha256": "13ac8e076a000ccd27cf7562e0e557b043589adcae4c325bd4eec4fa239d4cfc"
+      },
+      "figureType": "image"
+    },
+    {
+      "ref": "raven-media://media-7",
+      "source": {
+        "type": "bytes",
+        "filename": "image-7.png",
+        "mimeType": "image/png",
+        "byteLength": 69,
+        "sha256": "bfa01bb575093a9fe35daf5c44f238d18bcd53add5cdf7cf12660d218392a855"
+      },
+      "figureType": "image"
+    }
+  ],
+  "diagnostics": [
+    {
+      "code": "image-moved-out-of-block",
+      "severity": "warning",
+      "message": "This image was inside a heading, so it was moved out to sit below it.",
+      "path": [
+        "body"
+      ],
+      "range": {
+        "startLine": 313,
+        "startColumn": 1,
+        "endLine": 318,
+        "endColumn": 7
+      }
+    },
+    {
+      "code": "image-moved-out-of-block",
+      "severity": "warning",
+      "message": "This image was inside a heading, so it was moved out to sit below it.",
+      "path": [
+        "body"
+      ],
+      "range": {
+        "startLine": 361,
+        "startColumn": 1,
+        "endLine": 366,
+        "endColumn": 7
+      }
+    },
+    {
+      "code": "media-invalid-src",
+      "severity": "warning",
+      "message": "This image's source isn't a full URL, so it couldn't be copied to Raven and may not load.",
+      "path": [
+        "body"
+      ],
+      "range": {
+        "startLine": 74,
+        "startColumn": 190,
+        "endLine": 74,
+        "endColumn": 263
+      }
+    },
+    {
+      "code": "media-invalid-src",
+      "severity": "warning",
+      "message": "This image's source isn't a full URL, so it couldn't be copied to Raven and may not load.",
+      "path": [
+        "body"
+      ],
+      "range": {
+        "startLine": 94,
+        "startColumn": 214,
+        "endLine": 94,
+        "endColumn": 287
+      }
+    },
+    {
+      "code": "media-invalid-src",
+      "severity": "warning",
+      "message": "This image's source isn't a full URL, so it couldn't be copied to Raven and may not load.",
+      "path": [
+        "body"
+      ],
+      "range": {
+        "startLine": 159,
+        "startColumn": 177,
+        "endLine": 159,
+        "endColumn": 250
+      }
+    },
+    {
+      "code": "media-invalid-src",
+      "severity": "warning",
+      "message": "This image's source isn't a full URL, so it couldn't be copied to Raven and may not load.",
+      "path": [
+        "body"
+      ],
+      "range": {
+        "startLine": 302,
+        "startColumn": 176,
+        "endLine": 302,
+        "endColumn": 249
+      }
+    },
+    {
+      "code": "media-invalid-src",
+      "severity": "warning",
+      "message": "This image's source isn't a full URL, so it couldn't be copied to Raven and may not load.",
+      "path": [
+        "body"
+      ],
+      "range": {
+        "startLine": 322,
+        "startColumn": 224,
+        "endLine": 322,
+        "endColumn": 297
+      }
+    },
+    {
+      "code": "media-invalid-src",
+      "severity": "warning",
+      "message": "This image's source isn't a full URL, so it couldn't be copied to Raven and may not load.",
+      "path": [
+        "body"
+      ],
+      "range": {
+        "startLine": 346,
+        "startColumn": 186,
+        "endLine": 346,
+        "endColumn": 259
+      }
+    },
+    {
+      "code": "media-invalid-src",
+      "severity": "warning",
+      "message": "This image's source isn't a full URL, so it couldn't be copied to Raven and may not load.",
+      "path": [
+        "body"
+      ],
+      "range": {
+        "startLine": 370,
+        "startColumn": 162,
+        "endLine": 370,
+        "endColumn": 235
+      }
+    },
+    {
+      "code": "media-invalid-src",
+      "severity": "warning",
+      "message": "This image's source isn't a full URL, so it couldn't be copied to Raven and may not load.",
+      "path": [
+        "body"
+      ],
+      "range": {
+        "startLine": 422,
+        "startColumn": 171,
+        "endLine": 422,
+        "endColumn": 244
+      }
+    }
+  ]
+}

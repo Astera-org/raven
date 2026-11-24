@@ -1,0 +1,50 @@
+{
+  "version": {
+    "title": "Heat tolerance varies widely across wild _Saccharomyces_ isolates",
+    "subtitle": "We measured growth across a temperature gradient for 84 wild _S. cerevisiae_ strains and found that thermotolerance correlates with the latitude of the strain’s collection site.",
+    "abstract": "Wild _Saccharomyces_ isolates show striking variation in tolerance to environmental stress, but the extent of variation across natural populations is poorly characterized. We collected 84 strains spanning a latitudinal range from the tropics to the boreal zone and measured growth rates across nine temperatures spanning 12–42 °C.\n\nWe found that thermotolerance was strongly correlated with the latitude of the collection site, with tropical strains showing the highest growth rates at temperatures above 37 °C and boreal strains growing best below 20 °C. The data point to local adaptation as the dominant driver of growth-temperature variation in this clade."
+  },
+  "media": [
+    {
+      "ref": "raven-media://media-1",
+      "source": {
+        "type": "url",
+        "url": "https://drive.google.com/file/d/fake-drive-file-24/view?usp=drive_link"
+      },
+      "figureType": "image"
+    },
+    {
+      "ref": "raven-media://media-2",
+      "source": {
+        "type": "url",
+        "url": "https://drive.google.com/file/d/fake-drive-file-25/view?usp=drive_link"
+      },
+      "figureType": "iframe"
+    },
+    {
+      "ref": "raven-media://media-3",
+      "source": {
+        "type": "url",
+        "url": "https://drive.google.com/file/d/fake-drive-file-26/view?usp=drive_link"
+      },
+      "figureType": "image"
+    },
+    {
+      "ref": "raven-media://media-4",
+      "source": {
+        "type": "url",
+        "url": "https://drive.google.com/file/d/fake-drive-file-27/view?usp=drive_link"
+      },
+      "figureType": "audio"
+    },
+    {
+      "ref": "raven-media://media-5",
+      "source": {
+        "type": "url",
+        "url": "https://drive.google.com/file/d/fake-drive-file-28/view?usp=drive_link"
+      },
+      "figureType": "video"
+    }
+  ],
+  "diagnostics": []
+}

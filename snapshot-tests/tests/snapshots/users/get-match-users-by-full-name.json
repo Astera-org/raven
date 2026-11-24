@@ -1,0 +1,16 @@
+{
+  "body": [
+    {
+      "avatar": null,
+      "first_name": "Alice",
+      "last_name": "Example",
+      "orcid": null,
+      "username": "alice"
+    }
+  ],
+  "bodyKind": "json",
+  "headers": {
+    "content-type": "application/json"
+  },
+  "status": 200
+}

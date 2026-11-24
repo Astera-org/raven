@@ -1,0 +1,8 @@
+{
+  "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<sitemapindex xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n  <sitemap>\n    <loc>https://thestacks.org/sitemaps/sitemap-publications.xml</loc>\n    <lastmod><<date>></lastmod>\n  </sitemap>\n  <sitemap>\n    <loc>https://thestacks.org/sitemaps/sitemap-organizations.xml</loc>\n    <lastmod><<date>></lastmod>\n  </sitemap>\n  <sitemap>\n    <loc>https://thestacks.org/sitemaps/sitemap-users.xml</loc>\n    <lastmod><<date>></lastmod>\n  </sitemap>\n</sitemapindex>",
+  "bodyKind": "text",
+  "headers": {
+    "content-type": "application/xml; charset=utf-8"
+  },
+  "status": 200
+}

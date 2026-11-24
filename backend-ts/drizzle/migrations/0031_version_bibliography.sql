@@ -1,0 +1,1 @@
+ALTER TABLE `versions` ADD `bibliography` json;

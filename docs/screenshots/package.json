@@ -1,0 +1,31 @@
+{
+  "name": "@raven/docs-screenshots",
+  "version": "0.1.0",
+  "private": true,
+  "license": "BSD-3-Clause",
+  "type": "module",
+  "description": "Playwright scripts that take screenshots of The Stacks and the Raven admin UI for the docs",
+  "scripts": {
+    "backend:down": "docker compose down -v",
+    "backend:up": "docker compose up -d --build --wait",
+    "format": "prettier --write . --log-level=warn",
+    "format:check": "prettier --check .",
+    "lint": "eslint",
+    "lint:fix": "eslint --fix && pnpm format",
+    "pull-images": "bin/sync-s3.sh pull",
+    "push-images": "bin/sync-s3.sh push",
+    "seed:visual-fixtures": "playwright test --project visual-fixtures",
+    "shoot": "playwright test --project screenshots",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@playwright/test": "catalog:",
+    "@raven/eslint-config": "workspace:*",
+    "@types/node": "catalog:",
+    "dotenv": "catalog:",
+    "eslint": "catalog:",
+    "prettier": "catalog:",
+    "typescript": "catalog:",
+    "typescript-eslint": "catalog:"
+  }
+}

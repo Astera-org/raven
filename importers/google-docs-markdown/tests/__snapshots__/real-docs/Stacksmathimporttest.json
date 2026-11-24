@@ -1,0 +1,27 @@
+{
+  "version": {
+    "title": "Doc",
+    "subtitle": null,
+    "abstract": null
+  },
+  "media": [
+    {
+      "ref": "raven-media://media-1",
+      "source": {
+        "type": "url",
+        "url": "https://drive.google.com/drive/folders/1234567890qwertyuiopasdfghjkl?usp=sharing"
+      },
+      "figureType": "image"
+    }
+  ],
+  "diagnostics": [
+    {
+      "code": "missing-title",
+      "severity": "warning",
+      "message": "The document has no title; using \"Doc\"",
+      "path": [
+        "title"
+      ]
+    }
+  ]
+}

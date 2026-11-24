@@ -1,0 +1,20 @@
+{
+  "body": [
+    {
+      "comment_id": null,
+      "created_at": "2026-01-16 09:00:00.000",
+      "id": 201,
+      "message": "A new publication matching your interests was posted.",
+      "publication_id": null,
+      "seen": 0,
+      "state": "NEW_PUBLICATION",
+      "updated_at": "<<datetime>>",
+      "user_id": 1
+    }
+  ],
+  "bodyKind": "json",
+  "headers": {
+    "content-type": "application/json"
+  },
+  "status": 200
+}

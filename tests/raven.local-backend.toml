@@ -1,0 +1,60 @@
+# Config for running backend-ts on the host against the integration test stack
+# (`make test-up`), so tests can target a backend you can modify. See
+# "Debugging" in tests/README.md. From backend-ts/:
+#
+#   RAVEN_CONFIG=../tests/raven.local-backend.toml pnpm dev
+#
+# Ports are the host-mapped ones from docker-compose.test.yml.
+
+DATABASE_URI = "mysql://raven_test:raven_test@localhost:3307/raven_test?charset=utf8mb4"
+PG_DATABASE_URI = "postgres://raven_test:raven_test@localhost:5433/raven_test" # trufflehog:ignore
+# Must match TRUSTED_ORIGIN in src/integration/v1/helpers.ts.
+BASE_URL_WEB = "https://example.com"
+BASE_URL_API = "http://localhost:7001/api"
+ENVIRONMENT = "test"
+
+SERVER_HOST = "0.0.0.0"
+SERVER_PORT = 7001
+SERVER_DEBUG = true
+
+JWT_SECRET_KEY = "test-secret-key-do-not-use-in-production"
+
+OUT_DIR = "/tmp/raven-test-out/"
+IMG_DIR = "/tmp/raven-test-imgs/"
+
+# datacite-mock
+DATACITE_API = "http://localhost:4321/dois"
+DATACITE_NAME = "test-datacite-account"
+DATACITE_PASSWORD = "test-datacite-password"
+DATACITE_PREFIX = "10.83972"
+DOI_RESOLVER_API = "http://localhost:4321"
+
+ORCID_CLIENT_ID = ""
+ORCID_CLIENT_SECRET = ""
+ORCID_USE_SANDBOX = false
+
+GOOGLE_CLIENT_ID = ""
+GOOGLE_CLIENT_SECRET = ""
+
+# garage-test (credentials must match docker-compose.test.yml)
+AWS_S3_BUCKET_NAME = "raven-test-media"
+AWS_ACCESS_KEY_ID = "GK726176656e5f746573745f6b65795f31"
+AWS_SECRET_ACCESS_KEY = "726176656e5f746573745f7365637265745f6e6f745f666f725f70726f645f31"
+AWS_REGION = "us-west-2"
+AWS_S3_ENDPOINT = "http://localhost:3910"
+AWS_S3_PUBLIC_ENDPOINT = "http://localhost:3910"
+AWS_S3_PUBLIC_BASE_URL = "http://raven-test-media.web.localhost:3912"
+
+# media-mock: the tests' lh3.googleusercontent.com URLs only resolve inside
+# Docker, so download them from the mock's host port instead.
+DEV_MEDIA_ORIGIN_OVERRIDE = "http://localhost:4322"
+# Same mock, serving Google Docs exports for imports.
+DEV_GOOGLE_DOCS_ORIGIN_OVERRIDE = "http://localhost:4322"
+
+PDF_QUEUE_URL = ""
+MAILGUN_API_KEY = ""
+TEST_RECIPIENT_EMAIL_ADDRESS = ""
+
+# Matches backend-test in docker-compose.test.yml.
+MEDIA_MAX_BYTES = 1048576
+BIBLIOGRAPHY_MAX_BYTES = 65536

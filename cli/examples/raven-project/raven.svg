@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 150" width="400" height="300" role="img" aria-labelledby="title">
+  <title id="title">Line drawing of a raven perched on a branch</title>
+  <rect width="200" height="150" fill="#ffffff"/>
+  <g fill="none" stroke="#1f2937" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M28 54 C40 45 52 41 62 41 C72 32 88 32 97 40 C113 50 131 62 150 80 L184 104 L177 111 L146 97 C130 105 108 107 92 101 C76 95 66 81 64 67 C58 61 46 58 28 54 Z"/>
+    <path d="M28 54 L60 53"/>
+    <path d="M64 67 L58 73 L66 71 L61 79 L70 76"/>
+    <path d="M92 63 C110 65 132 77 150 93"/>
+    <path d="M110 80 L138 99"/>
+    <path d="M122 74 L150 93"/>
+    <path d="M100 104 L98 125 M92 125 L104 125"/>
+    <path d="M113 105 L115 125 M109 125 L121 125"/>
+    <path d="M14 128 C70 123 140 126 192 120"/>
+    <path d="M150 124 L166 134"/>
+  </g>
+  <circle cx="73" cy="45" r="2.5" fill="#1f2937"/>
+</svg>

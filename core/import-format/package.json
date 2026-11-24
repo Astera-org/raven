@@ -1,0 +1,40 @@
+{
+  "name": "@raven/core-import-format",
+  "version": "0.1.0",
+  "description": "The standard import format: schemas and types shared by the backend and importers",
+  "private": true,
+  "license": "BSD-3-Clause",
+  "type": "module",
+  "exports": {
+    ".": {
+      "@raven/backend-source": "./src/index.ts",
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "format": "prettier --write . --log-level=warn",
+    "format:check": "prettier --check .",
+    "lint": "eslint",
+    "lint:fix": "eslint --fix && pnpm format",
+    "typecheck": "tsc --noEmit && tsc --noEmit -p tsconfig.root.json"
+  },
+  "engines": {
+    "node": ">=24"
+  },
+  "dependencies": {
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@raven/eslint-config": "workspace:*",
+    "@types/node": "catalog:",
+    "eslint": "catalog:",
+    "prettier": "catalog:",
+    "typescript": "catalog:",
+    "typescript-eslint": "catalog:"
+  }
+}

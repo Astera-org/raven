@@ -1,0 +1,15 @@
+{
+  "body": {
+    "errors": {
+      "auth": {
+        "message": "Admin permission required"
+      }
+    },
+    "type": "application_error"
+  },
+  "bodyKind": "json",
+  "headers": {
+    "content-type": "application/json"
+  },
+  "status": 403
+}

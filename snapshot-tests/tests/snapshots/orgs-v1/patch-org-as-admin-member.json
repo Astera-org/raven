@@ -1,0 +1,19 @@
+{
+  "body": {
+    "avatar": null,
+    "canEdit": true,
+    "createdAt": "2026-01-01T00:00:00.000Z",
+    "id": "00000000020000000000000001",
+    "name": "Arcadia Science (renamed)",
+    "profile": null,
+    "rorId": null,
+    "slug": "arcadia-science",
+    "unlisted": false,
+    "updatedAt": "<<datetime>>"
+  },
+  "bodyKind": "json",
+  "headers": {
+    "content-type": "application/json"
+  },
+  "status": 200
+}

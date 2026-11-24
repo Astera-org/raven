@@ -1,0 +1,15 @@
+{
+  "body": [
+    {
+      "avatar": null,
+      "id": 1,
+      "name": "Arcadia Science",
+      "slug": "arcadia-science"
+    }
+  ],
+  "bodyKind": "json",
+  "headers": {
+    "content-type": "application/json"
+  },
+  "status": 200
+}

@@ -1,0 +1,61 @@
+{
+  "version": {
+    "title": "_Tardigrade_",
+    "subtitle": "Always fashionably _late_. Never boring.",
+    "abstract": "Tardigrades display complex party behaviors with species-specific social patterns. Party water bears arrive earliest and show sophisticated dance moves. During social gatherings, survival mechanisms are suppressed, with no tun formation observed—a phenomenon (see [](https://www.doi.org/10.5555/mock.19)) we term FOMO-biosis."
+  },
+  "media": [
+    {
+      "ref": "raven-media://media-1",
+      "source": {
+        "type": "url",
+        "url": "https://drive.google.com/file/d/fake-drive-file-01/view?usp=drive_link"
+      },
+      "figureType": "audio"
+    },
+    {
+      "ref": "raven-media://media-2",
+      "source": {
+        "type": "bytes",
+        "filename": "image-2.jpg",
+        "mimeType": "image/jpeg",
+        "byteLength": 16335,
+        "sha256": "1e832650bfce329d34fad4a537d2b45b8a0be429e5478e9a2ba6f9f78f2eb38e"
+      },
+      "figureType": "image"
+    },
+    {
+      "ref": "raven-media://media-3",
+      "source": {
+        "type": "url",
+        "url": "https://drive.google.com/file/d/fake-drive-file-02"
+      },
+      "figureType": "image"
+    },
+    {
+      "ref": "raven-media://media-4",
+      "source": {
+        "type": "url",
+        "url": "https://drive.google.com/file/d/fake-drive-file-03/view?usp=drive_link"
+      },
+      "figureType": "image"
+    },
+    {
+      "ref": "raven-media://media-5",
+      "source": {
+        "type": "url",
+        "url": "https://drive.google.com/file/d/fake-drive-file-05/view?usp=share_link"
+      },
+      "figureType": "iframe"
+    },
+    {
+      "ref": "raven-media://media-6",
+      "source": {
+        "type": "url",
+        "url": "https://drive.google.com/file/d/fake-drive-file-04/view?usp=drive_link"
+      },
+      "figureType": "iframe"
+    }
+  ],
+  "diagnostics": []
+}

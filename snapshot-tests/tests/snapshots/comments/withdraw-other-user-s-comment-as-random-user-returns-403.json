@@ -1,0 +1,14 @@
+{
+  "body": {
+    "errors": {
+      "comment": [
+        "Not authorised to withdraw this comment"
+      ]
+    }
+  },
+  "bodyKind": "json",
+  "headers": {
+    "content-type": "application/json"
+  },
+  "status": 403
+}

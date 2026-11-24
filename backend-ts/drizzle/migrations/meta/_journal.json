@@ -1,0 +1,265 @@
+{
+  "version": "7",
+  "dialect": "mysql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1782156313348,
+      "tag": "0000_starting_raven_schema",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1782159480145,
+      "tag": "0001_use_default_fk_names",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1782161973234,
+      "tag": "0002_align_base_schema",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1782164885104,
+      "tag": "0003_add_ulid_id_columns",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1782238247992,
+      "tag": "0004_fulltext-index",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "5",
+      "when": 1782238247993,
+      "tag": "0005_not_null_ulids",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "5",
+      "when": 1782171874717,
+      "tag": "0006_add_foreign_keys",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "5",
+      "when": 1782487694078,
+      "tag": "0007_rename_integer_ids",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "5",
+      "when": 1782516445812,
+      "tag": "0008_rename_integer_id_refs",
+      "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "5",
+      "when": 1782765584100,
+      "tag": "0009_rename_ulid_columns",
+      "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "5",
+      "when": 1782774464806,
+      "tag": "0010_modify_schema_for_better_auth",
+      "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "5",
+      "when": 1787844734004,
+      "tag": "0011_ulids_not_null",
+      "breakpoints": true
+    },
+    {
+      "idx": 12,
+      "version": "5",
+      "when": 1789488778276,
+      "tag": "0012_make_reference_url_case_sensitive",
+      "breakpoints": true
+    },
+    {
+      "idx": 13,
+      "version": "5",
+      "when": 1789689050631,
+      "tag": "0013_enforce_ulids",
+      "breakpoints": true
+    },
+    {
+      "idx": 14,
+      "version": "5",
+      "when": 1789691366875,
+      "tag": "0014_unique_usernames_and_indexes",
+      "breakpoints": true
+    },
+    {
+      "idx": 15,
+      "version": "5",
+      "when": 1790115990521,
+      "tag": "0015_add_import_document_columns",
+      "breakpoints": true
+    },
+    {
+      "idx": 16,
+      "version": "5",
+      "when": 1790116329424,
+      "tag": "0016_unique_contributors",
+      "breakpoints": true
+    },
+    {
+      "idx": 17,
+      "version": "5",
+      "when": 1790295597531,
+      "tag": "0017_add_publication_updated_and_deleted_at",
+      "breakpoints": true
+    },
+    {
+      "idx": 18,
+      "version": "5",
+      "when": 1790639105142,
+      "tag": "0018_add_withdrawn_comment_state",
+      "breakpoints": true
+    },
+    {
+      "idx": 19,
+      "version": "5",
+      "when": 1790700642534,
+      "tag": "0019_enlarge_urls",
+      "breakpoints": true
+    },
+    {
+      "idx": 20,
+      "version": "5",
+      "when": 1790721229474,
+      "tag": "0020_millisecond_timestamps",
+      "breakpoints": true
+    },
+    {
+      "idx": 21,
+      "version": "5",
+      "when": 1790909137404,
+      "tag": "0021_media_assets",
+      "breakpoints": true
+    },
+    {
+      "idx": 22,
+      "version": "5",
+      "when": 1790912928097,
+      "tag": "0022_notifications_deleted_at_updated_at",
+      "breakpoints": true
+    },
+    {
+      "idx": 23,
+      "version": "5",
+      "when": 1792138309829,
+      "tag": "0023_seed_notification_types",
+      "breakpoints": true
+    },
+    {
+      "idx": 24,
+      "version": "5",
+      "when": 1792505693916,
+      "tag": "0024_media_import_queue",
+      "breakpoints": true
+    },
+    {
+      "idx": 25,
+      "version": "5",
+      "when": 1792525122211,
+      "tag": "0025_diagnostics_and_import_doc_migration",
+      "breakpoints": true
+    },
+    {
+      "idx": 26,
+      "version": "5",
+      "when": 1792784369853,
+      "tag": "0026_media_import_item_error_code",
+      "breakpoints": true
+    },
+    {
+      "idx": 27,
+      "version": "5",
+      "when": 1793647114364,
+      "tag": "0027_backfill_email_verified",
+      "breakpoints": true
+    },
+    {
+      "idx": 28,
+      "version": "5",
+      "when": 1793736871834,
+      "tag": "0028_version_edited_fields",
+      "breakpoints": true
+    },
+    {
+      "idx": 29,
+      "version": "5",
+      "when": 1793882071367,
+      "tag": "0029_media_import_item_too_large",
+      "breakpoints": true
+    },
+    {
+      "idx": 30,
+      "version": "5",
+      "when": 1793919246834,
+      "tag": "0030_doi_metadata",
+      "breakpoints": true
+    },
+    {
+      "idx": 31,
+      "version": "5",
+      "when": 1794123400626,
+      "tag": "0031_version_bibliography",
+      "breakpoints": true
+    },
+    {
+      "idx": 32,
+      "version": "5",
+      "when": 1794152267184,
+      "tag": "0032_version_frontmatter",
+      "breakpoints": true
+    },
+    {
+      "idx": 33,
+      "version": "5",
+      "when": 1794204587448,
+      "tag": "0033_rename_legacy_contributors",
+      "breakpoints": true
+    },
+    {
+      "idx": 34,
+      "version": "5",
+      "when": 1794204868679,
+      "tag": "0034_contributors_by_version",
+      "breakpoints": true
+    },
+    {
+      "idx": 35,
+      "version": "5",
+      "when": 1794445349894,
+      "tag": "0035_device_authorization",
+      "breakpoints": true
+    },
+    {
+      "idx": 36,
+      "version": "5",
+      "when": 1794613249250,
+      "tag": "0036_session_elevations",
+      "breakpoints": true
+    }
+  ]
+}

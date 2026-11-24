@@ -1,0 +1,33 @@
+name: Semgrep security scan
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  semgrep:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./backend-ts
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: Install Semgrep
+        run: pip install semgrep
+
+      - uses: pnpm/action-setup@v6
+
+      - name: Run Semgrep
+        run: pnpm semgrep

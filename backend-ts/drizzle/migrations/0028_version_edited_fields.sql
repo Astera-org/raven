@@ -1,0 +1,1 @@
+ALTER TABLE `versions` ADD `edited_fields` json DEFAULT ('[]') NOT NULL;

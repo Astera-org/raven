@@ -1,0 +1,52 @@
+version: 1
+# Reuses The Stacks styles, plugins, and site options. Override anything below.
+# ponytail: paths resolve into ../thestacks, so this breaks if the sites move to separate repos.
+extends: ../thestacks/myst.yml
+project:
+  title: Raven documentation
+  github: https://github.com/Astera-org/raven
+  references:
+    thestacks: https://docs.thestacks.org/thestacks/
+    mystmd: https://mystmd.org/guide/
+  error_rules:
+    # Included READMEs link to their own headings; MyST's explicit `(label)=` syntax would render as stray text on GitHub.
+    - rule: reference-target-explicit
+      severity: ignore
+  toc:
+    - file: index.md
+    - file: deployers/index.md
+      children:
+        - file: deployers/local.md
+        - file: deployers/configuration.md
+        - file: deployers/delete-a-user.md
+    - file: admins/index.md
+      children:
+        - file: admins/organizations.md
+        - file: admins/users.md
+        - file: admins/doi-audit.md
+        - file: admins/account-deletion.md
+    - file: developers/index.md
+      children:
+        - file: developers/get-started.md
+        - file: developers/backend.md
+        - file: developers/myst-publications.md
+        - file: developers/admin-ui.md
+        - file: developers/cli.md
+        - file: developers/docs.md
+    - file: about.md
+site:
+  title: Raven docs
+  options:
+    # From the Raven brand kit (https://raven-brand.vercel.app/), copied into brand/.
+    logo: brand/raven-lockup-dark.svg
+    logo_dark: brand/raven-lockup-white.svg
+    favicon: brand/favicon.svg
+    style: ../thestacks/brand.css
+  parts:
+    footer: footer.md
+    navbar_end: navbar.md
+  nav:
+    - title: Raven
+      url: https://docs.thestacks.org/raven/
+    - title: The Stacks
+      url: https://docs.thestacks.org/thestacks/

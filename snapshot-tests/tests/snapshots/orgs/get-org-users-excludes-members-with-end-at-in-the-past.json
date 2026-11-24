@@ -1,0 +1,42 @@
+{
+  "body": {
+    "items": [
+      {
+        "avatar": null,
+        "email": "alice@example.com",
+        "end_at": null,
+        "first_name": "Alice",
+        "id": 1,
+        "last_name": "Example",
+        "orcid": null,
+        "role": "ADMIN",
+        "start_at": "2026-01-01 00:00:00.000",
+        "state": "ACTIVE",
+        "username": "alice"
+      },
+      {
+        "avatar": null,
+        "email": "charlie@example.com",
+        "end_at": "2099-12-31 00:00:00.000",
+        "first_name": "Charlie",
+        "id": 3,
+        "last_name": "Admin",
+        "orcid": null,
+        "role": "MEMBER",
+        "start_at": "2026-01-01 00:00:00.000",
+        "state": "SITE_ADMIN",
+        "username": "charlie"
+      }
+    ],
+    "pagination": {
+      "page": 1,
+      "per_page": 18,
+      "total": 2
+    }
+  },
+  "bodyKind": "json",
+  "headers": {
+    "content-type": "application/json"
+  },
+  "status": 200
+}

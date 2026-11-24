@@ -1,0 +1,10 @@
+{
+  "body": {
+    "error": "Not authorised to update this comment"
+  },
+  "bodyKind": "json",
+  "headers": {
+    "content-type": "application/json"
+  },
+  "status": 403
+}

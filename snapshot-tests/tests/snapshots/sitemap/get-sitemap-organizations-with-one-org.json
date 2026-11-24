@@ -1,0 +1,8 @@
+{
+  "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n  <url>\n    <loc>https://thestacks.org/organizations/arcadia-science</loc>\n    <lastmod><<date>></lastmod>\n  </url>\n</urlset>",
+  "bodyKind": "text",
+  "headers": {
+    "content-type": "application/xml; charset=utf-8"
+  },
+  "status": 200
+}

@@ -1,0 +1,14 @@
+{
+  "body": {
+    "errors": {
+      "ids": [
+        "Missing ids"
+      ]
+    }
+  },
+  "bodyKind": "json",
+  "headers": {
+    "content-type": "application/json"
+  },
+  "status": 400
+}

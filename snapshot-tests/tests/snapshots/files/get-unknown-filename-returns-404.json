@@ -1,0 +1,14 @@
+{
+  "body": {
+    "errors": {
+      "file": [
+        "Not found"
+      ]
+    }
+  },
+  "bodyKind": "json",
+  "headers": {
+    "content-type": "application/json"
+  },
+  "status": 404
+}

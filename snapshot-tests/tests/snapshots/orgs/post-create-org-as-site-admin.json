@@ -1,0 +1,11 @@
+{
+  "body": {
+    "org_id": 1,
+    "slug": "new-org"
+  },
+  "bodyKind": "json",
+  "headers": {
+    "content-type": "application/json"
+  },
+  "status": 201
+}

@@ -1,0 +1,10 @@
+{
+  "body": {
+    "comment_id": 1
+  },
+  "bodyKind": "json",
+  "headers": {
+    "content-type": "application/json"
+  },
+  "status": 200
+}

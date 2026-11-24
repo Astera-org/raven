@@ -1,0 +1,15 @@
+{
+  "body": {
+    "errors": {
+      "auth": {
+        "message": "Authentication required"
+      }
+    },
+    "type": "application_error"
+  },
+  "bodyKind": "json",
+  "headers": {
+    "content-type": "application/json"
+  },
+  "status": 401
+}

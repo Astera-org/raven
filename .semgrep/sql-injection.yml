@@ -1,0 +1,9 @@
+rules:
+  - id: drizzle-sql-raw-completely-banned
+    pattern: sql.raw(...)
+    message: >
+      The use of sql.raw() is strictly prohibited in this codebase to prevent 
+      SQL injection vulnerabilities. Use the sql`query` tagged template or 
+      Drizzle's built-in query builder instead.
+    languages: [typescript, javascript]
+    severity: ERROR

@@ -1,0 +1,15 @@
+{
+  "body": {
+    "errors": {
+      "username": {
+        "message": "User is already a member of this organization"
+      }
+    },
+    "type": "application_error"
+  },
+  "bodyKind": "json",
+  "headers": {
+    "content-type": "application/json"
+  },
+  "status": 409
+}

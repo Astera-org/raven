@@ -1,0 +1,14 @@
+{
+  "body": {
+    "errors": {
+      "organization": [
+        "Organization not found"
+      ]
+    }
+  },
+  "bodyKind": "json",
+  "headers": {
+    "content-type": "application/json"
+  },
+  "status": 404
+}

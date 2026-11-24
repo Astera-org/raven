@@ -1,0 +1,19 @@
+{
+  "body": {
+    "avatar": null,
+    "canEdit": true,
+    "createdAt": "<<datetime>>",
+    "id": "<<ulid>>",
+    "name": "New Org",
+    "profile": null,
+    "rorId": null,
+    "slug": "new-org",
+    "unlisted": false,
+    "updatedAt": "<<datetime>>"
+  },
+  "bodyKind": "json",
+  "headers": {
+    "content-type": "application/json"
+  },
+  "status": 201
+}

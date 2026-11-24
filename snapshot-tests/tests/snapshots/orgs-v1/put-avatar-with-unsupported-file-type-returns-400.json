@@ -1,0 +1,15 @@
+{
+  "body": {
+    "errors": {
+      "avatar": {
+        "message": "Unsupported file type"
+      }
+    },
+    "type": "application_error"
+  },
+  "bodyKind": "json",
+  "headers": {
+    "content-type": "application/json"
+  },
+  "status": 400
+}

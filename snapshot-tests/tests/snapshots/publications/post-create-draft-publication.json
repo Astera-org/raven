@@ -1,0 +1,12 @@
+{
+  "body": {
+    "publication_id": 1,
+    "slug": "min-12-char-slug",
+    "version_id": 1
+  },
+  "bodyKind": "json",
+  "headers": {
+    "content-type": "application/json"
+  },
+  "status": 201
+}

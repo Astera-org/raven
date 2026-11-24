@@ -1,0 +1,48 @@
+{
+  "body": {
+    "items": [
+      {
+        "anchor_text": null,
+        "avatar": null,
+        "body": "Bob replying to Alice.",
+        "comment_id": 2,
+        "created_at": "<<datetime>>",
+        "first_name": "Bob",
+        "last_name": "Example",
+        "parent_id": "<<integer>>",
+        "post_text": null,
+        "pre_text": null,
+        "state": "PUBLISHED",
+        "updated_at": "<<null>>",
+        "user_id": "<<integer>>",
+        "version_id": "<<integer>>"
+      },
+      {
+        "anchor_text": null,
+        "avatar": null,
+        "body": "Top-level thought from Alice.",
+        "comment_id": 1,
+        "created_at": "<<datetime>>",
+        "first_name": "Alice",
+        "last_name": "Example",
+        "parent_id": "<<null>>",
+        "post_text": null,
+        "pre_text": null,
+        "state": "PUBLISHED",
+        "updated_at": "<<null>>",
+        "user_id": "<<integer>>",
+        "version_id": "<<integer>>"
+      }
+    ],
+    "pagination": {
+      "page": 1,
+      "per_page": 50,
+      "total": 2
+    }
+  },
+  "bodyKind": "json",
+  "headers": {
+    "content-type": "application/json"
+  },
+  "status": 200
+}

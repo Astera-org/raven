@@ -1,0 +1,48 @@
+{
+  "body": {
+    "publication": {
+      "abstract": "Draft abstract.",
+      "body": "Draft body.",
+      "contributors": [
+        {
+          "affiliations": [],
+          "avatar": null,
+          "first_name": "Alice",
+          "in_byline": 1,
+          "last_name": "Example",
+          "priority": 1,
+          "role": "Supervision",
+          "user_id": 1
+        }
+      ],
+      "created_at": "<<datetime>>",
+      "doi": null,
+      "feedback_form_embed_src": null,
+      "id": 99,
+      "license": "CC BY",
+      "linked_assets": [],
+      "mediaAssets": [],
+      "orgs": [],
+      "pdf_url": null,
+      "publication_ulid": "00000000030000000000000033",
+      "publisher": "The Stacks",
+      "references": [],
+      "slug": "unpublished-draft",
+      "social_posts_count": null,
+      "social_posts_embed_src": null,
+      "state": "DRAFT",
+      "subtitle": null,
+      "tags": [],
+      "title": "Unpublished Draft",
+      "version_desc": null,
+      "version_doi": null,
+      "version_number": 1,
+      "versions": []
+    }
+  },
+  "bodyKind": "json",
+  "headers": {
+    "content-type": "application/json"
+  },
+  "status": 200
+}

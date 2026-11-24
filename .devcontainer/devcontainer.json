@@ -1,0 +1,128 @@
+{
+  "name": "Raven Development",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "app",
+  "workspaceFolder": "/workspace",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "esbenp.prettier-vscode",
+        "dbaeumer.vscode-eslint",
+        "ms-azuretools.vscode-docker",
+        "mtxr.sqltools",
+        "mtxr.sqltools-driver-mysql",
+        "GitHub.copilot",
+        "GitHub.copilot-chat"
+      ],
+      "settings": {
+        "[typescript]": {
+          "editor.defaultFormatter": "esbenp.prettier-vscode",
+          "editor.formatOnSave": true,
+          "editor.codeActionsOnSave": {
+            "source.fixAll.eslint": "explicit"
+          }
+        },
+        "[typescriptreact]": {
+          "editor.defaultFormatter": "esbenp.prettier-vscode",
+          "editor.formatOnSave": true,
+          "editor.codeActionsOnSave": {
+            "source.fixAll.eslint": "explicit"
+          }
+        },
+        "[javascript]": {
+          "editor.defaultFormatter": "esbenp.prettier-vscode",
+          "editor.formatOnSave": true,
+          "editor.codeActionsOnSave": {
+            "source.fixAll.eslint": "explicit"
+          }
+        },
+        "[javascriptreact]": {
+          "editor.defaultFormatter": "esbenp.prettier-vscode",
+          "editor.formatOnSave": true,
+          "editor.codeActionsOnSave": {
+            "source.fixAll.eslint": "explicit"
+          }
+        },
+        "[json]": {
+          "editor.defaultFormatter": "esbenp.prettier-vscode",
+          "editor.formatOnSave": true
+        },
+        "eslint.workingDirectories": [
+          { "directory": "/workspace/backend-ts", "changeProcessCWD": true },
+          {
+            "directory": "/workspace/snapshot-tests",
+            "changeProcessCWD": true
+          },
+          { "directory": "/workspace/tests", "changeProcessCWD": true }
+        ],
+        "editor.rulers": [80],
+        "files.exclude": {
+          "**/node_modules": true,
+          "**/dist": true
+        },
+        "search.exclude": {
+          "**/node_modules": true,
+          "**/dist": true,
+          "**/pnpm-lock.yaml": true,
+          "**/package-lock.json": true
+        },
+        "sqltools.connections": [
+          {
+            "name": "Raven MySQL",
+            "driver": "MySQL",
+            "server": "db",
+            "port": 3306,
+            "database": "raven",
+            "username": "raven",
+            "password": "raven_dev_password"
+          }
+        ],
+        "terminal.integrated.defaultProfile.linux": "zsh"
+      }
+    }
+  },
+  "forwardPorts": [7001, 3306, 3920, 3922],
+  "portsAttributes": {
+    "7001": {
+      "label": "Hono Backend",
+      "onAutoForward": "notify"
+    },
+    "3306": {
+      "label": "MySQL",
+      "onAutoForward": "silent"
+    },
+    "3920": {
+      "label": "Garage S3 API",
+      "onAutoForward": "silent"
+    },
+    "3922": {
+      "label": "Garage public media",
+      "onAutoForward": "silent"
+    }
+  },
+  "postCreateCommand": "/workspace/.devcontainer/postCreateCommand.sh",
+  "remoteUser": "vscode",
+  "features": {
+    "ghcr.io/devcontainers/features/common-utils:2": {
+      "installZsh": true,
+      "installOhMyZsh": true,
+      "upgradePackages": true,
+      "username": "vscode",
+      "userUid": "1000",
+      "userGid": "1000"
+    },
+    "ghcr.io/devcontainers/features/git:1": {
+      "version": "latest"
+    },
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "24"
+    }
+  },
+  "mounts": [
+    "source=raven-root-node-modules,target=/workspace/node_modules,type=volume",
+    "source=raven-backend-ts-node-modules,target=/workspace/backend-ts/node_modules,type=volume",
+    "source=raven-eslint-config-node-modules,target=/workspace/eslint-config/node_modules,type=volume",
+    "source=raven-snapshot-tests-node-modules,target=/workspace/snapshot-tests/node_modules,type=volume",
+    "source=raven-tests-node-modules,target=/workspace/tests/node_modules,type=volume"
+  ]
+}

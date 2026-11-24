@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Page not found</title>
+    <link rel="icon" href="/assets/stacks-favicon.svg" type="image/svg+xml" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400&family=DM+Sans:opsz,wght@9..40,400&family=DM+Mono:wght@400&display=swap"
+    />
+    <!--
+      Served for every missing page, at any depth, so asset URLs are root-absolute.
+      Values come from brand-guidelines/_ds/.../colors_and_type.css.
+    -->
+    <style>
+      :root {
+        --fg-primary: #212630; /* Gray Blue 900 */
+        --fg-secondary: rgba(33, 38, 48, 0.7);
+        --bg-app: #f7f7f7; /* Off White */
+        --border-hairline: rgba(33, 38, 48, 0.1);
+        --border-input: #a4a1aa; /* Carbon 200 */
+        --btn-primary-bg: #212630; /* Gray Blue 900 */
+        --btn-primary-bg-hover: #2d333d; /* Gray Blue 800 */
+        --bg-hero: #ecebf0; /* Gray 300 */
+        --font-serif: "Newsreader", Georgia, serif;
+        --font-sans: "DM Sans", system-ui, sans-serif;
+        --font-mono: "DM Mono", ui-monospace, monospace;
+        --gutter: clamp(16px, 7.6vw, 110px);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        background: var(--bg-app);
+        color: var(--fg-primary);
+        font-family: var(--font-sans);
+        -webkit-font-smoothing: antialiased;
+      }
+
+      header {
+        height: 80px;
+        display: flex;
+        align-items: center;
+        padding: 0 var(--gutter);
+        border-bottom: 1px solid var(--border-hairline);
+        background: #fff;
+      }
+
+      header img {
+        height: 36px;
+        display: block;
+      }
+
+      main {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        padding: 48px var(--gutter);
+      }
+
+      /* The brand's flat hero treatment */
+      .hero {
+        width: 100%;
+        max-width: 1220px;
+        margin: 0 auto;
+        padding: clamp(48px, 9vw, 120px) clamp(24px, 7.6vw, 110px);
+        border-radius: 12px;
+        background: var(--bg-hero);
+      }
+
+      .code {
+        margin: 0 0 16px;
+        font-family: var(--font-mono);
+        font-size: 15px;
+        color: var(--fg-secondary);
+      }
+
+      h1 {
+        margin: 0 0 16px;
+        font-family: var(--font-serif);
+        font-weight: 400;
+        font-size: clamp(40px, 6vw, 64px);
+        line-height: 1.1;
+        letter-spacing: -0.02em;
+      }
+
+      .lead {
+        margin: 0 0 40px;
+        max-width: 560px;
+        font-size: 18px;
+        line-height: 1.5;
+      }
+
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+
+      .button {
+        display: inline-flex;
+        align-items: center;
+        height: 44px;
+        padding: 0 22px;
+        border-radius: 100px;
+        font-family: var(--font-mono);
+        font-size: 15px;
+        text-decoration: none;
+      }
+
+      .primary {
+        background: var(--btn-primary-bg);
+        color: #fff;
+      }
+
+      .primary:hover {
+        background: var(--btn-primary-bg-hover);
+      }
+
+      .secondary {
+        box-shadow: inset 0 0 0 1px var(--border-input);
+        color: var(--fg-primary);
+      }
+
+      .secondary:hover {
+        background: var(--bg-app);
+      }
+
+      .button:focus-visible {
+        outline: 2px solid #515c78; /* Gray Blue 500 */
+        outline-offset: 2px;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <a href="/thestacks/"><img src="/assets/stacks-logo.svg" alt="The Stacks" /></a>
+    </header>
+    <main>
+      <section class="hero">
+        <p class="code">404</p>
+        <h1>Page not found</h1>
+        <p class="lead">
+          There is no page at this address. It may have moved, or the link may be wrong.
+        </p>
+        <div class="actions">
+          <a class="button primary" href="/thestacks/">The Stacks docs</a>
+          <a class="button secondary" href="/raven/">Raven docs</a>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

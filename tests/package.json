@@ -1,0 +1,36 @@
+{
+  "name": "@raven/integration-tests",
+  "version": "0.1.0",
+  "description": "Raven integration & live tests",
+  "private": true,
+  "license": "BSD-3-Clause",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "format": "prettier --write . --log-level=warn",
+    "format:check": "prettier --check .",
+    "lint": "eslint",
+    "lint:fix": "eslint --fix && pnpm format",
+    "test": "make test",
+    "test:watch": "make test-watch",
+    "pretypecheck": "pnpm --filter @raven/backend-ts build",
+    "typecheck": "tsc --noEmit && tsc --noEmit -p tsconfig.root.json"
+  },
+  "dependencies": {
+    "@raven/backend-ts": "workspace:*",
+    "mysql2": "catalog:",
+    "smol-toml": "catalog:"
+  },
+  "devDependencies": {
+    "@raven/eslint-config": "workspace:*",
+    "@types/node": "catalog:",
+    "@types/supertest": "catalog:",
+    "eslint": "catalog:",
+    "globals": "catalog:",
+    "prettier": "catalog:",
+    "supertest": "catalog:",
+    "typescript": "catalog:",
+    "typescript-eslint": "catalog:",
+    "vitest": "catalog:"
+  }
+}

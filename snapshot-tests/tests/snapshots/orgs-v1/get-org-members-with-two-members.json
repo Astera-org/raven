@@ -1,0 +1,32 @@
+{
+  "body": {
+    "items": [
+      {
+        "avatar": null,
+        "firstName": "Alice",
+        "lastName": "Example",
+        "orcid": null,
+        "userId": "00000000010000000000000001",
+        "username": "alice"
+      },
+      {
+        "avatar": null,
+        "firstName": "Bob",
+        "lastName": "Example",
+        "orcid": null,
+        "userId": "00000000010000000000000002",
+        "username": "bob"
+      }
+    ],
+    "pagination": {
+      "page": 1,
+      "perPage": 20,
+      "total": 2
+    }
+  },
+  "bodyKind": "json",
+  "headers": {
+    "content-type": "application/json"
+  },
+  "status": 200
+}

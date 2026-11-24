@@ -1,0 +1,10 @@
+**/node_modules
+**/.DS_Store
+**/dist
+.git
+docs/*/_build
+docs/screenshots/out
+docs/screenshots/test-results
+docs/screenshots/.env
+docs/screenshots/playwright
+docs/screenshots/playwright-report

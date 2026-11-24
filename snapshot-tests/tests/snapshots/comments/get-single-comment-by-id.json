@@ -1,0 +1,23 @@
+{
+  "body": {
+    "anchor_text": null,
+    "avatar": null,
+    "body": "Top-level thought from Alice.",
+    "comment_id": 1,
+    "created_at": "<<datetime>>",
+    "first_name": "Alice",
+    "last_name": "Example",
+    "parent_id": "<<null>>",
+    "post_text": null,
+    "pre_text": null,
+    "state": "PUBLISHED",
+    "updated_at": "<<null>>",
+    "user_id": "<<integer>>",
+    "version_id": "<<integer>>"
+  },
+  "bodyKind": "json",
+  "headers": {
+    "content-type": "application/json"
+  },
+  "status": 200
+}

@@ -1,0 +1,28 @@
+{
+  "body": {
+    "items": [
+      {
+        "avatar": null,
+        "createdAt": "2026-01-01T00:00:00.000Z",
+        "id": "00000000020000000000000001",
+        "name": "Arcadia Science",
+        "profile": null,
+        "rorId": null,
+        "slug": "arcadia-science",
+        "unlisted": false,
+        "updatedAt": "2026-01-01T00:00:00.000Z"
+      }
+    ],
+    "pagination": {
+      "page": 1,
+      "perPage": 20,
+      "total": 1,
+      "totalUnlisted": 0
+    }
+  },
+  "bodyKind": "json",
+  "headers": {
+    "content-type": "application/json"
+  },
+  "status": 200
+}

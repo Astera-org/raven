@@ -1,0 +1,7 @@
+node_modules/
+.vitest-cache/
+*.log
+.DS_Store
+
+# Ephemeral per-run temp dirs (TOML configs, server logs).
+.harness-tmp/

@@ -1,0 +1,15 @@
+version: 1
+project:
+  license: CC-BY-4.0
+  keywords:
+    - corvids
+    - planning
+    - test
+  bibliography:
+    - references.bib
+  numbering:
+    headings: true
+  math:
+    '\discount': '\gamma'
+site:
+  template: book-theme

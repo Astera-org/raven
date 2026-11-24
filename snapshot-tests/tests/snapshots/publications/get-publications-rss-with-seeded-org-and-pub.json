@@ -1,0 +1,8 @@
+{
+  "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<rss version=\"2.0\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\">\n    <channel>\n        <title>Arcadia Science Publications</title>\n        <link>https://thestacks.org</link>\n        <description>Latest publications from Arcadia Science</description>\n\n    </channel>\n</rss>",
+  "bodyKind": "text",
+  "headers": {
+    "content-type": "application/rss+xml; charset=utf-8"
+  },
+  "status": 200
+}

@@ -1,0 +1,15 @@
+{
+  "body": {
+    "errors": {
+      "avatar": {
+        "message": "No avatar file provided"
+      }
+    },
+    "type": "application_error"
+  },
+  "bodyKind": "json",
+  "headers": {
+    "content-type": "application/json"
+  },
+  "status": 400
+}

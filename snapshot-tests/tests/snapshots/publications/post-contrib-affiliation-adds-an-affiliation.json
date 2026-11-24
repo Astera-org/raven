@@ -1,0 +1,11 @@
+{
+  "body": {
+    "publication_id": 99,
+    "version_id": 99
+  },
+  "bodyKind": "json",
+  "headers": {
+    "content-type": "application/json"
+  },
+  "status": 200
+}

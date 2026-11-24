@@ -1,0 +1,1 @@
+ALTER TABLE `contributors` ADD CONSTRAINT `pub_user_role_int` UNIQUE(`publication_id_int`,`user_id_int`,`role`);

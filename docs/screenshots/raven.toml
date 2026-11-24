@@ -1,0 +1,31 @@
+# Raven configuration for the docs screenshot deployment (docker-compose.yml).
+
+DATABASE_URI = "mysql://raven:raven_screenshots_password@db:3306/raven?charset=utf8mb4"
+# The Stacks frontend's origin, so BetterAuth and CORS accept it.
+BASE_URL_WEB = "http://localhost:3005"
+# The admin UI's origin, for the Raven docs shots.
+BASE_URL_ADMIN = "http://localhost:3006"
+BASE_URL_API = "http://localhost:7005/api"
+ENVIRONMENT = "development"
+
+SERVER_HOST = "0.0.0.0"
+SERVER_PORT = 7001
+SERVER_DEBUG = true
+
+JWT_SECRET_KEY = "screenshots-secret-key-not-for-production"
+
+OUT_DIR = "/app/output/"
+IMG_DIR = "/app/imgs/"
+
+# DataCite is left unset, so no DOIs are minted.
+
+# Garage from docker-compose.yml (credentials must match it)
+AWS_S3_BUCKET_NAME = "raven-screenshots-media"
+AWS_ACCESS_KEY_ID = "GK726176656e5f73686f74735f6b657931"
+AWS_SECRET_ACCESS_KEY = "726176656e5f73686f74735f7365637265745f6e6f745f666f725f70726f6431"
+AWS_REGION = ""
+AWS_S3_ENDPOINT = "http://garage:3900"
+AWS_S3_PUBLIC_ENDPOINT = "http://localhost:3930"
+AWS_S3_PUBLIC_BASE_URL = "http://raven-screenshots-media.web.localhost:3932"
+
+REQUIRE_EMAIL_VERIFICATION = false

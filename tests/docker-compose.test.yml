@@ -1,0 +1,234 @@
+services:
+  db-test:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: test_root
+      MYSQL_DATABASE: raven_test
+      MYSQL_USER: raven_test
+      MYSQL_PASSWORD: raven_test
+    ports:
+      - "3307:3306"
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "mysqladmin",
+          "ping",
+          "-h",
+          "127.0.0.1",
+          "-u",
+          "raven_test",
+          "-praven_test",
+        ]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 20s
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+
+  # Postgres runs alongside MySQL (not replacing it); used for the pg-boss job queue.
+  pg-test:
+    image: postgres:18
+    environment:
+      POSTGRES_USER: raven_test
+      POSTGRES_PASSWORD: raven_test
+      POSTGRES_DB: raven_test
+    ports:
+      - "5433:5432"
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "raven_test", "-d", "raven_test"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 10s
+
+  # Mocks the DataCite REST API (https://api.datacite.org/dois) so DOI-minting
+  # integration tests (src/integration/publications-doi.test.ts) can exercise
+  # backend-ts's real minting code paths without hitting the real service. See
+  # datacite-mock/server.js for the mocked surface and test-control endpoints.
+  datacite-mock:
+    image: node:24-slim
+    command: ["node", "/mock/server.js"]
+    environment:
+      PORT: "4321"
+      # Must match DATACITE_PREFIX in backend-ts/tests/raven.test.toml and
+      # tests/src/integration/raven.integration.toml.
+      OWN_PREFIX: "10.83972"
+    volumes:
+      - ./datacite-mock/server.js:/mock/server.js:ro
+    ports:
+      - "4321:4321"
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "node",
+          "-e",
+          "fetch('http://localhost:4321/_mock/health').then((r) => process.exit(r.ok ? 0 : 1)).catch(() => process.exit(1))",
+        ]
+      interval: 3s
+      timeout: 2s
+      retries: 10
+      start_period: 2s
+
+  # S3-compatible storage for the media upload pipeline
+  # (backend-ts/src/lib/media/). Ephemeral: tmpfs only, so `make test-down`
+  # discards every uploaded object. --single-node sets up the cluster layout,
+  # and --default-bucket creates the bucket and access key below.
+  garage-test:
+    image: dxflrs/garage:v2.5.0
+    command: ["/garage", "server", "--single-node", "--default-bucket"]
+    configs:
+      - source: garage-test-config
+        target: /etc/garage.toml
+    tmpfs:
+      - /var/lib/garage/meta
+      - /var/lib/garage/data
+    environment:
+      GARAGE_DEFAULT_ACCESS_KEY: "GK726176656e5f746573745f6b65795f31"
+      GARAGE_DEFAULT_SECRET_KEY: "726176656e5f746573745f7365637265745f6e6f745f666f725f70726f645f31"
+      GARAGE_DEFAULT_BUCKET: raven-test-media
+      GARAGE_RPC_SECRET: "0000000000000000000000000000000000000000000000000000000000000000"
+    ports:
+      - "3910:3900" # S3 API
+      - "3912:3902" # Web endpoint (anonymous public reads)
+    healthcheck:
+      test: ["CMD", "/garage", "status"]
+      interval: 3s
+      timeout: 2s
+      retries: 10
+      start_period: 2s
+
+  # One-shot job that finishes setting up the test media bucket, then exits.
+  # Website access lets Garage's web endpoint serve public reads (so tests can
+  # fetch a media asset's publicUrl), and CORS matches what MinIO allowed.
+  garage-init-test:
+    image: amazon/aws-cli:2.35.3
+    depends_on:
+      garage-test:
+        condition: service_healthy
+    environment:
+      # Same key as garage-test above
+      AWS_ACCESS_KEY_ID: "GK726176656e5f746573745f6b65795f31"
+      AWS_SECRET_ACCESS_KEY: "726176656e5f746573745f7365637265745f6e6f745f666f725f70726f645f31"
+      AWS_DEFAULT_REGION: us-west-2
+      AWS_ENDPOINT_URL: http://garage-test:3900
+    entrypoint: ["/bin/sh", "-c"]
+    command:
+      - |
+        until aws s3api head-bucket --bucket raven-test-media; do sleep 1; done &&
+        aws s3api put-bucket-website --bucket raven-test-media \
+          --website-configuration '{"IndexDocument": {"Suffix": "index.html"}}' &&
+        aws s3api put-bucket-cors --bucket raven-test-media \
+          --cors-configuration '{"CORSRules": [{"AllowedOrigins": ["*"], "AllowedMethods": ["GET", "HEAD", "PUT"], "AllowedHeaders": ["*"], "ExposeHeaders": ["ETag"]}]}'
+
+  # Serves tests/fixtures/media/ under a googleusercontent.com hostname so the
+  # backend's Google-domain allowlist lets it through. See
+  # media-mock/server.js for the mocked surface and test-control endpoints.
+  media-mock:
+    image: node:24-slim
+    command: ["node", "/mock/server.js"]
+    environment:
+      PORT: "80"
+      FIXTURES_DIR: "/fixtures"
+      GOOGLE_DOCS_FIXTURES_DIR: "/google-docs-fixtures"
+    volumes:
+      - ./media-mock/server.js:/mock/server.js:ro
+      - ./fixtures/media:/fixtures:ro
+      - ./fixtures/google-docs:/google-docs-fixtures:ro
+    networks:
+      default:
+        aliases:
+          - lh3.googleusercontent.com
+    ports:
+      - "4322:80"
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "node",
+          "-e",
+          "fetch('http://localhost/_mock/health').then((r) => process.exit(r.ok ? 0 : 1)).catch(() => process.exit(1))",
+        ]
+      interval: 3s
+      timeout: 2s
+      retries: 10
+      start_period: 2s
+
+  backend-test:
+    build:
+      context: ../
+      dockerfile: backend-ts/Dockerfile
+    depends_on:
+      db-test:
+        condition: service_healthy
+      pg-test:
+        condition: service_healthy
+      datacite-mock:
+        condition: service_healthy
+      media-mock:
+        condition: service_healthy
+      garage-init-test:
+        condition: service_completed_successfully
+    ports:
+      - "5555:5000"
+    environment:
+      DATABASE_URI: "mysql://raven_test:raven_test@db-test:3306/raven_test"
+      MIGRATION_DATABASE_URI: "mysql://root:test_root@db-test:3306/raven_test"
+      PG_DATABASE_URI: "postgres://raven_test:raven_test@pg-test:5432/raven_test" # trufflehog:ignore
+      GENERATE_DB_FROM_SCRATCH: "true"
+      # Point at the mock above instead of the real DataCite API, and set
+      # non-empty credentials so backend-ts's DataCite calls are exercised.
+      DATACITE_API: "http://datacite-mock:4321/dois"
+      DATACITE_NAME: "test-datacite-account"
+      DATACITE_PASSWORD: "test-datacite-password"
+      # Same mock container, unrelated route (see datacite-mock/server.js) -
+      # so reference-URL CSL-JSON enrichment (src/lib/references.ts) never
+      # makes a real request to doi.org during tests.
+      DOI_RESOLVER_API: "http://datacite-mock:4321"
+      # The backend talks to Garage over the compose network, but returns
+      # presigned and public URLs on the host-mapped ports so tests can use them.
+      AWS_S3_BUCKET_NAME: "raven-test-media"
+      AWS_ACCESS_KEY_ID: "GK726176656e5f746573745f6b65795f31"
+      AWS_SECRET_ACCESS_KEY: "726176656e5f746573745f7365637265745f6e6f745f666f725f70726f645f31"
+      AWS_S3_ENDPOINT: "http://garage-test:3900"
+      AWS_S3_PUBLIC_ENDPOINT: "http://localhost:3910"
+      AWS_S3_PUBLIC_BASE_URL: "http://raven-test-media.web.localhost:3912"
+      # Small, so a test can exceed the media size limit cheaply; still above
+      # the ~200 KB images in media-mock's large Google Docs export.
+      MEDIA_MAX_BYTES: "1048576"
+      # Small, so a test can exceed the bibliography size limit cheaply.
+      BIBLIOGRAPHY_MAX_BYTES: "65536"
+      # Google Docs exports come from media-mock (see media-mock/server.js).
+      DEV_GOOGLE_DOCS_ORIGIN_OVERRIDE: "http://media-mock"
+    volumes:
+      - ../backend-ts/tests/raven.test.toml:/app/raven.toml:ro
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/api/health"]
+      interval: 5s
+      timeout: 3s
+      retries: 15
+      start_period: 10s
+
+configs:
+  garage-test-config:
+    content: |
+      metadata_dir = "/var/lib/garage/meta"
+      data_dir = "/var/lib/garage/data"
+      db_engine = "sqlite"
+      replication_factor = 1
+
+      rpc_bind_addr = "[::]:3901"
+      rpc_public_addr = "127.0.0.1:3901"
+
+      [s3_api]
+      # SigV4 signs the region; this matches AWS_REGION in raven.test.toml.
+      s3_region = "us-west-2"
+      api_bind_addr = "[::]:3900"
+      root_domain = ".s3.localhost"
+
+      [s3_web]
+      # Public URLs look like http://raven-test-media.web.localhost:3912/<key>
+      bind_addr = "[::]:3902"
+      root_domain = ".web.localhost"
+      index = "index.html"

@@ -1,0 +1,21 @@
+{
+  "name": "@raven/docs",
+  "version": "0.1.0",
+  "private": true,
+  "license": "BSD-3-Clause",
+  "type": "module",
+  "description": "MyST sites for the Raven and The Stacks docs",
+  "scripts": {
+    "build": "(cd raven && BASE_URL=/raven myst build --html --strict) && (cd thestacks && BASE_URL=/thestacks myst build --html --strict)",
+    "lint": "eslint",
+    "live:raven": "cd raven && myst start --port 3001",
+    "live:thestacks": "cd thestacks && myst start",
+    "live:thestacks:execute": "cd thestacks && uv run --no-project --with jupyter-server --with ipykernel --with requests -- myst start --execute"
+  },
+  "devDependencies": {
+    "@eslint/markdown": "catalog:",
+    "@raven/eslint-rules": "workspace:*",
+    "eslint": "catalog:",
+    "mystmd": "1.11.0"
+  }
+}

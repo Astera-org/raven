@@ -1,0 +1,28 @@
+{
+  "body": {
+    "items": [
+      {
+        "avatar": null,
+        "created_at": "<<datetime>>",
+        "email": "alice@example.com",
+        "first_name": "Alice",
+        "id": "<<integer>>",
+        "last_name": "Example",
+        "orcid": null,
+        "profile": null,
+        "updated_at": "<<datetime>>",
+        "username": "alice"
+      }
+    ],
+    "pagination": {
+      "page": 2,
+      "per_page": 2,
+      "total": 3
+    }
+  },
+  "bodyKind": "json",
+  "headers": {
+    "content-type": "application/json"
+  },
+  "status": 200
+}

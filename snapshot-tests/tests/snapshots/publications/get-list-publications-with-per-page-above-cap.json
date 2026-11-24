@@ -1,0 +1,65 @@
+{
+  "body": {
+    "items": [
+      {
+        "abstract": "A short abstract about calorimetry methods.",
+        "contributors": [],
+        "created_at": "<<datetime>>",
+        "doi": null,
+        "id": "<<integer>>",
+        "num_comments": 0,
+        "orgs": [],
+        "slug": "calorimetry-paper",
+        "state": "PUBLISHED",
+        "tags": [
+          "chemistry"
+        ],
+        "title": "Calorimetry techniques",
+        "version_number": 1
+      },
+      {
+        "abstract": "A short abstract about phylogeny analyses.",
+        "contributors": [],
+        "created_at": "<<datetime>>",
+        "doi": null,
+        "id": "<<integer>>",
+        "num_comments": 0,
+        "orgs": [],
+        "slug": "phylogeny-paper",
+        "state": "PUBLISHED",
+        "tags": [
+          "biology"
+        ],
+        "title": "Phylogeny of finches",
+        "version_number": 1
+      },
+      {
+        "abstract": "A short abstract about neutron transport.",
+        "contributors": [],
+        "created_at": "<<datetime>>",
+        "doi": null,
+        "id": "<<integer>>",
+        "num_comments": 0,
+        "orgs": [],
+        "slug": "neutron-paper",
+        "state": "PUBLISHED",
+        "tags": [
+          "biology",
+          "open-science"
+        ],
+        "title": "Neutron diffusion notes",
+        "version_number": 1
+      }
+    ],
+    "pagination": {
+      "page": 1,
+      "per_page": 100,
+      "total": 3
+    }
+  },
+  "bodyKind": "json",
+  "headers": {
+    "content-type": "application/json"
+  },
+  "status": 200
+}

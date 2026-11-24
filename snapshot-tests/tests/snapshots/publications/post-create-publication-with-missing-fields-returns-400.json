@@ -1,0 +1,10 @@
+{
+  "body": {
+    "error": "Missing title, abstract, or body"
+  },
+  "bodyKind": "json",
+  "headers": {
+    "content-type": "application/json"
+  },
+  "status": 400
+}

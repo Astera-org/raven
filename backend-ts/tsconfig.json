@@ -1,0 +1,16 @@
+{
+  "extends": "../tsconfig.base.json",
+  "compilerOptions": {
+    "rootDir": "./src",
+    // highlight.js types (via the Google Docs importer) pull in the DOM lib,
+    // whose Headers isn't iterable without DOM.Iterable.
+    "lib": ["ES2023", "DOM", "DOM.Iterable"],
+    "outDir": "./dist",
+    "declaration": true,
+    "declarationMap": true,
+    "customConditions": ["@raven/backend-source"],
+    "sourceMap": true
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist"]
+}

@@ -1,0 +1,14 @@
+{
+  "body": {
+    "errors": {
+      "ids": [
+        "Some notifications were not found"
+      ]
+    }
+  },
+  "bodyKind": "json",
+  "headers": {
+    "content-type": "application/json"
+  },
+  "status": 404
+}

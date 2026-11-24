@@ -1,0 +1,12 @@
+{
+  "body": [
+    "NEW_PUBLICATION",
+    "COMMENT",
+    "REPLY"
+  ],
+  "bodyKind": "json",
+  "headers": {
+    "content-type": "application/json"
+  },
+  "status": 200
+}

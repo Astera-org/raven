@@ -1,0 +1,15 @@
+{
+  "body": {
+    "items": [],
+    "pagination": {
+      "page": 1,
+      "perPage": 10,
+      "total": 0
+    }
+  },
+  "bodyKind": "json",
+  "headers": {
+    "content-type": "application/json"
+  },
+  "status": 200
+}

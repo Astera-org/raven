@@ -1,0 +1,20 @@
+{
+  "body": {
+    "avatar": null,
+    "created_at": "<<datetime>>",
+    "doi_minting_enabled": 0,
+    "doi_prefix": null,
+    "id": "<<integer>>",
+    "name": "Arcadia Science",
+    "profile": null,
+    "ror_id": null,
+    "slug": "arcadia-science",
+    "unlisted": 0,
+    "updated_at": "<<datetime>>"
+  },
+  "bodyKind": "json",
+  "headers": {
+    "content-type": "application/json"
+  },
+  "status": 200
+}

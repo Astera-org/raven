@@ -1,0 +1,88 @@
+# Raven Configuration for Development Container
+
+DATABASE_URI = "mysql://raven:raven_dev_password@db:3306/raven?charset=utf8mb4"
+PG_DATABASE_URI = "postgres://raven:raven_dev_password@pg:5432/raven" # trufflehog:ignore
+BASE_URL_WEB = "http://localhost:3000"
+BASE_URL_ADMIN = "http://localhost:3003"
+BASE_URL_API = "http://localhost:7001/api"
+ENVIRONMENT = "dev"
+
+# defaults to "0.0.0.0" if empty
+SERVER_HOST = "0.0.0.0"
+# defaults to 7001
+SERVER_PORT = 7001
+# defaults to true
+SERVER_DEBUG = true
+
+# JWT Secret Key - Change this in production!
+JWT_SECRET_KEY = "dev-secret-key-change-in-production"
+
+# Directories for outputs and images
+OUT_DIR = "/workspace/backend-ts/local/output/"
+IMG_DIR = "/workspace/backend-ts/local/imgs/"
+
+# DataCite Configuration (optional, for DOI registration)
+DATACITE_NAME = ""
+DATACITE_PASSWORD = ""
+DATACITE_PREFIX = ""
+# defaults to https://api.datacite.org/dois if empty
+DATACITE_API = ""
+
+# ORCID SSO (optional)
+ORCID_CLIENT_ID = ""
+ORCID_CLIENT_SECRET = ""
+# defaults to false
+ORCID_USE_SANDBOX = false
+
+# AWS S3 Configuration
+# Points at the local Garage instance from docker-compose.yml by default, so
+# media upload works out of the box in the dev container. Clear the three
+# endpoint settings below (and set real credentials) to use actual AWS S3 instead.
+AWS_S3_BUCKET_NAME = "raven-dev-media"
+# Must match GARAGE_DEFAULT_ACCESS_KEY / GARAGE_DEFAULT_SECRET_KEY in docker-compose.yml
+AWS_ACCESS_KEY_ID = "GK726176656e5f6465765f6b65795f3031"
+AWS_SECRET_ACCESS_KEY = "726176656e5f6465765f7365637265745f6e6f745f666f725f70726f645f3031"
+# defaults to "us-west-2" if empty (Garage's s3_region is set to match)
+AWS_REGION = ""
+# Endpoint the server uses to talk to S3/Garage (leave blank for real AWS S3)
+AWS_S3_ENDPOINT = "http://garage:3900"
+# Endpoint for presigned upload URLs given to the browser (leave blank for real AWS S3).
+# Port 3920 matches the dev container's Garage port mapping in docker-compose.yml.
+AWS_S3_PUBLIC_ENDPOINT = "http://localhost:3920"
+# Base URL for public media links, used as-is (no bucket appended). Garage serves
+# public reads from its web endpoint, which picks the bucket from the host name.
+AWS_S3_PUBLIC_BASE_URL = "http://raven-dev-media.web.localhost:3922"
+
+# Email Configuration (optional)
+MAILGUN_API_KEY = ""
+TEST_RECIPIENT_EMAIL_ADDRESS = ""
+
+# Logging (optional)
+# LOG_LEVEL = "info"
+# Path to the log file
+# LOG_FILE = "logs/raven.log"
+# Rotation frequency: "daily", "hourly", or a number of seconds
+# LOG_ROTATION = "daily"
+# Maximum log file size before rotation (e.g. "50m", "1g")
+# LOG_MAX_SIZE = "50m"
+# Whether to write logs to file; defaults to true in production, false in debug/dev mode
+# LOG_TO_FILE = false
+
+# Largest media file Raven copies to S3, in bytes; each is held in memory
+# MEDIA_MAX_BYTES = 367001600
+
+# Largest bibliography a publication's draft can hold, in bytes (all its
+# .bib files together)
+# BIBLIOGRAPHY_MAX_BYTES = 5242880
+
+# MyST AST for thestacks.org (see the initial-myst-support skill)
+# Serve the AST at all; false makes requests for it return 406
+# MYST_MDAST_ENABLED = true
+# Memory budget for cached ASTs, in bytes; 0 turns caching off
+# MYST_MDAST_CACHE_BYTES = 67108864
+# Abstract plus body size above which the AST is not built (422), in bytes
+# MYST_MDAST_MAX_SOURCE_BYTES = 2097152
+
+# Email/password accounts must verify their email before they can sign in.
+# Google and ORCID sign-in are unaffected.
+# REQUIRE_EMAIL_VERIFICATION = true

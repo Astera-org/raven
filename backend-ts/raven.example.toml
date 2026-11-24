@@ -1,0 +1,118 @@
+# Raven Configuration for Development Container
+
+# Connection string for the database
+DATABASE_URI = "mysql://raven:raven_dev_password@localhost:4306/raven?charset=utf8mb4"
+# You probably want to leave MIGRATION_DATABASE_URI empty here and set it as an environment variable
+# MIGRATION_DATABASE_URI = "mysql://root:root_password@localhost:4306/raven?charset=utf8mb4"
+MIGRATION_DATABASE_URI = ""
+PG_DATABASE_URI = "postgres://raven:raven_dev_password@localhost:5434/raven" # trufflehog:ignore
+MIGRATION_PG_DATABASE_URI = ""
+
+# Public base URLs (trailing '/' are removed)
+# BASE_URL_WEB = e.g., "http://localhost:3000" or "https://[public-stacks-instance]"
+# BASE_URL_ADMIN = e.g., "http://localhost:3003" or "https://[admin-for-public-stacks-instance]"
+# BASE_URL_API = e.g., "http://localhost:7001/api" or "https://[public-stacks-api-url]"
+# Path under BASE_URL_WEB of the page where users approve a CLI login
+# DEVICE_VERIFICATION_PATH = "/device"
+# ENVIRONMENT = "dev"
+
+# Server configuration
+# SERVER_HOST = "0.0.0.0"
+# SERVER_PORT = 7001
+# SERVER_DEBUG = false
+
+# Auth secret keys -- set these in production with `openssl rand -base64 32`
+# JWT_SECRET_KEY = "dev-secret-key-change-in-production"
+# BETTER_AUTH_SECRET = "CHANGE_ME"
+
+# Directories for outputs and images
+# OUT_DIR = "out/"   # For local development, you can use "./local/output/"
+# IMG_DIR = "imgs/"  # For local development, you can use "./local/imgs/"
+
+# DataCite Configuration (optional, for DOI registration)
+# DATACITE_API = "https://api.datacite.org/dois" | "https://api.test.datacite.org/dois"
+# DATACITE_NAME= [DataCite username]
+# DATACITE_PASSWORD= [DataCite password]
+# DATACITE_PREFIX= [DataCite prefix]
+# DATACITE_PUBLISHER = "The Stacks"
+
+# base URL for CSL-JSON reference enrichment
+# Default is `https://doi.org`, and it only really needs to be changed if
+# you are using it for testing / mocking.
+# DOI_RESOLVER_API = "https://doi.org"  
+
+# Configuration for ORCID SSO (optional)
+# ORCID_CLIENT_ID = ""
+# ORCID_CLIENT_SECRET = ""
+# ORCID_USE_SANDBOX = false
+# Use the ORCID_REDIRECT_URI_BASE to configure URL for redirects to use ngrok or deploy on staging, not needed in production
+# ORCID_REDIRECT_URI_BASE = "[ngrok url]"
+
+# Comma-separated list of additional allowed origins (e.g., for Vercel preview
+# deployments). If set, these patterns will be added to Better Auth's trustedOrigins.
+# EXTRA_ALLOWED_ORIGIN_PATTERN = "https://*-your-team.vercel.app,http://localhost:3000"
+
+# AWS S3 Configuration
+# Points at the local Garage instance from deploy/local/docker-compose.dev.yml
+# by default, so media upload works out of the box. Clear the three endpoint
+# settings below (and set real credentials) to use actual AWS S3 instead.
+AWS_S3_BUCKET_NAME = "raven-dev-media"
+# Must match GARAGE_DEFAULT_ACCESS_KEY / GARAGE_DEFAULT_SECRET_KEY in docker-compose.dev.yml
+AWS_ACCESS_KEY_ID = "GK726176656e5f6465765f6b65795f3031"
+AWS_SECRET_ACCESS_KEY = "726176656e5f6465765f7365637265745f6e6f745f666f725f70726f645f3031"
+# defaults to "us-west-2" if empty (Garage's s3_region is set to match)
+AWS_REGION = ""
+# Endpoint the server uses to talk to S3/Garage (leave blank for real AWS S3)
+AWS_S3_ENDPOINT = "http://localhost:3900"
+# Endpoint for presigned upload URLs given to the browser (leave blank for real AWS S3)
+AWS_S3_PUBLIC_ENDPOINT = "http://localhost:3900"
+# Base URL for public media links, used as-is (no bucket appended). Garage serves
+# public reads from its web endpoint, which picks the bucket from the host name.
+AWS_S3_PUBLIC_BASE_URL = "http://raven-dev-media.web.localhost:3902"
+
+# Logging configuration
+
+# Minimum level to log: "debug", "info", "warn", "error", or "fatal"; defaults to "info"
+# LOG_LEVEL = "info"
+# Path to the log file
+# LOG_FILE = "logs/raven.log"
+# Rotation frequency: "daily", "hourly", or a number of seconds
+# LOG_ROTATION = "daily"
+# Maximum log file size before rotation (e.g. "50m", "1g")
+# LOG_MAX_SIZE = "50m"
+# Whether to write logs to file; defaults to true in production, false in debug/dev mode
+# LOG_TO_FILE = true
+
+# Largest media file Raven copies to S3, in bytes; each is held in memory
+# MEDIA_MAX_BYTES = 367001600
+
+# Largest bibliography a publication's draft can hold, in bytes (all its
+# .bib files together)
+# BIBLIOGRAPHY_MAX_BYTES = 5242880
+
+# MyST AST for thestacks.org (see the initial-myst-support skill)
+# Serve the AST at all; false makes requests for it return 406
+# MYST_MDAST_ENABLED = true
+# Memory budget for cached ASTs, in bytes; 0 turns caching off
+# MYST_MDAST_CACHE_BYTES = 67108864
+# Abstract plus body size above which the AST is not built (422), in bytes
+# MYST_MDAST_MAX_SOURCE_BYTES = 2097152
+
+# Names of the orgs whose members can create publications; site admins always
+# can. As an env var, a comma-separated list.
+# PUBLICATION_CREATOR_ORGS = ["Arcadia Science", "Radial"]
+
+# Email/password accounts must verify their email before they can sign in.
+# Google and ORCID sign-in are unaffected.
+# REQUIRE_EMAIL_VERIFICATION = true
+
+# Cloudflare Turnstile secret key. When set, email/password sign-up requires a
+# Turnstile token in the `x-captcha-response` header. Unset turns the check off.
+# Cloudflare's test keys: 1x0000000000000000000000000000000AA always passes,
+# 2x0000000000000000000000000000000AA always fails.
+# When configured, the frontend also needs VITE_TURNSTILE_SITE_KEY set
+# TURNSTILE_SECRET_KEY = ""
+
+# Seconds a password confirmation (POST /api/auth2/elevate-session) lasts
+# before routes that require an elevated session ask for it again.
+# SESSION_ELEVATION_MAX_AGE_SEC = 600

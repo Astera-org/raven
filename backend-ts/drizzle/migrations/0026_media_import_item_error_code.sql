@@ -1,0 +1,1 @@
+ALTER TABLE `media_import_items` ADD `error_code` enum('unavailable','unsupported','unreadable','retries-exhausted','failed','media-type-mismatch');

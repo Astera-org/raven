@@ -1,0 +1,42 @@
+*.gz
+
+.DS_Store
+.claude
+.cursor
+.pnpm-store
+.vscode/settings.json
+
+baloo.log
+dist
+frontend/dist
+history.md
+node_modules
+raven*.toml
+!/.devcontainer/raven.example.toml
+!/deploy/local/raven.toml
+!/backend-ts/raven.example.toml
+!/docs/screenshots/raven.toml
+!/tests/raven.local-backend.toml
+toc.md
+
+# Prevent inadvertent commits of SQL files, except for the ones in the specified directories
+*.sql
+!/backend-ts/drizzle/migrations/**/*.sql
+!/backend-ts/drizzle/pg/migrations/**/*.sql
+!/snapshot-tests/**/*.sql
+.vscode/settings.json
+
+# raven CLI link files
+.raven/
+
+# MyST files
+_build
+
+# Secrets
+.env
+.env.*
+!.env.template
+*.pem
+*.key
+*.p12
+*.pfx

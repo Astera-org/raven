@@ -1,0 +1,39 @@
+worker_processes 1;
+
+events {
+  worker_connections 1024;
+}
+
+# Rendered by the nginx image's entrypoint (envsubst) into
+# /etc/nginx/nginx.conf. Only defined env vars are substituted, so nginx's own
+# $variables pass through untouched.
+http {
+  # Single origin in front of both containers: the browser talks to this
+  # proxy only, so admin-ui's same-origin `/api` fetches (see
+  # admin-ui/app/api/client.ts and app/lib/authClient.ts) reach BACKEND_URL,
+  # and the Origin header the browser sends stays http://localhost:3003 —
+  # the address configured as BASE_URL_ADMIN / a Better Auth trusted origin.
+  server {
+    listen 80;
+
+    location /api/ {
+      proxy_pass ${BACKEND_URL};
+      # $host drops the port; $http_host is the literal incoming Host
+      # header (e.g. localhost:3003), which backend needs intact to build
+      # correct absolute redirect/callback URLs.
+      proxy_set_header Host $http_host;
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+    location / {
+      proxy_pass http://admin-ui:3000;
+      # $host drops the port; $http_host is the literal incoming Host
+      # header (e.g. localhost:3003), which backend needs intact to build
+      # correct absolute redirect/callback URLs.
+      proxy_set_header Host $http_host;
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_set_header X-Forwarded-Proto $scheme;
+    }
+  }
+}

@@ -1,0 +1,136 @@
+/*
+ * The Stacks brand on top of the MyST book-theme.
+ * Values come from brand-guidelines/_ds/.../colors_and_type.css.
+ * We override the theme's --myst-color-* tokens rather than its selectors.
+ */
+@import url("https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,600;1,9..40,400&family=DM+Mono:wght@400;500&display=swap");
+
+:root {
+  /* Base palette: dark mode only needs to swap these */
+  --myst-color-text: #212630; /* Gray Blue 900: brand ink */
+  --myst-color-text-secondary: rgb(33 38 48 / 0.7);
+  --myst-color-link-hover: #515c78; /* Gray Blue 500 */
+  --myst-color-link-underline: #a4a1aa;
+  --myst-color-active-bg: #ecebf0;
+  --myst-color-bg-secondary: #f7f7f7; /* Off-white canvas */
+  --myst-color-border: #e2e2e3;
+  --myst-color-code: #383f51; /* neutral, not the default pink */
+
+  /* Everything that should read as "ink" follows the text color */
+  --myst-color-prose-body: var(--myst-color-text);
+  --myst-color-link: var(--myst-color-text);
+  --myst-color-primary: var(--myst-color-text);
+  --myst-color-active: var(--myst-color-text);
+  --myst-color-active-surface: var(--myst-color-active-bg);
+  --myst-color-accent-surface: var(
+    --myst-color-active-bg
+  ); /* e.g. current heading in the on-page TOC */
+  --myst-color-accent-surface-border: var(--myst-color-border);
+  --myst-color-accent-surface-text: var(--myst-color-text);
+  --myst-color-accent-text: var(--myst-color-text);
+  --myst-color-inverse-bg: var(
+    --myst-color-text
+  ); /* e.g. current section in the sidebar */
+  --myst-color-focus-ring: var(--myst-color-link-hover);
+  --myst-color-info-text: var(--myst-color-text);
+  --myst-color-tip-text: var(--myst-color-text);
+  --myst-color-success-text: var(--myst-color-text);
+  --myst-color-warning-text: var(--myst-color-text);
+  --myst-color-danger-text: var(--myst-color-text);
+  --myst-color-error-text: var(--myst-color-text);
+
+  /* Admonitions: brand pastel accent fills */
+  --myst-color-info: #515c78;
+  --myst-color-info-bg: #ddebff; /* Sky */
+  --myst-color-tip: #2e7d32;
+  --myst-color-tip-bg: #dff4e8; /* Mint */
+  --myst-color-success: var(--myst-color-tip);
+  --myst-color-success-bg: var(--myst-color-tip-bg);
+  --myst-color-warning: #ff9800;
+  --myst-color-warning-bg: #fff1c9; /* Butter */
+  --myst-color-danger: #ac0d0d;
+  --myst-color-danger-bg: #ffe2d1; /* Peach */
+  --myst-color-error: var(--myst-color-danger);
+  --myst-color-error-bg: var(--myst-color-danger-bg);
+}
+
+html.dark {
+  --myst-color-bg: #212630;
+  --myst-color-bg-secondary: #2d333d;
+  --myst-color-text: #e5e4e7;
+  --myst-color-text-secondary: rgb(229 228 231 / 0.7);
+  --myst-color-link-hover: #b0b8c9;
+  --myst-color-link-underline: #74717a;
+  --myst-color-active-bg: #383f51;
+  --myst-color-border: #383f51;
+  --myst-color-code: #d5d9e2;
+
+  /* Pastels are too bright behind light text; use translucent tints */
+  --myst-color-info-bg: rgb(221 235 255 / 0.12);
+  --myst-color-tip-bg: rgb(223 244 232 / 0.12);
+  --myst-color-warning-bg: rgb(255 241 201 / 0.12);
+  --myst-color-danger-bg: rgb(255 226 209 / 0.12);
+}
+
+/* Fonts. Serif for headings only, like thestacks.org; sans body scans better for docs. */
+body {
+  font-family: "DM Sans", system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* The theme has no font tokens, so match its heading specificity directly */
+.article.content :is(h1, h2, h3) {
+  font-family: "Newsreader", Georgia, serif;
+  font-weight: 400;
+  letter-spacing: -0.015em;
+}
+
+.article.content h2 {
+  margin-top: 1.5em !important;
+}
+
+code,
+pre,
+kbd {
+  font-family: "DM Mono", ui-monospace, monospace;
+}
+
+/* The theme hard-codes the footer background, so point it at our surface token */
+/* .article is needed to outrank the theme's `.dark .dark:bg-slate-950` */
+/* ref: https://github.com/jupyter-book/myst-theme/issues/966 */
+footer.article.footer {
+  background: var(--myst-color-bg-secondary);
+}
+
+/* Brand leans on borders, not shadows: swap the theme's shadow for a hairline.
+   Only top/right/bottom, so the theme's colored left bar stays.
+   .article is needed to outrank the theme's `.dark .dark:shadow-2xl`. */
+.article aside.myst-admonition {
+  box-shadow: none;
+  border-radius: 8px;
+  border-top: 1px solid var(--myst-color-border);
+  border-right: 1px solid var(--myst-color-border);
+  border-bottom: 1px solid var(--myst-color-border);
+}
+
+/* Tables sit in a scroll wrapper, so their top margin doesn't collapse with the paragraph above */
+.article.content table {
+  margin-top: 0;
+}
+
+/* Admonition icons share the header's ink color; soften them so solid glyphs don't read as heavy */
+.myst-admonition-header-icon {
+  color: var(--myst-color-text-secondary);
+}
+
+/* Links to product decisions render as a small pill, so authors only write a normal cross-reference */
+.article.content p a[href*="/decisions/"] {
+  padding: 0 0.45em;
+  border-radius: 999px;
+  background: rgb(233 226 255); /* Periwinkle 200 */
+  font-size: 0.85em;
+  text-decoration: none;
+}
+html.dark .article.content p a[href*="/decisions/"] {
+  background: rgb(233 226 255 / 0.12);
+}

@@ -1,0 +1,34 @@
+{
+  "version": {
+    "title": "Collapsible Sections",
+    "subtitle": "A showcase of different ways of doing collapsable sections.",
+    "abstract": "Every case below is a real `:::details` block rendered at production width. The question each one answers is where the toggle arrow belongs, and how much room sits between the region indicator and the content. Per the import guide, collapsed is the default state. Adding `:open: true` is what opens a block on load, so most cases here start collapsed to match."
+  },
+  "media": [
+    {
+      "ref": "raven-media://media-1",
+      "source": {
+        "type": "url",
+        "url": "https://drive.google.com/file/d/fake-drive-file-29/view?usp=sharing"
+      },
+      "figureType": "image"
+    },
+    {
+      "ref": "raven-media://media-2",
+      "source": {
+        "type": "url",
+        "url": "https://drive.google.com/file/d/fake-drive-file-30/view?usp=share_link"
+      },
+      "figureType": "image"
+    },
+    {
+      "ref": "raven-media://media-3",
+      "source": {
+        "type": "url",
+        "url": "https://drive.google.com/file/d/fake-drive-file-31/view?usp=share_link"
+      },
+      "figureType": "image"
+    }
+  ],
+  "diagnostics": []
+}

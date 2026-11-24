@@ -1,0 +1,43 @@
+{
+  "name": "raven-monorepo",
+  "version": "0.1.0",
+  "private": true,
+  "license": "BSD-3-Clause",
+  "description": "Raven monorepo: backend-ts, snapshot-tests, tests",
+  "type": "module",
+  "packageManager": "pnpm@12.11.2+sha512.25a51652a196785af5f28bda6dfe8dc582ebefa4ac1d180221ce1390231c5fb76637822ea4b6e4633ce74acdcb0a77f725af11bad38177fdeddaee818a955cb9",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "build": "pnpm -r --workspace-concurrency=1 run build",
+    "format": "pnpm -r run format",
+    "format:check": "pnpm -r run format:check",
+    "lint": "pnpm -r run lint",
+    "lint:fix": "pnpm -r run lint:fix",
+    "precommit": "pnpm typecheck && pnpm lint && pnpm format:check",
+    "start": "pnpm -F @raven/backend-ts run start",
+    "test": "pnpm -r run test",
+    "typecheck": "pnpm -r --workspace-concurrency=1 run typecheck"
+  },
+  "devDependencies": {
+    "@eslint/js": "catalog:",
+    "@types/node": "catalog:",
+    "@types/supertest": "catalog:",
+    "eslint": "catalog:",
+    "eslint-config-prettier": "catalog:",
+    "eslint-plugin-package-json": "catalog:",
+    "eslint-plugin-simple-import-sort": "catalog:",
+    "eslint-plugin-unused-imports": "catalog:",
+    "globals": "catalog:",
+    "jiti": "catalog:",
+    "lefthook": "^2.1.9",
+    "prettier": "catalog:",
+    "prettier-plugin-organize-imports": "catalog:",
+    "supertest": "catalog:",
+    "tsx": "catalog:",
+    "typescript": "catalog:",
+    "typescript-eslint": "catalog:",
+    "vitest": "catalog:"
+  }
+}

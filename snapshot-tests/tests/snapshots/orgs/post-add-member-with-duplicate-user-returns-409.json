@@ -1,0 +1,10 @@
+{
+  "body": {
+    "error": "User is already a member of this organization"
+  },
+  "bodyKind": "json",
+  "headers": {
+    "content-type": "application/json"
+  },
+  "status": 409
+}

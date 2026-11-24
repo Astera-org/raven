@@ -1,0 +1,52 @@
+{
+  "body": {
+    "publication": {
+      "abstract": "v2 abstract.",
+      "body": "v2 body.",
+      "contributors": [],
+      "created_at": "<<datetime>>",
+      "doi": null,
+      "feedback_form_embed_src": null,
+      "id": "<<integer>>",
+      "license": "CC BY",
+      "linked_assets": [],
+      "mediaAssets": [],
+      "orgs": [],
+      "pdf_url": null,
+      "publication_ulid": "0000000003000000000000000A",
+      "publisher": "The Stacks",
+      "references": [],
+      "slug": "multi-version",
+      "social_posts_count": null,
+      "social_posts_embed_src": null,
+      "state": "PUBLISHED",
+      "subtitle": "second",
+      "tags": [],
+      "title": "Multi-Version v2",
+      "version_desc": null,
+      "version_doi": null,
+      "version_number": 2,
+      "versions": [
+        {
+          "created_at": "<<datetime>>",
+          "doi": null,
+          "id": "<<integer>>",
+          "version_desc": null,
+          "version_number": 2
+        },
+        {
+          "created_at": "<<datetime>>",
+          "doi": null,
+          "id": "<<integer>>",
+          "version_desc": null,
+          "version_number": 1
+        }
+      ]
+    }
+  },
+  "bodyKind": "json",
+  "headers": {
+    "content-type": "application/json"
+  },
+  "status": 200
+}

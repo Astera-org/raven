@@ -1,0 +1,10 @@
+{
+  "body": {
+    "error": "Permission denied"
+  },
+  "bodyKind": "json",
+  "headers": {
+    "content-type": "application/json"
+  },
+  "status": 403
+}

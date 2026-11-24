@@ -1,0 +1,1 @@
+ALTER TABLE `publications` ADD `doi_metadata` json DEFAULT ('{"type":"datacite","content":{"language":"en","types":{"resourceTypeGeneral":"Other","resourceType":"Article"},"subjects":[{"subject":"FOS: Biological sciences","subjectScheme":"Fields of Science and Technology (FOS)"}]}}') NOT NULL;

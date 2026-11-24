@@ -1,0 +1,79 @@
+{
+  "body": {
+    "items": [
+      {
+        "comment_author": {
+          "avatar": null,
+          "first_name": "Alice",
+          "last_name": "Example"
+        },
+        "comment_id": 1,
+        "comment_state": "PUBLISHED",
+        "comment_text_excerpt": "Top-level thought from Alice.",
+        "created_at": "2025-12-04T20:12:41.000Z",
+        "id": 204,
+        "message": "Bob Ross commented: The secret to doing anything is believing that you can do it.",
+        "publication_id": 1,
+        "publication_org": null,
+        "publication_slug": "hello-stacks",
+        "publication_title": "Hello, Stacks",
+        "seen": 1,
+        "state": "COMMENT",
+        "updated_at": "<<datetime>>",
+        "user_id": 1
+      },
+      {
+        "comment_author": {
+          "avatar": null,
+          "first_name": "Alice",
+          "last_name": "Example"
+        },
+        "comment_id": 1,
+        "comment_state": "PUBLISHED",
+        "comment_text_excerpt": "Top-level thought from Alice.",
+        "created_at": "2025-12-04T20:11:41.000Z",
+        "id": 203,
+        "message": "Bob Ross commented: Llamas are my favorite animal to paint.",
+        "publication_id": 1,
+        "publication_org": null,
+        "publication_slug": "hello-stacks",
+        "publication_title": "Hello, Stacks",
+        "seen": 0,
+        "state": "COMMENT",
+        "updated_at": "<<datetime>>",
+        "user_id": 1
+      },
+      {
+        "comment_author": {
+          "avatar": null,
+          "first_name": "Alice",
+          "last_name": "Example"
+        },
+        "comment_id": 1,
+        "comment_state": "PUBLISHED",
+        "comment_text_excerpt": "Top-level thought from Alice.",
+        "created_at": "2025-12-04T20:10:41.000Z",
+        "id": 202,
+        "message": "Bob Ross commented: Highly interesting. Agree that the clouds are happy.",
+        "publication_id": 1,
+        "publication_org": null,
+        "publication_slug": "hello-stacks",
+        "publication_title": "Hello, Stacks",
+        "seen": 1,
+        "state": "COMMENT",
+        "updated_at": "<<datetime>>",
+        "user_id": 1
+      }
+    ],
+    "pagination": {
+      "page": 1,
+      "per_page": 18,
+      "total": 3
+    }
+  },
+  "bodyKind": "json",
+  "headers": {
+    "content-type": "application/json"
+  },
+  "status": 200
+}

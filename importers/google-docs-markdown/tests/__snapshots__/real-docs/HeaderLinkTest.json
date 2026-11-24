@@ -1,0 +1,32 @@
+{
+  "version": {
+    "title": "Doc",
+    "subtitle": null,
+    "abstract": null
+  },
+  "media": [],
+  "diagnostics": [
+    {
+      "code": "heading-link-unresolved",
+      "severity": "warning",
+      "message": "This link points to a heading that isn't in the document, so it was kept as text.",
+      "path": [
+        "body"
+      ],
+      "range": {
+        "startLine": 3,
+        "startColumn": 110,
+        "endLine": 3,
+        "endColumn": 113
+      }
+    },
+    {
+      "code": "missing-title",
+      "severity": "warning",
+      "message": "The document has no title; using \"Doc\"",
+      "path": [
+        "title"
+      ]
+    }
+  ]
+}

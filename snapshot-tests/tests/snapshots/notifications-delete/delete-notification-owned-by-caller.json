@@ -1,0 +1,10 @@
+{
+  "body": {
+    "message": "Notification deleted"
+  },
+  "bodyKind": "json",
+  "headers": {
+    "content-type": "application/json"
+  },
+  "status": 200
+}

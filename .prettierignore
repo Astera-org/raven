@@ -1,0 +1,6 @@
+dist
+
+# It's a known issue that prettier-vscode only acknowledges the root .prettierignore, so this needs to be here.
+backend-ts/drizzle/migrations/meta
+importers/google-docs-markdown/tests/__snapshots__
+tests/fixtures/google-docs/*.html

@@ -1,0 +1,39 @@
+{
+  "body": {
+    "items": [
+      {
+        "avatar": null,
+        "createdAt": "2026-01-01T00:00:00.000Z",
+        "id": "00000000020000000000000002",
+        "name": "Stealth Lab",
+        "profile": null,
+        "rorId": null,
+        "slug": "stealth-lab",
+        "unlisted": true,
+        "updatedAt": "2026-01-01T00:00:00.000Z"
+      },
+      {
+        "avatar": null,
+        "createdAt": "2026-01-01T00:00:00.000Z",
+        "id": "00000000020000000000000001",
+        "name": "Arcadia Science",
+        "profile": null,
+        "rorId": null,
+        "slug": "arcadia-science",
+        "unlisted": false,
+        "updatedAt": "2026-01-01T00:00:00.000Z"
+      }
+    ],
+    "pagination": {
+      "page": 1,
+      "perPage": 20,
+      "total": 2,
+      "totalUnlisted": 1
+    }
+  },
+  "bodyKind": "json",
+  "headers": {
+    "content-type": "application/json"
+  },
+  "status": 200
+}

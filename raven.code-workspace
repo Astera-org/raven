@@ -1,0 +1,79 @@
+{
+  "folders": [
+    { "name": "🐦 Raven (root)", "path": "." },
+    { "name": "💻 Devcontainer", "path": ".devcontainer" },
+    { "name": "🟦 Backend (TS)", "path": "backend-ts" },
+    { "name": "🖥️ Admin UI", "path": "admin-ui" },
+    { "name": "🎭 Admin UI E2E", "path": "admin-ui-e2e" },
+    { "name": "📥 Importers", "path": "importers" },
+    { "name": "🧱 Core", "path": "core" },
+    { "name": "🐦‍⬛ Raven CLI", "path": "cli" },
+    { "name": "📸 Snapshot Tests", "path": "snapshot-tests" },
+    { "name": "🧪 Integration Tests", "path": "tests" },
+  ],
+  "settings": {
+    // --- TypeScript / JavaScript ---
+    "[typescript]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode",
+      "editor.formatOnSave": true,
+      "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": "explicit",
+      },
+    },
+    "[typescriptreact]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode",
+      "editor.formatOnSave": true,
+      "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": "explicit",
+      },
+    },
+    "[javascript]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode",
+      "editor.formatOnSave": true,
+      "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": "explicit",
+      },
+    },
+    "[javascriptreact]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode",
+      "editor.formatOnSave": true,
+      "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": "explicit",
+      },
+    },
+    "[json]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode",
+      "editor.formatOnSave": true,
+    },
+    "eslint.workingDirectories": [
+      { "directory": "./admin-ui", "changeProcessCWD": true },
+      { "directory": "./admin-ui-e2e", "changeProcessCWD": true },
+      { "directory": "./backend-ts", "changeProcessCWD": true },
+      { "directory": "./snapshot-tests", "changeProcessCWD": true },
+      { "directory": "./tests", "changeProcessCWD": true },
+      { "directory": "./cli", "changeProcessCWD": true },
+    ],
+
+    // --- Editor defaults ---
+    "editor.rulers": [88],
+    "files.exclude": {
+      "**/node_modules": true,
+      "**/.venv": true,
+      "**/dist": true,
+      "**/__pycache__": true,
+      "**/*.egg-info": true,
+    },
+    "search.exclude": {
+      "**/node_modules": true,
+      "**/.venv": true,
+      "**/dist": true,
+      "**/__pycache__": true,
+      "**/pnpm-lock.yaml": true,
+      "**/package-lock.json": true,
+    },
+    "eslint.useFlatConfig": true,
+  },
+  "extensions": {
+    "recommendations": ["esbenp.prettier-vscode", "dbaeumer.vscode-eslint"],
+  },
+}

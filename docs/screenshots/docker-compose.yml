@@ -1,0 +1,178 @@
+# Backend for docs screenshots: a dedicated deployment, separate from
+# deploy/local, so screenshot data never mixes with a developer's local DB.
+# Its own project name and volumes mean both can run at once.
+# `pnpm backend:down` deletes the volumes so the next run starts fresh.
+name: raven-screenshots
+
+services:
+  db:
+    image: mysql:8.0
+    volumes:
+      - mysql-data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: raven
+      MYSQL_USER: raven
+      MYSQL_PASSWORD: raven_screenshots_password
+    ports:
+      - "4307:3306"
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "mysqladmin",
+          "ping",
+          "-h",
+          "127.0.0.1",
+          "-u",
+          "raven",
+          "-praven_screenshots_password",
+        ]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 20s
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+
+  # Postgres runs alongside MySQL (not replacing it); used for the pg-boss job queue.
+  pg:
+    image: postgres:18
+    volumes:
+      - pg-data:/var/lib/postgresql
+    environment:
+      POSTGRES_USER: raven
+      POSTGRES_PASSWORD: raven_screenshots_password
+      POSTGRES_DB: raven
+    ports:
+      - "5435:5432"
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "raven", "-d", "raven"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 10s
+
+  # S3-compatible media storage, standing in for AWS S3. --single-node sets
+  # up the cluster layout on first boot, and --default-bucket creates the
+  # bucket and access key below.
+  garage:
+    image: dxflrs/garage:v2.5.0
+    restart: unless-stopped
+    command: ["/garage", "server", "--single-node", "--default-bucket"]
+    configs:
+      - source: garage-config
+        target: /etc/garage.toml
+    volumes:
+      - garage-meta:/var/lib/garage/meta
+      - garage-data:/var/lib/garage/data
+    environment:
+      GARAGE_DEFAULT_ACCESS_KEY: "GK726176656e5f73686f74735f6b657931"
+      GARAGE_DEFAULT_SECRET_KEY: "726176656e5f73686f74735f7365637265745f6e6f745f666f725f70726f6431"
+      GARAGE_DEFAULT_BUCKET: raven-screenshots-media
+      GARAGE_RPC_SECRET: "0000000000000000000000000000000000000000000000000000000000000000"
+    ports:
+      - "3930:3900" # S3 API
+      - "3932:3902" # Web endpoint (anonymous public reads)
+    healthcheck:
+      test: ["CMD", "/garage", "status"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 5s
+
+  # One-shot job that turns on website access (public reads through Garage's
+  # web endpoint) and CORS for the media bucket, then exits.
+  garage-init:
+    image: amazon/aws-cli:2.35.3
+    depends_on:
+      garage:
+        condition: service_healthy
+    environment:
+      # Same key as the garage service above
+      AWS_ACCESS_KEY_ID: "GK726176656e5f73686f74735f6b657931"
+      AWS_SECRET_ACCESS_KEY: "726176656e5f73686f74735f7365637265745f6e6f745f666f725f70726f6431"
+      AWS_DEFAULT_REGION: us-west-2
+      AWS_ENDPOINT_URL: http://garage:3900
+    entrypoint: ["/bin/sh", "-c"]
+    command:
+      - |
+        until aws s3api head-bucket --bucket raven-screenshots-media; do sleep 1; done &&
+        aws s3api put-bucket-website --bucket raven-screenshots-media \
+          --website-configuration '{"IndexDocument": {"Suffix": "index.html"}}' &&
+        aws s3api put-bucket-cors --bucket raven-screenshots-media \
+          --cors-configuration '{"CORSRules": [{"AllowedOrigins": ["*"], "AllowedMethods": ["GET", "HEAD", "PUT"], "AllowedHeaders": ["*"], "ExposeHeaders": ["ETag"]}]}'
+
+  backend:
+    build:
+      context: ../../
+      dockerfile: backend-ts/Dockerfile
+    # Both seed scripts are idempotent, so this is safe on every restart.
+    command: >
+      sh -c "node dist/migrate.js && node dist/scripts/seed-admin.js && node dist/scripts/seed-test-user.js && node dist/index.js"
+    depends_on:
+      db:
+        condition: service_healthy
+      pg:
+        condition: service_healthy
+      garage-init:
+        condition: service_completed_successfully
+    ports:
+      - "7005:7001"
+    environment:
+      DATABASE_URI: "mysql://raven:raven_screenshots_password@db:3306/raven"
+      MIGRATION_DATABASE_URI: "mysql://root:root_password@db:3306/raven"
+      PG_DATABASE_URI: "postgres://raven:raven_screenshots_password@pg:5432/raven" # trufflehog:ignore
+      GENERATE_DB_FROM_SCRATCH: "true"
+      LOG_TO_FILE: "true"
+      # The site admin is used only by shots/seed.setup.ts, never in a screenshot.
+      ADMIN_USERNAME: "admin"
+      ADMIN_EMAIL: "admin@raven.local"
+      ADMIN_PASSWORD: "admin_screenshots_password"
+      # Creating publications requires membership in one of
+      # PUBLICATION_CREATOR_ORGS ("Arcadia Science" or "Radial"), so the
+      # admin's org is one of them. Do not rename it: seed-admin.js fails on
+      # startup if the org it created was later renamed.
+      ADMIN_ORG_NAME: "Radial"
+      # The account that appears in screenshots.
+      TEST_USER_USERNAME: "ada"
+      TEST_USER_EMAIL: "ada@example.org"
+      TEST_USER_PASSWORD: "ada_screenshots_password"
+      TEST_USER_FIRST_NAME: "Ada"
+      TEST_USER_LAST_NAME: "Example"
+    volumes:
+      - ./raven.toml:/app/raven.toml:ro
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:7001/api/health/"]
+      interval: 5s
+      timeout: 3s
+      retries: 15
+      start_period: 10s
+
+volumes:
+  mysql-data:
+  pg-data:
+  garage-meta:
+  garage-data:
+
+configs:
+  garage-config:
+    content: |
+      metadata_dir = "/var/lib/garage/meta"
+      data_dir = "/var/lib/garage/data"
+      db_engine = "sqlite"
+      replication_factor = 1
+
+      rpc_bind_addr = "[::]:3901"
+      rpc_public_addr = "127.0.0.1:3901"
+
+      [s3_api]
+      # SigV4 signs the region; raven.toml leaves AWS_REGION empty (us-west-2).
+      s3_region = "us-west-2"
+      api_bind_addr = "[::]:3900"
+      root_domain = ".s3.localhost"
+
+      [s3_web]
+      # Public URLs look like http://raven-screenshots-media.web.localhost:3932/<key>
+      bind_addr = "[::]:3902"
+      root_domain = ".web.localhost"
+      index = "index.html"

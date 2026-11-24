@@ -1,0 +1,37 @@
+{
+  "body": {
+    "items": [
+      {
+        "comment_author": {
+          "avatar": null,
+          "first_name": "Alice",
+          "last_name": "Example"
+        },
+        "comment_id": 4,
+        "comment_state": "PUBLISHED",
+        "comment_text_excerpt": "Check out this thing in italics, my_variable_name and foo_bar, plus a [note] and 50% done.",
+        "created_at": "2025-12-04T20:13:41.000Z",
+        "id": 206,
+        "message": "Alice commented: Check out _this thing in italics_, my_variable_name and foo_bar, plus a [note] and 50% done.",
+        "publication_id": 1,
+        "publication_org": null,
+        "publication_slug": "hello-stacks",
+        "publication_title": "Hello, Stacks",
+        "seen": 0,
+        "state": "COMMENT",
+        "updated_at": "<<datetime>>",
+        "user_id": 1
+      }
+    ],
+    "pagination": {
+      "page": 1,
+      "per_page": 18,
+      "total": 1
+    }
+  },
+  "bodyKind": "json",
+  "headers": {
+    "content-type": "application/json"
+  },
+  "status": 200
+}

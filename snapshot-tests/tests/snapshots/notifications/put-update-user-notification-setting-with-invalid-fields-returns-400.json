@@ -1,0 +1,10 @@
+{
+  "body": {
+    "error": "Missing or invalid fields"
+  },
+  "bodyKind": "json",
+  "headers": {
+    "content-type": "application/json"
+  },
+  "status": 400
+}

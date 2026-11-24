@@ -1,0 +1,33 @@
+{
+  "body": {
+    "items": [
+      {
+        "comment_id": 1,
+        "created_at": "2025-12-04T20:11:41.000Z",
+        "id": 203,
+        "message": "Bob Ross commented: Llamas are my favorite animal to paint.",
+        "publication_id": 1,
+        "seen": 1,
+        "state": "COMMENT",
+        "updated_at": "<<datetime>>",
+        "user_id": 1
+      },
+      {
+        "comment_id": 1,
+        "created_at": "2025-12-04T20:10:41.000Z",
+        "id": 202,
+        "message": "Bob Ross commented: Highly interesting. Agree that the clouds are happy.",
+        "publication_id": 1,
+        "seen": 1,
+        "state": "COMMENT",
+        "updated_at": "<<datetime>>",
+        "user_id": 1
+      }
+    ]
+  },
+  "bodyKind": "json",
+  "headers": {
+    "content-type": "application/json"
+  },
+  "status": 200
+}

@@ -1,0 +1,64 @@
+version: 1
+project:
+  title: The Stacks documentation
+  github: https://github.com/Astera-org/raven
+  references:
+    raven: https://docs.thestacks.org/raven/
+  plugins:
+    - https://github.com/jupyter-book/myst-plugins/releases/download/footer-latest/index.mjs
+    - https://github.com/myst-contrib/myst-include-link-rewrites/releases/latest/download/index.mjs
+    - https://github.com/myst-contrib/myst-iconify/releases/latest/download/index.mjs
+    - stacks-publications.mjs # fills `:source: stacks` listings, so it must load before myst-listing
+    - https://github.com/myst-contrib/myst-listing/releases/latest/download/plugin.mjs
+    - https://github.com/myst-contrib/myst-gui-text/releases/latest/download/index.mjs
+  toc:
+    - file: index.md
+    - file: readers/index.md
+      children:
+        - file: readers/troubleshooting.md
+    - file: authors/index.md
+      children:
+        - file: authors/quickstart.md
+        - file: authors/quickstart-myst.md
+        - file: authors/things-to-try.md
+        - file: authors/publishing-in-depth/index.md
+          children:
+            - file: authors/publishing-in-depth/publication-types.md
+            - file: authors/publishing-in-depth/formatting.md
+            - file: authors/publishing-in-depth/citations.md
+            - file: authors/publishing-in-depth/creating-a-publication.md
+            - file: authors/publishing-in-depth/versions-and-dois.md
+        - file: authors/troubleshooting.md
+    - file: api/index.md
+      children:
+        - file: api/formats.md
+    - file: about/index.md
+      children:
+        - file: decisions/index.md
+          children:
+            - pattern: decisions/!(index).md
+        - file: about/raven-and-the-stacks.md
+        - file: about/coolify.md
+        - file: about/brand.md
+    - file: faq.md
+site:
+  template: book-theme
+  title: The Stacks docs
+  options:
+    # Logos and favicon come from the brand guidelines so there's one source of truth.
+    logo: ../brand-guidelines/assets/stacks-logo.svg
+    logo_dark: ../brand-guidelines/assets/stacks-logo-light.svg
+    favicon: ../brand-guidelines/assets/stacks-favicon.svg
+    style: brand.css
+    internal_domains: docs.thestacks.org # the docs host, so cross-site links open in place
+    folders: true # URLs mirror the docs/ folder layout, e.g. /developers/docs
+  parts:
+    footer: footer.md
+    navbar_end: navbar.md
+  nav:
+    - title: Raven
+      url: https://docs.thestacks.org/raven/
+    - title: The Stacks
+      url: https://docs.thestacks.org/thestacks/
+    - title: thestacks.org
+      url: https://thestacks.org

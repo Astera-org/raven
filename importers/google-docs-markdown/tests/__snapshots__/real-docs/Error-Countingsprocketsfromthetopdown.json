@@ -1,0 +1,143 @@
+{
+  "version": {
+    "title": "Counting sprockets from the top down",
+    "subtitle": "Elit sed do eiusmod tempor incididunt ut labore Et dolore. Magna aliqua'ut enim ad minim veniam quis nostrud exercitation, ullamco laboris'nisi ut. Aliquip ex ea commodo consequat duis aute irure dolor in reprehenderit in: voluptate velit esse'cillum dolore eu fugiat nulla pariatur.",
+    "abstract": "Excepteur sint occaecat cupidatat non proident sunt in culpa qui officia deserunt mollit anim id est Laborum lorem ipsum Dolor Sit Amet (Consectetur). Adipiscing elit sed do eiusmod tempor incididunt ut labore: et dolore magna-aliqua ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut. Aliquip ex ea commodo consequat duis aute, irure-dolor in reprehenderit in: voluptate velit esse cillum dolore eu fugiat nulla, pariatur excepteur sint occaecat cupidatat non proident sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum Dolor sit, amet consectetur adipiscing elit sed do eiusmod: tempor incididunt ut labore et dolore magna aliqua ut enim ad, minim veniam quis, nostrud exercitation ullamco laboris, nisi ut aliquip ex, ea commodo consequat duis.\n\nAute, irure dolor in reprehenderit in voluptate velit esse cillum dolore eu: 22 fugiat nulla pariatur 64 excepteur. Sint occaecat cupidatat non proident sunt in culpa, qui officia deserunt mollit _anim_ id est laborum lorem _ipsum_ − 1, dolor sit amet consectetur adipiscing elit sed do eiusmod. Tempor incididunt'ut labore et dolore magna aliqua ut enim ad minim veniam quis; nostrud exercitation ullamco laboris nisi ut. Aliquip ex ea commodo consequat duis: aute irure dolor in reprehenderit in voluptate velit, esse cillum dolore eu fugiat nulla pariatur excepteur sint occaecat, cupidatat non proident sunt in culpa qui officia deserunt mollit anim. Id'est laborum lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut."
+  },
+  "media": [
+    {
+      "ref": "raven-media://media-1",
+      "source": {
+        "type": "bytes",
+        "filename": "image-1.png",
+        "mimeType": "image/png",
+        "byteLength": 69,
+        "sha256": "1b00caad944ba5c031e8ae9b1d06fbb9eb2f8933778e09cf19fdd88c77289ce2"
+      },
+      "figureType": "image"
+    },
+    {
+      "ref": "raven-media://media-2",
+      "source": {
+        "type": "url",
+        "url": "https://drive.google.com/file/d/fake-drive-file-08/view?usp=drive_link"
+      },
+      "figureType": "image"
+    },
+    {
+      "ref": "raven-media://media-3",
+      "source": {
+        "type": "bytes",
+        "filename": "image-3.png",
+        "mimeType": "image/png",
+        "byteLength": 69,
+        "sha256": "708c338a8be0910d5ebe678d9125b5e8d635799c3605a393e486bf60fd432801"
+      },
+      "figureType": "image"
+    },
+    {
+      "ref": "raven-media://media-4",
+      "source": {
+        "type": "url",
+        "url": "https://drive.google.com/file/d/fake-drive-file-09/view?usp=drive_link"
+      },
+      "figureType": "image"
+    },
+    {
+      "ref": "raven-media://media-5",
+      "source": {
+        "type": "bytes",
+        "filename": "image-5.png",
+        "mimeType": "image/png",
+        "byteLength": 69,
+        "sha256": "52655ddb343b8cab7b7d42cd0a85caee0942ff968f5b9294e5d705ec9e12df82"
+      },
+      "figureType": "image"
+    },
+    {
+      "ref": "raven-media://media-6",
+      "source": {
+        "type": "url",
+        "url": "https://drive.google.com/file/d/fake-drive-file-11/view?usp=drive_link"
+      },
+      "figureType": "image"
+    },
+    {
+      "ref": "raven-media://media-7",
+      "source": {
+        "type": "bytes",
+        "filename": "image-7.png",
+        "mimeType": "image/png",
+        "byteLength": 69,
+        "sha256": "915f7eee4b03d286792f169fe7e065f386703ceada646f4184b945f42f37369c"
+      },
+      "figureType": "image"
+    },
+    {
+      "ref": "raven-media://media-8",
+      "source": {
+        "type": "url",
+        "url": "https://drive.google.com/file/d/fake-drive-file-13/view?usp=drive_link"
+      },
+      "figureType": "image"
+    },
+    {
+      "ref": "raven-media://media-9",
+      "source": {
+        "type": "bytes",
+        "filename": "image-9.png",
+        "mimeType": "image/png",
+        "byteLength": 69,
+        "sha256": "ccbc0ae909a02acaba633f50a267af371cc9f931b11c23bc8f12b372de42cbc0"
+      },
+      "figureType": "image"
+    },
+    {
+      "ref": "raven-media://media-10",
+      "source": {
+        "type": "url",
+        "url": "https://drive.google.com/file/d/fake-drive-file-14/view?usp=drive_link"
+      },
+      "figureType": "image"
+    },
+    {
+      "ref": "raven-media://media-11",
+      "source": {
+        "type": "bytes",
+        "filename": "image-11.png",
+        "mimeType": "image/png",
+        "byteLength": 69,
+        "sha256": "f21c66d08d1e41985fa3fcc4caa9210020a9ca1a524898c1aff6e7c5e25e0612"
+      },
+      "figureType": "image"
+    },
+    {
+      "ref": "raven-media://media-12",
+      "source": {
+        "type": "url",
+        "url": "https://drive.google.com/file/d/fake-drive-file-17/view?usp=drive_link"
+      },
+      "figureType": "image"
+    },
+    {
+      "ref": "raven-media://media-13",
+      "source": {
+        "type": "bytes",
+        "filename": "image-13.png",
+        "mimeType": "image/png",
+        "byteLength": 69,
+        "sha256": "9ef43f3be92d6a42a3263b3b52c203c12f9ea3711fac137e2061fb52e683364b"
+      },
+      "figureType": "image"
+    },
+    {
+      "ref": "raven-media://media-14",
+      "source": {
+        "type": "url",
+        "url": "https://drive.google.com/file/d/fake-drive-file-23/view?usp=drive_link"
+      },
+      "figureType": "image"
+    }
+  ],
+  "diagnostics": []
+}

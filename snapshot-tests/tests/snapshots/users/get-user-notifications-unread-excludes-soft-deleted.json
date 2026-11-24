@@ -1,0 +1,20 @@
+{
+  "body": [
+    {
+      "comment_id": 1,
+      "created_at": "2025-12-04 20:11:41.000",
+      "id": 203,
+      "message": "Bob Ross commented: Llamas are my favorite animal to paint.",
+      "publication_id": 1,
+      "seen": 0,
+      "state": "COMMENT",
+      "updated_at": "<<datetime>>",
+      "user_id": 1
+    }
+  ],
+  "bodyKind": "json",
+  "headers": {
+    "content-type": "application/json"
+  },
+  "status": 200
+}
