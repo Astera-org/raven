@@ -1,7 +1,7 @@
 import { existsSync } from "node:fs";
 import path from "node:path";
 
-import type { MarkdownRuleDefinition } from "@eslint/markdown/types";
+import type { MarkdownRuleDefinition } from "@eslint/markdown";
 
 type MessageIds = "linkToSourceFile" | "missingTarget";
 
