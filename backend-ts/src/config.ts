@@ -78,6 +78,11 @@ export interface Config {
   DEV_GOOGLE_DOCS_ORIGIN_OVERRIDE: string;
 }
 
+const PLACEHOLDER_SECRETS = {
+  JWT_SECRET_KEY: "dev-secret-key-change-in-production",
+  BETTER_AUTH_SECRET: "CHANGE_ME",
+} as const satisfies Partial<Record<keyof Config, string>>;
+
 const DEFAULT_MEDIA_MAX_BYTES = 350 * 1024 * 1024;
 const DEFAULT_BIBLIOGRAPHY_MAX_BYTES = 5 * 1024 * 1024;
 const DEFAULT_MYST_MDAST_CACHE_BYTES = 64 * 1024 * 1024;
@@ -183,10 +188,14 @@ function baseConfigFromRecord(data: Record<string, unknown>) {
     SERVER_DEBUG: bool(data["SERVER_DEBUG"], false),
     JWT_SECRET_KEY: str(
       data["JWT_SECRET_KEY"],
-      "dev-secret-key-change-in-production",
+      PLACEHOLDER_SECRETS.JWT_SECRET_KEY,
       true
     ),
-    BETTER_AUTH_SECRET: str(data["BETTER_AUTH_SECRET"], "CHANGE_ME", true),
+    BETTER_AUTH_SECRET: str(
+      data["BETTER_AUTH_SECRET"],
+      PLACEHOLDER_SECRETS.BETTER_AUTH_SECRET,
+      true
+    ),
     OUT_DIR: str(data["OUT_DIR"], "out/", true),
     IMG_DIR: str(data["IMG_DIR"], "imgs/", true),
   };
@@ -357,6 +366,19 @@ export function initConfig(tomlPath?: string): Config {
   // TOML values are the base, env vars take precedence when present
   _config = fromRecord({ ...toml, ...process.env });
   return _config;
+}
+
+/** Throws in production if any secret still has its development placeholder value. */
+export function assertNoPlaceholderSecrets(cfg: Config): void {
+  if (cfg.ENVIRONMENT !== "production") return;
+  for (const [key, placeholder] of Object.entries(PLACEHOLDER_SECRETS)) {
+    if (cfg[key as keyof typeof PLACEHOLDER_SECRETS] === placeholder) {
+      throw new ConfigError(
+        key as keyof Config,
+        `${key} is set to its placeholder value; set a real secret in production`
+      );
+    }
+  }
 }
 
 export function getConfig(): Config {

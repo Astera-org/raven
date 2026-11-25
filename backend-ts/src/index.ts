@@ -1,6 +1,6 @@
 import { serve } from "@hono/node-server";
 import { createApp } from "./app.js";
-import { getConfig, initConfig } from "./config.js";
+import { assertNoPlaceholderSecrets, getConfig, initConfig } from "./config.js";
 import { closeDb, initDb } from "./db/index.js";
 import { closePgDb, initPgDb } from "./db/pg-db.js";
 import { configureLogLevel, logger } from "./lib/logger.js";
@@ -15,6 +15,7 @@ async function main(): Promise<void> {
   initConfig(process.env.RAVEN_CONFIG || undefined);
   configureLogLevel();
   const cfg = getConfig();
+  assertNoPlaceholderSecrets(cfg);
   logger.info(
     {
       environment: cfg.ENVIRONMENT,

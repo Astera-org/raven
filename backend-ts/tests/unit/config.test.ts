@@ -1,4 +1,9 @@
-import { initConfig } from "#src/config.js";
+import {
+  assertNoPlaceholderSecrets,
+  type Config,
+  ConfigError,
+  initConfig,
+} from "#src/config.js";
 import { mkdtempSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
@@ -8,6 +13,7 @@ let tempDir: string | null = null;
 
 afterEach(() => {
   vi.restoreAllMocks();
+  vi.unstubAllEnvs();
   if (tempDir) {
     rmSync(tempDir, { recursive: true, force: true });
     tempDir = null;
@@ -181,5 +187,55 @@ ENVIRONMENT = "test"
         );
       }
     );
+  });
+});
+
+describe("assertNoPlaceholderSecrets", () => {
+  const realSecrets = {
+    JWT_SECRET_KEY: "real-jwt-secret",
+    BETTER_AUTH_SECRET: "real-better-auth-secret",
+  };
+
+  function configWith(overrides: Partial<Config>): Config {
+    return {
+      ENVIRONMENT: "production",
+      ...realSecrets,
+      ...overrides,
+    } as Config;
+  }
+
+  it("accepts real secrets in production", () => {
+    expect(() => assertNoPlaceholderSecrets(configWith({}))).not.toThrow();
+  });
+
+  it.each([
+    ["JWT_SECRET_KEY", "dev-secret-key-change-in-production"],
+    ["BETTER_AUTH_SECRET", "CHANGE_ME"],
+  ] as const)("rejects the %s placeholder in production", (key, value) => {
+    const cfg = configWith({ [key]: value });
+    expect(() => assertNoPlaceholderSecrets(cfg)).toThrow(ConfigError);
+    expect(() => assertNoPlaceholderSecrets(cfg)).toThrow(key);
+  });
+
+  it("allows placeholders outside production", () => {
+    const cfg = configWith({
+      ENVIRONMENT: "staging",
+      JWT_SECRET_KEY: "dev-secret-key-change-in-production",
+      BETTER_AUTH_SECRET: "CHANGE_ME",
+    });
+    expect(() => assertNoPlaceholderSecrets(cfg)).not.toThrow();
+  });
+
+  it("rejects the defaults applied when production leaves the secrets unset", () => {
+    vi.stubEnv("ENVIRONMENT", "production");
+    vi.stubEnv("JWT_SECRET_KEY", "");
+    vi.stubEnv("BETTER_AUTH_SECRET", "");
+    tempDir = mkdtempSync(join(tmpdir(), "raven-config-"));
+    const configPath = join(tempDir, "raven.toml");
+    writeFileSync(configPath, "");
+
+    const cfg = initConfig(configPath);
+
+    expect(() => assertNoPlaceholderSecrets(cfg)).toThrow(ConfigError);
   });
 });
