@@ -1,9 +1,9 @@
 import { getConfig } from "#src/config.js";
+import { apiDocs } from "#src/lib/api-docs.js";
 import { createFilesRouter } from "#src/lib/shared-routes/files.js";
 import type { AppEnv } from "#src/types/hono.js";
 import { applicationError } from "#v1/lib/route-responses/error-content.js";
 import { OpenAPIHono } from "@hono/zod-openapi";
-import { Scalar } from "@scalar/hono-api-reference";
 import { HTTPException } from "hono/http-exception";
 import adminRouter from "./admin/admin-router.js";
 import importsRouter from "./imports/imports-router.js";
@@ -102,10 +102,9 @@ export function createV1App() {
 
   app.get(
     "/docs",
-    Scalar({
+    apiDocs({
       url: "/api/v1/openapi.json",
       pageTitle: "The Stacks API v1 Docs",
-      showDeveloperTools: "never",
     })
   );
 

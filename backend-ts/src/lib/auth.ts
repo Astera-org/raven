@@ -194,7 +194,9 @@ function buildAuthOptions(
     rateLimit: { enabled: cfg.ENVIRONMENT === "production" },
     plugins: [
       bearer(),
-      openAPI(),
+      // The docs page is served by `apiDocs` in app.ts; this plugin only
+      // provides the schema at /open-api/generate-schema.
+      openAPI({ disableDefaultReference: true }),
       username({
         minUsernameLength: USERNAME_MIN_LENGTH,
         maxUsernameLength: USERNAME_MAX_LENGTH,

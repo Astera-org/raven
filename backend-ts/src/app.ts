@@ -4,6 +4,7 @@ import { Hono, type Context } from "hono";
 import { cors } from "hono/cors";
 import { createV0App } from "./api-v0/index.js";
 import { ADMIN_UI_CLIENT_HEADER } from "./lib/admin-ui-session.js";
+import { apiDocs } from "./lib/api-docs.js";
 import { getHandlerAuth } from "./lib/auth.js";
 import { logger } from "./lib/logger.js";
 import { authMiddleware } from "./lib/middleware/auth-context.js";
@@ -114,6 +115,16 @@ export function createApp() {
   // authMiddleware must run before both auth mounts: its session lookup
   // throws on failure, giving a 500, whereas customSession's `/get-session`
   // turns the same failure into 200 `null`, which clients read as signed out.
+  //
+  // The docs route must come before the auth mounts, which would match it.
+  app.on(
+    "GET",
+    ["/api/auth2/docs", "/api/v0/auth2/docs"],
+    apiDocs({
+      url: "/api/auth2/open-api/generate-schema",
+      pageTitle: "The Stacks Auth API Docs",
+    })
+  );
   app.on(["GET", "POST"], "/api/auth2/*", (c) =>
     getHandlerAuth().handler(c.req.raw)
   );
