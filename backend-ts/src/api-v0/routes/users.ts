@@ -6,7 +6,7 @@ import {
   UsersRepository,
 } from "#v0/db-repositories/users-repository.js";
 import { dbSelectValue } from "#v0/lib/db/db-select-value.js";
-import { dbSelect } from "#v0/lib/db/db-select.js";
+import { dbSelect, type Row } from "#v0/lib/db/db-select.js";
 import { dbUpdate } from "#v0/lib/db/db-update.js";
 import {
   dbDateStringToIso,
@@ -20,7 +20,7 @@ import {
   reconcileIntIdToId,
 } from "#v0/lib/utils/reconcile-int-id.js";
 import { sql } from "drizzle-orm";
-import { Hono } from "hono";
+import { Hono, type Context } from "hono";
 import { mkdir, writeFile } from "node:fs/promises";
 import { extname, join } from "node:path";
 
@@ -49,7 +49,10 @@ app.get("/", async (c) => {
 
 app.get("/match", async (c) => {
   const identifier = c.req.query("id") ?? "";
-  const users = await matchUsersUtil(identifier);
+  // Looking users up by email is only for signed-in callers; otherwise
+  // anyone could check which email addresses have accounts.
+  const allowEmailLookup = (await getSessionUserId(c)) != null;
+  const users = await matchUsersUtil(identifier, { allowEmailLookup });
   return c.json(users);
 });
 
@@ -151,11 +154,11 @@ app.get("/:user_id{[0-9]+}/orgs", async (c) => {
 app.get("/:user_id{[0-9]+}", async (c) => {
   const userId = parseInt(c.req.param("user_id"), 10);
   const rows = await dbSelect(
-    sql`SELECT ${PUBLIC_USER_FIELDS} FROM users WHERE id_int = ${userId} AND state IN ('ACTIVE','SITE_ADMIN')`
+    sql`SELECT ${PUBLIC_USER_FIELDS}, email FROM users WHERE id_int = ${userId} AND state IN ('ACTIVE','SITE_ADMIN')`
   );
   if (rows.length === 0) return c.json({ error: "User not found" }, 404);
 
-  return c.json(reconcileIntIdToId(rows[0]!));
+  return c.json(reconcileIntIdToId(await withEmailIfAllowed(c, rows[0]!)));
 });
 
 app.put("/:user_id{[0-9]+}", async (c) => {
@@ -206,11 +209,37 @@ app.post("/:user_id{[0-9]+}/avatar", async (c) => {
 app.get("/:username", async (c) => {
   const username = c.req.param("username");
   const rows = await dbSelect(
-    sql`SELECT ${PUBLIC_USER_FIELDS} FROM users WHERE username = ${username} AND state IN ('ACTIVE','SITE_ADMIN')`
+    sql`SELECT ${PUBLIC_USER_FIELDS}, email FROM users WHERE username = ${username} AND state IN ('ACTIVE','SITE_ADMIN')`
   );
   if (rows.length === 0) return c.json({ error: "User not found" }, 404);
 
-  return c.json(reconcileIntIdToId(rows[0]!));
+  return c.json(reconcileIntIdToId(await withEmailIfAllowed(c, rows[0]!)));
 });
+
+// ---------------------------------------------------------------------------
+// Helpers
+// ---------------------------------------------------------------------------
+
+/**
+ * Whether the caller may see `userId`'s email: only the user themselves or a
+ * site admin. Everyone else, including anonymous callers, may not.
+ */
+async function canSeeUserEmail(
+  c: Context<AppEnv>,
+  userId: number
+): Promise<boolean> {
+  const callerId = await getSessionUserId(c);
+  if (callerId == null) return false;
+  if (callerId === userId) return true;
+  return (await new UsersRepository().getUserState(callerId)) === "SITE_ADMIN";
+}
+
+/** Drops `row.email` unless the caller may see it (see `canSeeUserEmail`). */
+async function withEmailIfAllowed(c: Context<AppEnv>, row: Row): Promise<Row> {
+  const { email, ...rest } = row;
+  return (await canSeeUserEmail(c, row["id_int"] as number))
+    ? { ...rest, email }
+    : rest;
+}
 
 export default app;

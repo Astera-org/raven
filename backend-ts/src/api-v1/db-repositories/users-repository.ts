@@ -146,7 +146,8 @@ export class UsersRepository extends BaseRepository {
   }
 
   /**
-   * Ranked free-text search (username, ORCID, email, or name) — delegates
+   * Ranked free-text search (username, ORCID, name, or — only with
+   * `options.allowEmailLookup` — email) — delegates
    * the actual ranking SQL to the shared `getSearchResults`, which also
    * backs v0's `/users/search`, and just reshapes the rows to string ids.
    */

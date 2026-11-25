@@ -84,6 +84,11 @@ export interface UserSearchOptions {
   // caller's job; this function just ranks candidates who belong to them
   // slightly higher.
   contextOrgIds?: number[];
+  // Whether a query containing `@` may be matched against users' emails
+  // (exact address or prefix). Set it only for signed-in callers, since
+  // search results are otherwise public. When false or omitted, an email
+  // query matches no one.
+  allowEmailLookup?: boolean;
   // Pagination:
   page?: number;
   perPage?: number;
@@ -170,6 +175,10 @@ export async function getSearchResults(
   }
 
   if (trimmed.includes("@")) {
+    // See `allowEmailLookup`: no email matching for anonymous callers, so
+    // they can't check which addresses have accounts or recover them by
+    // prefix.
+    if (!options?.allowEmailLookup) return [];
     const affinity = orgAffinitySql(options?.contextOrgIds);
     const matchScore = sql<number>`(
       CASE WHEN ${users.email} = ${trimmed}

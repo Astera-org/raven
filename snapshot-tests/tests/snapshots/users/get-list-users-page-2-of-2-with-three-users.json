@@ -4,7 +4,6 @@
       {
         "avatar": null,
         "created_at": "<<datetime>>",
-        "email": "alice@example.com",
         "first_name": "Alice",
         "id": "<<integer>>",
         "last_name": "Example",

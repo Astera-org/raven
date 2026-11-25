@@ -14,7 +14,9 @@ export const getUsersRoute = createV1Route({
   description:
     "Without `q`: a paginated list of all active users, newest first. " +
     "With `q`: up to 20 users ranked by relevance to the query (username, " +
-    "ORCID, email, or name); `page`/`perPage` are ignored in this mode. " +
+    "ORCID, or name); `page`/`perPage` are ignored in this mode. A signed-in " +
+    "caller may also search by email or the start of one; for anyone else, " +
+    "an email query matches no one. " +
     "Combines v0's `GET /users/` and `GET /users/search`.",
   request: {
     query: GetUsersQuerySchema,
@@ -42,7 +44,12 @@ export const getUsersHandler: RouteHandler<
   const perPage = query.perPage;
 
   if (q) {
-    const items = await repos.users.search(q, { page, perPage });
+    const items = await repos.users.search(q, {
+      page,
+      perPage,
+      // Email lookups are for signed-in callers only; see `allowEmailLookup`.
+      allowEmailLookup: c.get("user") != null,
+    });
     return c.json(
       {
         items,

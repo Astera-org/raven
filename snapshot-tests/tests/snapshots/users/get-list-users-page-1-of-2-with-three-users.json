@@ -4,7 +4,6 @@
       {
         "avatar": null,
         "created_at": "<<datetime>>",
-        "email": "charlie@example.com",
         "first_name": "Charlie",
         "id": "<<integer>>",
         "last_name": "Admin",
@@ -16,7 +15,6 @@
       {
         "avatar": null,
         "created_at": "<<datetime>>",
-        "email": "bob@example.com",
         "first_name": "Bob",
         "id": "<<integer>>",
         "last_name": "Example",

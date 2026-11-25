@@ -1,0 +1,25 @@
+{
+  "body": {
+    "items": [
+      {
+        "avatar": null,
+        "firstName": "Bob",
+        "iconColor": "#cff2d5",
+        "id": "00000000010000000000000002",
+        "lastName": "Example",
+        "orcid": null,
+        "username": "bob"
+      }
+    ],
+    "pagination": {
+      "page": 1,
+      "perPage": 1,
+      "total": 1
+    }
+  },
+  "bodyKind": "json",
+  "headers": {
+    "content-type": "application/json"
+  },
+  "status": 200
+}

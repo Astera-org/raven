@@ -3,8 +3,11 @@ import { type Row } from "#v0/lib/db/db-select.js";
 import { sql, type SQL } from "drizzle-orm";
 
 // Shared column list for the public-facing user shape, kept in one place so
-// call sites can't drift out of sync with each other.
-export const PUBLIC_USER_FIELDS = sql`id_int, username, email, first_name, last_name, image as avatar, profile, orcid, created_at, updated_at`;
+// call sites can't drift out of sync with each other. It deliberately leaves
+// out `email`: these routes are unauthenticated, so anything here is readable
+// by anyone. Routes that may show a user their own email select it separately
+// (see `canSeeUserEmail`).
+export const PUBLIC_USER_FIELDS = sql`id_int, username, first_name, last_name, image as avatar, profile, orcid, created_at, updated_at`;
 
 export class UsersRepository {
   private db: ReturnType<typeof getDb>;

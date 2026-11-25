@@ -13,6 +13,51 @@ import {
 
 const ME = "/api/v1/users/me";
 
+describe("GET /api/v1/users", () => {
+  // The list and search are public, so they must never reveal emails, and
+  // searching by email (exact or prefix) is for signed-in callers only.
+  const usernamesFor = async (client: TestApiClient, q: string) => {
+    const resp = await client.get(`/api/v1/users?q=${encodeURIComponent(q)}`);
+    expect(resp.status).toBe(200);
+    expect(resp.text).not.toContain("@example.com");
+    return (resp.body.items as { username: string }[]).map((u) => u.username);
+  };
+
+  it("never includes emails when listing users", async () => {
+    await loggedInUser("bob");
+    const { client } = await loggedInUser("alice");
+
+    for (const c of [new TestApiClient(), client]) {
+      const resp = await c.get("/api/v1/users");
+      expect(resp.status).toBe(200);
+      expect(resp.body.items).toHaveLength(2);
+      for (const item of resp.body.items) {
+        expect(item).not.toHaveProperty("email");
+      }
+      expect(resp.text).not.toContain("@example.com");
+    }
+  });
+
+  it("does not search by email for anonymous callers", async () => {
+    await loggedInUser("bob");
+    const anonymous = new TestApiClient();
+
+    expect(await usernamesFor(anonymous, "bob@example.com")).toEqual([]);
+    expect(await usernamesFor(anonymous, "bob@")).toEqual([]);
+    // Other kinds of query still work.
+    expect(await usernamesFor(anonymous, "bob")).toEqual(["bob"]);
+  });
+
+  it("searches by exact email or email prefix for signed-in callers", async () => {
+    await loggedInUser("bob");
+    const { client } = await loggedInUser("alice");
+
+    expect(await usernamesFor(client, "bob@example.com")).toEqual(["bob"]);
+    expect(await usernamesFor(client, "bob@")).toEqual(["bob"]);
+    expect(await usernamesFor(client, "nobody@example.com")).toEqual([]);
+  });
+});
+
 describe("GET /api/v1/users/me", () => {
   it("requires authentication", async () => {
     const resp = await new TestApiClient().get(ME);

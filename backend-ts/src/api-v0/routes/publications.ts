@@ -705,7 +705,12 @@ app.post("/add_contrib", async (c) => {
   const role = body["role"] as string;
   if (!role) return c.json({ error: "Missing role" }, 400);
 
-  const users = await matchUsers(identifier, { usernameExact: true });
+  // The caller is signed in and can edit this publication, so they may add a
+  // contributor by email.
+  const users = await matchUsers(identifier, {
+    usernameExact: true,
+    allowEmailLookup: true,
+  });
   if (users.length > 1) return c.json({ error: "Multiple users found" }, 409);
 
   let username: string;

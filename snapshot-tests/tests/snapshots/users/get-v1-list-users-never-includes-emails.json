@@ -1,0 +1,43 @@
+{
+  "body": {
+    "items": [
+      {
+        "avatar": null,
+        "firstName": "Charlie",
+        "iconColor": "#edf1da",
+        "id": "00000000010000000000000003",
+        "lastName": "Admin",
+        "orcid": null,
+        "username": "charlie"
+      },
+      {
+        "avatar": null,
+        "firstName": "Bob",
+        "iconColor": "#cff2d5",
+        "id": "00000000010000000000000002",
+        "lastName": "Example",
+        "orcid": null,
+        "username": "bob"
+      },
+      {
+        "avatar": null,
+        "firstName": "Alice",
+        "iconColor": "#fbeed0",
+        "id": "00000000010000000000000001",
+        "lastName": "Example",
+        "orcid": null,
+        "username": "alice"
+      }
+    ],
+    "pagination": {
+      "page": 1,
+      "perPage": 20,
+      "total": 3
+    }
+  },
+  "bodyKind": "json",
+  "headers": {
+    "content-type": "application/json"
+  },
+  "status": 200
+}

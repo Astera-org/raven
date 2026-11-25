@@ -7,6 +7,9 @@ import {
   type WorkerHarness,
 } from "../../harness/runner.ts";
 
+/** Matches a response body that contains no email address or `email` key. */
+const NO_EMAIL = /^(?![\s\S]*(@example\.com|"email"))/;
+
 describe("users", () => {
   const workerHarnessRef: { harness: WorkerHarness } = {
     harness: null as unknown as WorkerHarness,
@@ -78,6 +81,75 @@ describe("users", () => {
     request: { method: "GET", path: "/users/1" },
     maskFields: ["id", "created_at", "updated_at"],
     assert: { status: 200 },
+  });
+
+  // Users' emails are private: only the user themselves and site admins may
+  // see them. Every user list and lookup that anyone else can call must leave
+  // them out.
+  defineUsersCase({
+    name: "GET list users never includes emails",
+    fixtures: ["users-multi"],
+    auth: { kind: "better-auth", as: "alice" },
+    request: {
+      method: "GET",
+      path: "/users/",
+      query: { page: 1, per_page: 10 },
+    },
+    maskFields: ["items.*.id", "items.*.created_at", "items.*.updated_at"],
+    assert: { status: 200, bodyContains: [NO_EMAIL] },
+  });
+
+  defineUsersCase({
+    name: "GET user by id when signed out omits email",
+    fixtures: ["users-multi"],
+    request: { method: "GET", path: "/users/2" },
+    maskFields: ["id", "created_at", "updated_at"],
+    assert: { status: 200, bodyContains: [NO_EMAIL] },
+  });
+
+  defineUsersCase({
+    name: "GET user by id as another user omits email",
+    fixtures: ["users-multi"],
+    auth: { kind: "better-auth", as: "alice" },
+    request: { method: "GET", path: "/users/2" },
+    maskFields: ["id", "created_at", "updated_at"],
+    assert: { status: 200, bodyContains: [NO_EMAIL] },
+  });
+
+  defineUsersCase({
+    name: "GET user by id as that user includes email",
+    fixtures: ["users-multi"],
+    auth: { kind: "better-auth", as: "bob" },
+    request: { method: "GET", path: "/users/2" },
+    maskFields: ["id", "created_at", "updated_at"],
+    assert: { status: 200, bodyContains: ['"email":"bob@example.com"'] },
+  });
+
+  defineUsersCase({
+    name: "GET user by id as site admin includes email",
+    fixtures: ["users-multi"],
+    auth: { kind: "better-auth", as: "charlie" },
+    request: { method: "GET", path: "/users/2" },
+    maskFields: ["id", "created_at", "updated_at"],
+    assert: { status: 200, bodyContains: ['"email":"bob@example.com"'] },
+  });
+
+  defineUsersCase({
+    name: "GET user by username as another user omits email",
+    fixtures: ["users-multi"],
+    auth: { kind: "better-auth", as: "alice" },
+    request: { method: "GET", path: "/users/bob" },
+    maskFields: ["id", "created_at", "updated_at"],
+    assert: { status: 200, bodyContains: [NO_EMAIL] },
+  });
+
+  defineUsersCase({
+    name: "GET user by username as that user includes email",
+    fixtures: ["users-multi"],
+    auth: { kind: "better-auth", as: "bob" },
+    request: { method: "GET", path: "/users/bob" },
+    maskFields: ["id", "created_at", "updated_at"],
+    assert: { status: 200, bodyContains: ['"email":"bob@example.com"'] },
   });
 
   defineUsersCase({
@@ -187,16 +259,56 @@ describe("users", () => {
     assert: { status: 200 },
   });
 
+  // Email lookups (exact or prefix) are for signed-in callers only, so
+  // anonymous callers can't check which emails have accounts or recover an
+  // address by prefix.
   defineUsersCase({
-    name: "GET match users by email",
+    name: "GET match users by email when signed out matches no one",
     fixtures: ["users-multi"],
     request: {
       method: "GET",
       path: "/users/match",
       query: { id: "bob@example.com" },
     },
+    assert: { status: 200, bodyContains: [/^\[\]$/] },
+  });
+
+  defineUsersCase({
+    name: "GET match users by exact email when signed in",
+    fixtures: ["users-multi"],
+    auth: { kind: "better-auth", as: "alice" },
+    request: {
+      method: "GET",
+      path: "/users/match",
+      query: { id: "bob@example.com" },
+    },
     maskFields: ["*.id", "items.*.id"],
-    assert: { status: 200 },
+    assert: { status: 200, bodyContains: ['"username":"bob"'] },
+  });
+
+  defineUsersCase({
+    name: "GET match users by email prefix when signed in",
+    fixtures: ["users-multi"],
+    auth: { kind: "better-auth", as: "alice" },
+    request: {
+      method: "GET",
+      path: "/users/match",
+      query: { id: "bob@" },
+    },
+    maskFields: ["*.id", "items.*.id"],
+    assert: { status: 200, bodyContains: ['"username":"bob"', NO_EMAIL] },
+  });
+
+  // An empty identifier used to match every user via `LIKE '%'`.
+  defineUsersCase({
+    name: "GET match users with empty id matches no one",
+    fixtures: ["users-multi"],
+    request: {
+      method: "GET",
+      path: "/users/match",
+      query: { id: "" },
+    },
+    assert: { status: 200, bodyContains: [/^\[\]$/] },
   });
 
   defineUsersCase({

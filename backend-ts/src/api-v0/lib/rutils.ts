@@ -121,6 +121,13 @@ async function _findUniqueUsername(
 
 interface UserMatchOptions {
   usernameExact?: boolean;
+  /**
+   * Whether an identifier containing `@` may be matched against the start of
+   * users' emails. Pass `true` only for signed-in callers; otherwise anyone
+   * could check which addresses have accounts or recover them by prefix.
+   * When `false` or omitted, an email identifier matches no one.
+   */
+  allowEmailLookup?: boolean;
 }
 
 const ORCID_REGEX = /^\d{4}-\d{4}-\d{4}-\d{3}[0-9X]$/;
@@ -132,7 +139,11 @@ export async function matchUsers(
   const db = getDb();
   const baseSelect = sql`SELECT username, image as avatar, first_name, last_name, orcid FROM users WHERE state IN ('ACTIVE','SITE_ADMIN') AND`;
 
+  // An empty identifier would match every user via `LIKE '%'` below.
+  if (identifier.trim() === "") return [];
+
   if (identifier.includes("@")) {
+    if (!options?.allowEmailLookup) return [];
     const [rows] = (await db.execute(
       sql`${baseSelect} email LIKE ${`${escapeLike(identifier)}%`}`
     )) as unknown as [Array<Record<string, unknown>>];

@@ -150,6 +150,49 @@ describe("/api/v1/publications", () => {
     expect(await slugsFor("quetzalcoatlus")).not.toContain("searchable-pub");
   });
 
+  it("never lists or searches drafts or deleted publications", async () => {
+    const { userId } = await registerUserWithId();
+    await seedPublishedV1({
+      slug: "public-quokka",
+      ownerId: userId,
+      title: "Quokka Husbandry",
+    });
+    const draft = await seedPublication({
+      slug: "secret-quokka-draft",
+      ownerId: userId,
+      state: "DRAFT",
+      title: "Quokka Draft",
+    });
+    await execute(
+      `UPDATE versions SET body = 'Embargoedterm results.' WHERE id_int = ${draft.versionIdInt}`
+    );
+    await seedDeletedMultiVersion({ slug: "deleted-quokka", ownerId: userId });
+
+    // The list is public, so check it as an anonymous caller.
+    const anonymous = new TestApiClient();
+    const listFor = async (q?: string) => {
+      const path = q
+        ? `/api/v1/publications?q=${encodeURIComponent(q)}`
+        : "/api/v1/publications";
+      const resp = await anonymous.get(path);
+      expect(resp.status, resp.text).toBe(200);
+      return {
+        slugs: resp.body.items.map((item: { slug: string }) => item.slug),
+        total: resp.body.pagination.total,
+      };
+    };
+
+    expect(await listFor()).toEqual({ slugs: ["public-quokka"], total: 1 });
+    expect(await listFor("quokka")).toEqual({
+      slugs: ["public-quokka"],
+      total: 1,
+    });
+    // Words that appear only in the draft's body or the deleted versions
+    // must not match: the search covers version bodies.
+    expect(await listFor("embargoedterm")).toEqual({ slugs: [], total: 0 });
+    expect(await listFor("deleted")).toEqual({ slugs: [], total: 0 });
+  });
+
   it("gets published publications by slug", async () => {
     const { client, userId, userIds } = await registerUserWithId();
     await seedPublication({

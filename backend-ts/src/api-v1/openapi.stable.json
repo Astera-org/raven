@@ -5714,7 +5714,7 @@
       "get": {
         "tags": ["users"],
         "summary": "List or search users",
-        "description": "Without `q`: a paginated list of all active users, newest first. With `q`: up to 20 users ranked by relevance to the query (username, ORCID, email, or name); `page`/`perPage` are ignored in this mode. Combines v0's `GET /users/` and `GET /users/search`.",
+        "description": "Without `q`: a paginated list of all active users, newest first. With `q`: up to 20 users ranked by relevance to the query (username, ORCID, or name); `page`/`perPage` are ignored in this mode. A signed-in caller may also search by email or the start of one; for anyone else, an email query matches no one. Combines v0's `GET /users/` and `GET /users/search`.",
         "x-stability-level": "stable",
         "parameters": [
           {

@@ -1309,3 +1309,38 @@ describe("full create-publication flow (mirrors thestacks.org UI)", () => {
     expect(contributor.affiliations[0].slug).toBe("full-flow-affiliation-org");
   });
 });
+
+describe("POST /api/publications/add_contrib by email", () => {
+  // Adding a contributor is signed in and needs edit rights, so it may find
+  // the user by email (exact or prefix), unlike anonymous user lookups.
+  async function contributorUsernames(publicationIdInt: number) {
+    const rows = await query<{ username: string }>(
+      `SELECT u.username FROM contributors c JOIN versions v ON v.id_int = c.version_id_int JOIN users u ON u.id_int = c.user_id_int WHERE v.publication_id_int = ${publicationIdInt} ORDER BY u.username`
+    );
+    return rows.map((r) => r.username);
+  }
+
+  it.each([
+    ["an exact email", "contrib@example.com"],
+    ["an email prefix", "contrib@"],
+  ])("adds a contributor by %s", async (_label, identifier) => {
+    const { client, user, userId } = await registerUserWithId();
+    await client.login(user.username, user.password);
+    await registerUser(new TestApiClient(), makeUser("contrib"));
+    const pub = await seedPublication({
+      slug: "add-contrib-by-email",
+      ownerId: userId,
+    });
+
+    const resp = await client.post("/api/publications/add_contrib").send({
+      slug: "add-contrib-by-email",
+      username: identifier,
+      role: "author",
+    });
+    expect(resp.status, resp.text).toBe(200);
+    expect(await contributorUsernames(pub.intId)).toEqual([
+      "contrib",
+      user.username,
+    ]);
+  });
+});

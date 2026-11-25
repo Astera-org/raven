@@ -215,7 +215,14 @@ export class PublicationsRepository extends BaseRepository {
       .select({ total: count() })
       .from(publications)
       .innerJoin(...versionsJoin);
-    const where = [];
+    // This list is public, so it must only ever show published work: never a
+    // draft or deleted publication, and never an unpublished version (whose
+    // body the `searchTerm` full-text match would otherwise search). Mirrors
+    // v0's `getPublicationsList`.
+    const where: (SQL | undefined)[] = [
+      eq(publications.state, "PUBLISHED"),
+      eq(versions.state, "PUBLISHED"),
+    ];
 
     if (filters.tags && filters.tags.length > 0) {
       const joinArgs = [

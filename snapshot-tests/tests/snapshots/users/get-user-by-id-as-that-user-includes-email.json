@@ -1,0 +1,19 @@
+{
+  "body": {
+    "avatar": null,
+    "created_at": "<<datetime>>",
+    "email": "bob@example.com",
+    "first_name": "Bob",
+    "id": "<<integer>>",
+    "last_name": "Example",
+    "orcid": null,
+    "profile": null,
+    "updated_at": "<<datetime>>",
+    "username": "bob"
+  },
+  "bodyKind": "json",
+  "headers": {
+    "content-type": "application/json"
+  },
+  "status": 200
+}
