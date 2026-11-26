@@ -160,6 +160,8 @@ app.get("/:id_or_slug/users", async (c) => {
   const orgId = org["id_int"] as number;
   const query = Object.fromEntries(new URL(c.req.url).searchParams);
   const { page, perPage, offset } = getPagination(query);
+  const callerId = await getSessionUserId(c);
+  const showEmails = callerId != null && (await canEdit(orgId, callerId));
   const [users, total] = await Promise.all([
     dbSelect(
       sql`SELECT DISTINCT u.id_int, u.username, u.email, u.first_name, u.last_name, u.image as avatar, u.state, u.orcid, ou.roles, ou.start_at, ou.end_at FROM org_user_map ou JOIN users u ON ou.user_id_int = u.id_int WHERE ou.org_id_int = ${orgId} AND (ou.end_at IS NULL OR ou.end_at > NOW()) LIMIT ${perPage} OFFSET ${offset}`
@@ -176,7 +178,11 @@ app.get("/:id_or_slug/users", async (c) => {
       .filter(Boolean);
     user["role"] = parts[0] || "MEMBER";
     delete user["roles"];
+    if (!showEmails) delete user["email"];
   }
+  // Whether emails are included depends on the session, so a shared cache
+  // must not replay either variant to another caller.
+  c.header("Cache-Control", "no-store");
   return c.json({
     pagination: { total, page, per_page: perPage },
     items: reconcileIntIdsToId(users),

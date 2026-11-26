@@ -3,7 +3,6 @@
     "items": [
       {
         "avatar": null,
-        "email": "alice@example.com",
         "end_at": null,
         "first_name": "Alice",
         "id": 1,
@@ -16,7 +15,6 @@
       },
       {
         "avatar": null,
-        "email": "bob@example.com",
         "end_at": null,
         "first_name": "Bob",
         "id": 2,
@@ -36,6 +34,7 @@
   },
   "bodyKind": "json",
   "headers": {
+    "cache-control": "no-store",
     "content-type": "application/json"
   },
   "status": 200

@@ -9,6 +9,7 @@
   },
   "bodyKind": "json",
   "headers": {
+    "cache-control": "no-store",
     "content-type": "application/json"
   },
   "status": 200

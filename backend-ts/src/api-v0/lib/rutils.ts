@@ -61,14 +61,9 @@ export async function getSessionUserId(
   // Fall back to the legacy JWT flow (Authorization header or access_token
   // cookie). Not available to v1 routes; see `getBetterAuthUserId`.
   const authHeader = c.req.header("Authorization");
-  const cookieToken = getCookieValue(
-    c.req.header("cookie") ?? "",
-    "access_token"
-  );
-
   const token = authHeader?.startsWith("Bearer ")
     ? authHeader.slice(7)
-    : cookieToken;
+    : getCookieValue(c.req.header("cookie") ?? "", "access_token");
 
   if (!token) return null;
 
@@ -77,9 +72,15 @@ export async function getSessionUserId(
   return parseInt(payload.sub, 10) || null;
 }
 
+/** The cookie's decoded value, or null if it's missing or malformed. */
 function getCookieValue(cookieHeader: string, name: string): string | null {
   const match = cookieHeader.match(new RegExp(`(?:^|;\\s*)${name}=([^;]*)`));
-  return match ? decodeURIComponent(match[1]!) : null;
+  if (!match) return null;
+  try {
+    return decodeURIComponent(match[1]!);
+  } catch {
+    return null;
+  }
 }
 
 // ---------------------------------------------------------------------------

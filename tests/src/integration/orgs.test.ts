@@ -112,6 +112,31 @@ describe("/api/orgs", () => {
       (m: { username: string }) => m.username === "newmember"
     );
     expect(newMemberEntry.email).toBe("newmember@example.com");
+    expect(members.headers["cache-control"]).toBe("no-store");
+
+    const anonymous = await new TestApiClient().get(
+      "/api/orgs/members-org/users"
+    );
+    expect(anonymous.status).toBe(200);
+    expect(anonymous.headers["cache-control"]).toBe("no-store");
+    for (const member of anonymous.body.items) {
+      expect(member).not.toHaveProperty("email");
+    }
+
+    const malformedCookie = await new TestApiClient()
+      .get("/api/orgs/members-org/users")
+      .set("Cookie", "access_token=%E0%A4%A");
+    expect(malformedCookie.status).toBe(200);
+    for (const member of malformedCookie.body.items) {
+      expect(member).not.toHaveProperty("email");
+    }
+
+    const plainMember = new TestApiClient();
+    await plainMember.login(newMember.username, newMember.password);
+    const asMember = await plainMember.get("/api/orgs/members-org/users");
+    for (const member of asMember.body.items) {
+      expect(member).not.toHaveProperty("email");
+    }
 
     const target = makeUser("removable");
     await registerUser(new TestApiClient(), target);
