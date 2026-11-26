@@ -47,7 +47,7 @@ The server reads `raven.toml` (or a path set via `RAVEN_CONFIG`). Environment va
 | `SERVER_HOST`                | `0.0.0.0`                             | Bind address                                                                                                                                           |
 | `SERVER_PORT`                | `7001`                                | Listen port                                                                                                                                            |
 | `ENVIRONMENT`                | —                                     | Set to `production` in production. Otherwise notification emails are only logged and auth rate limiting is off                                         |
-| `JWT_SECRET_KEY`             | `dev-secret-key-change-in-production` | JWT signing secret. Must be set in production                                                                                                          |
+| `JWT_SECRET_KEY`             | `dev-secret-key-change-in-production` | Signs notification unsubscribe links. Must be set in production                                                                                        |
 | `BETTER_AUTH_SECRET`         | `CHANGE_ME`                           | BetterAuth secret. Must be set in production                                                                                                           |
 | `AWS_*`                      | —                                     | S3 credentials, bucket, and endpoints (see `raven.example.toml` for a local S3-compatible service like Garage)                                         |
 | `IMG_DIR`                    | `imgs/`                               | Local folder for user and organization avatars. Use a persistent volume                                                                                |
@@ -123,6 +123,6 @@ Integration tests use `tests/raven.test.toml` and a real database. See the [inte
 
 ## Authentication
 
-- **JWT** — 24 h access token, 30 d refresh token (signed with `JWT_SECRET_KEY`)
-- **Passwords** — PBKDF2-SHA256, Werkzeug-compatible
+- **Sessions** — BetterAuth (`/api/auth2/*`), as a cookie or a bearer token
+- **Passwords** — BetterAuth's hash; legacy Werkzeug hashes (scrypt, PBKDF2) still verify and are upgraded on sign-in
 - **SSO** — ORCID OAuth, Google OAuth

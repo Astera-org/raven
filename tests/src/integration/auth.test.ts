@@ -1,3 +1,4 @@
+import { createHmac } from "node:crypto";
 import { describe, expect, it } from "vitest";
 import {
   DEFAULT_USER,
@@ -8,171 +9,62 @@ import {
   makeUser,
   query,
   registerUser,
+  registerUserWithId,
   seedOrg,
   seedOrgMember,
 } from "./helpers.js";
 
-describe("/api/auth/register", () => {
-  it("is gone", async () => {
-    const resp = await new TestApiClient()
-      .post("/api/auth/register")
-      .send(DEFAULT_USER);
-    expect(resp.status).toBe(410);
+const JWT_SECRET_KEY = "test-secret-key-do-not-use-in-production";
+
+/** A token the retired `/api/auth/login` would have issued for `userId`. */
+function legacyAccessToken(userId: number): string {
+  const encode = (value: object) =>
+    Buffer.from(JSON.stringify(value)).toString("base64url");
+  const exp = Math.floor(Date.now() / 1000) + 3600;
+  const unsigned = `${encode({ alg: "HS256" })}.${encode({ sub: String(userId), exp })}`;
+  const signature = createHmac("sha256", JWT_SECRET_KEY)
+    .update(unsigned)
+    .digest("base64url");
+  return `${unsigned}.${signature}`;
+}
+
+describe("retired legacy JWT endpoints", () => {
+  it("are gone", async () => {
+    const user = await registerUser(undefined, makeUser("legacyuser"));
+    const bodies: Record<string, object> = {
+      "/api/auth/register": DEFAULT_USER,
+      "/api/auth/login": { username: user.username, password: user.password },
+      "/api/auth/refresh": {},
+      "/api/auth/change_password": {
+        current_password: user.password,
+        new_password: "new-password-123",
+      },
+      "/api/auth/logout": {},
+    };
+    for (const [path, body] of Object.entries(bodies)) {
+      const resp = await new TestApiClient().post(path).send(body);
+      expect(resp.status, path).toBe(410);
+      expect(resp.body.access_token, path).toBeUndefined();
+
+      // Every endpoint a migration hint names must exist.
+      const hinted = resp.body.error.match(/\/api\/auth2\/[\w/-]+/g) ?? [];
+      expect(hinted.length, path).toBeGreaterThan(0);
+      for (const endpoint of hinted) {
+        const hintResp = await new TestApiClient().post(endpoint).send({});
+        expect(hintResp.status, `${path} -> ${endpoint}`).not.toBe(404);
+      }
+    }
     const rows = await query(
       `SELECT 1 FROM users WHERE username = '${DEFAULT_USER.username}'`
     );
     expect(rows).toHaveLength(0);
   });
-});
 
-describe("/api/auth/login", () => {
-  it("rejects a user whose email is not verified", async () => {
+  it("no longer accepts a legacy access token", async () => {
+    const { userId } = await registerUserWithId();
     const client = new TestApiClient();
-    const user = await registerUser(client, makeUser("unverified"));
-    await execute(
-      `UPDATE users SET email_verified = FALSE WHERE username = '${user.username}'`
-    );
-
-    const resp = await client
-      .post("/api/auth/login")
-      .send({ username: user.username, password: user.password });
-    expect(resp.status).toBe(403);
-    expect(resp.body.access_token).toBeUndefined();
-  });
-
-  it("logs in with username or email", async () => {
-    const client = new TestApiClient();
-    const user = await registerUser(client);
-
-    const byUsername = await client
-      .post("/api/auth/login")
-      .send({ username: user.username, password: user.password });
-    expect(byUsername.status).toBe(200);
-    expect(byUsername.body.access_token).toBeDefined();
-    expect(byUsername.body.refresh_token).toBeDefined();
-    expect(byUsername.body.user.username).toBe(user.username);
-
-    const byEmail = await client
-      .post("/api/auth/login")
-      .send({ username: user.email, password: user.password });
-    expect(byEmail.status).toBe(200);
-  });
-
-  it("rejects bad credentials", async () => {
-    const client = new TestApiClient();
-    const user = await registerUser(client, makeUser("loginuser"));
-    expect(
-      (
-        await client
-          .post("/api/auth/login")
-          .send({ username: user.username, password: "wrongpass" })
-      ).status
-    ).toBe(401);
-    expect(
-      (
-        await client
-          .post("/api/auth/login")
-          .send({ username: "noone", password: "whatever" })
-      ).status
-    ).toBe(401);
-    expect(
-      (
-        await client
-          .post("/api/auth/login")
-          .send({ username: "", password: "" })
-      ).status
-    ).toBe(400);
-  });
-});
-
-describe("/api/auth/logout", () => {
-  it("logs out", async () => {
-    const resp = await new TestApiClient().post("/api/auth/logout");
-    expect(resp.status).toBe(200);
-    expect(resp.body.msg).toBe("logged out");
-  });
-});
-
-describe("/api/auth/refresh", () => {
-  it("refreshes an access token", async () => {
-    const client = new TestApiClient();
-    const user = await registerUser(client);
-    const { refresh_token } = await client.login(user.username, user.password);
-    client.setToken(refresh_token);
-    const resp = await client.post("/api/auth/refresh");
-    expect(resp.status).toBe(200);
-    expect(resp.body.access_token).toBeDefined();
-  });
-
-  it("rejects missing tokens", async () => {
-    expect((await new TestApiClient().post("/api/auth/refresh")).status).toBe(
-      401
-    );
-  });
-});
-
-describe("/api/auth/change_password", () => {
-  it("changes the authenticated user's password", async () => {
-    const client = new TestApiClient();
-    const user = await registerUser(client, makeUser("changepass"));
-    await client.login(user.username, user.password);
-
-    const resp = await client.post("/api/auth/change_password").send({
-      current_password: user.password,
-      new_password: "new-password-123",
-    });
-    expect(resp.status).toBe(200);
-    expect(resp.body.msg).toBe("Password updated successfully");
-
-    const oldPasswordLogin = await new TestApiClient()
-      .post("/api/auth/login")
-      .send({ username: user.username, password: user.password });
-    expect(oldPasswordLogin.status).toBe(401);
-
-    const newPasswordLogin = await new TestApiClient()
-      .post("/api/auth/login")
-      .send({ username: user.username, password: "new-password-123" });
-    expect(newPasswordLogin.status).toBe(200);
-  });
-
-  it("rejects an invalid current password", async () => {
-    const client = new TestApiClient();
-    const user = await registerUser(client, makeUser("badcurrent"));
-    await client.login(user.username, user.password);
-
-    const resp = await client.post("/api/auth/change_password").send({
-      current_password: "wrong-password",
-      new_password: "new-password-123",
-    });
-    expect(resp.status).toBe(401);
-    expect(resp.body.error).toBe("Invalid current password");
-  });
-
-  it("validates the request body", async () => {
-    const client = new TestApiClient();
-    const user = await registerUser(client, makeUser("badchangepayload"));
-    await client.login(user.username, user.password);
-
-    expect(
-      (await client.post("/api/auth/change_password").send({})).status
-    ).toBe(400);
-    expect(
-      (
-        await client.post("/api/auth/change_password").send({
-          current_password: user.password,
-          new_password: "short",
-        })
-      ).status
-    ).toBe(400);
-  });
-
-  it("rejects unauthenticated requests", async () => {
-    const resp = await new TestApiClient()
-      .post("/api/auth/change_password")
-      .send({
-        current_password: "password123",
-        new_password: "new-password-123",
-      });
+    client.setToken(legacyAccessToken(userId));
+    const resp = await client.get("/api/auth/me");
     expect(resp.status).toBe(401);
   });
 });
@@ -187,7 +79,11 @@ describe("/api/auth/me", () => {
   });
 
   it("rejects unauthenticated requests", async () => {
-    expect((await new TestApiClient().get("/api/auth/me")).status).toBe(401);
+    const resp = await new TestApiClient().get("/api/auth/me");
+    expect(resp.status).toBe(401);
+    expect(resp.body).toEqual({
+      msg: "No session. Sign in via /api/auth2/sign-in/email or /api/auth2/sign-in/username.",
+    });
   });
 
   it("sets is_org_admin when the user has an active ADMIN membership", async () => {

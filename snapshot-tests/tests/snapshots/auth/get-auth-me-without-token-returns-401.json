@@ -1,6 +1,6 @@
 {
   "body": {
-    "msg": "Missing JWT in headers or cookies (Missing Authorization Header; Missing cookie \"access_token\")"
+    "msg": "No session. Sign in via /api/auth2/sign-in/email or /api/auth2/sign-in/username."
   },
   "bodyKind": "json",
   "headers": {

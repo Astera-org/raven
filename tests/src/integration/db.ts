@@ -74,7 +74,6 @@ export async function seedVerifiedUser(user: {
     throw new Error(`Seeded users must use the password "${TEST_PASSWORD}"`);
   }
   const hash = escape(TEST_PASSWORD_HASH);
-  // `users.password` is only read by the legacy `/api/auth/login`.
   const { insertId } = await execute(`
     INSERT INTO users (username, display_username, email, email_verified, name, first_name, last_name, approved, state, password, created_at, updated_at)
     VALUES (${escape(user.username.toLowerCase())}, ${escape(user.username)}, ${escape(user.email.toLowerCase())}, TRUE, ${escape(user.name)}, ${escape(user.firstName)}, ${escape(user.lastName)}, FALSE, 'ACTIVE', ${hash}, UTC_TIMESTAMP(3), UTC_TIMESTAMP(3))

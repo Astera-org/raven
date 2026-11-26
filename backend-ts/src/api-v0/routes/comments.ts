@@ -8,7 +8,11 @@ import { dbInsert } from "#v0/lib/db/db-insert.js";
 import { dbSelectValue } from "#v0/lib/db/db-select-value.js";
 import { dbSelect, type Row } from "#v0/lib/db/db-select.js";
 import { dbUpdate } from "#v0/lib/db/db-update.js";
-import { dbDateStringToIso, getSessionUserId } from "#v0/lib/rutils.js";
+import {
+  dbDateStringToIso,
+  getSessionUserId,
+  NO_SESSION_MSG,
+} from "#v0/lib/rutils.js";
 import {
   reconcileIntIdsToId,
   reconcileIntIdToId,
@@ -160,13 +164,7 @@ app.post("/publication/:publication_id", async (c) => {
     return c.var.jsonErrors({ comment: ["Invalid publication_id"] }, 400);
 
   const userId = await getSessionUserId(c);
-  if (!userId)
-    return c.json(
-      {
-        msg: 'Missing JWT in headers or cookies (Missing Authorization Header; Missing cookie "access_token")',
-      },
-      401
-    );
+  if (!userId) return c.json({ msg: NO_SESSION_MSG }, 401);
 
   const body = (await c.req.json().catch(() => ({}))) as Record<
     string,

@@ -11,6 +11,8 @@ PG_DATABASE_URI = "postgres://raven_test:raven_test@localhost:5433/raven_test" #
 # Must match TRUSTED_ORIGIN in src/integration/v1/helpers.ts.
 BASE_URL_WEB = "https://example.com"
 BASE_URL_API = "http://localhost:7001/api"
+# Must match PREVIEW_ORIGIN in src/integration/trusted-origin.test.ts.
+EXTRA_ALLOWED_ORIGIN_PATTERN = "https://*-preview.example.com"
 ENVIRONMENT = "test"
 
 SERVER_HOST = "0.0.0.0"

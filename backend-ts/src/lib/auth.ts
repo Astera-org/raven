@@ -411,19 +411,6 @@ function buildAuthOptions(
             }
           },
         },
-        update: {
-          after: async (account) => {
-            // Keep the legacy `users.password` column in sync so the
-            // JWT-based /api/auth/login route still works after a
-            // password change/reset through better-auth.
-            if (account.providerId === "credential" && account.password) {
-              await getDb()
-                .update(schema.users)
-                .set({ password: account.password })
-                .where(eq(schema.users.id, account.userId));
-            }
-          },
-        },
       },
     },
   } satisfies BetterAuthOptions;

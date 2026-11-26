@@ -93,6 +93,27 @@ describe("/api/notifications", () => {
       expect(Number(rows[0]!.is_subscribed)).toBe(0);
     });
 
+    it("accepts a one-click unsubscribe sent with a mail client's Origin", async () => {
+      const { user } = await authClient();
+      const token = makeUnsubscribeToken(
+        user.email,
+        "NEW_COMMENT__PARENT_COMMENTER"
+      );
+      const resp = await new TestApiClient()
+        .post(`/api/v0/notifications/unsubscribe?token=${token}`)
+        .set("Origin", "https://mail.example.net")
+        .type("form")
+        .send("List-Unsubscribe=One-Click");
+      expect(resp.status).toBe(200);
+      expect(resp.body.notification_type).toBe("NEW_COMMENT__PARENT_COMMENTER");
+
+      const tampered = await new TestApiClient()
+        .post("/api/notifications/unsubscribe?token=bm90LWpzb24.deadbeef")
+        .set("Origin", "https://mail.example.net");
+      expect(tampered.status).toBe(400);
+      expect(tampered.body.error).toBe("Invalid token");
+    });
+
     it("unsubscribes via a JSON body token", async () => {
       const { user } = await authClient();
       const token = makeUnsubscribeToken(

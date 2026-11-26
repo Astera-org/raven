@@ -4,7 +4,6 @@ import { MediaTooLargeError } from "#src/lib/errors/media-too-large-error.js";
 import { UnsupportedMediaError } from "#src/lib/errors/unsupported-media-error.js";
 import { mediaS3Key } from "#src/lib/media/media-s3-key.js";
 import { storeMedia } from "#src/lib/media/store-media.js";
-import { requireTrustedOrigin } from "#src/lib/middleware/require-trusted-origin.js";
 import { ValidationIssuesResponse } from "#src/lib/middleware/validation-errors.js";
 import { isLockConflictError } from "#src/lib/utils/db-errors.js";
 import { type AuthEnv } from "#src/types/hono.js";
@@ -61,9 +60,7 @@ export const postDraftMediaAssetRoute = createAuthedRoute({
     "the same bytes with the same extension again returns the same URL " +
     "without storing them twice. The URL keeps the file's extension, " +
     "lowercased, since MyST tells images, video and audio apart by it.",
-  // The origin check runs first, so a cross-site upload is refused before
-  // its body is read.
-  middleware: [requireTrustedOrigin, limitUploadSize],
+  middleware: [limitUploadSize],
   request: {
     params: z.object({ id: ulidSchema({ fieldName: "id" }) }),
     body: {

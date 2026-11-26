@@ -121,13 +121,13 @@ describe("/api/comments", () => {
       ownerId: userId,
       state: "PUBLISHED",
     });
-    expect(
-      (
-        await new TestApiClient()
-          .post(`/api/comments/publication/${unauthPubId}`)
-          .send({ body: "Sneaky" })
-      ).status
-    ).toBe(401);
+    const unauthenticated = await new TestApiClient()
+      .post(`/api/comments/publication/${unauthPubId}`)
+      .send({ body: "Sneaky" });
+    expect(unauthenticated.status).toBe(401);
+    expect(unauthenticated.body).toEqual({
+      msg: "No session. Sign in via /api/auth2/sign-in/email or /api/auth2/sign-in/username.",
+    });
   });
 
   it("gets comment objects with list-compatible shape", async () => {

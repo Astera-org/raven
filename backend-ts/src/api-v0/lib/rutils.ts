@@ -10,7 +10,6 @@ import { escapeLike } from "#src/lib/utils/escape-like.js";
 import { type AppEnv } from "#src/types/hono.js";
 import { eq, sql, type SQL } from "drizzle-orm";
 import type { Context } from "hono";
-import { verifyToken } from "./auth-helpers.js";
 
 // ---------------------------------------------------------------------------
 // Pagination
@@ -27,16 +26,20 @@ export function getPagination(query: Record<string, string | undefined>) {
 // Session user
 // ---------------------------------------------------------------------------
 
+export const SIGN_IN_ENDPOINTS =
+  "/api/auth2/sign-in/email or /api/auth2/sign-in/username";
+
+/**
+ * The `msg` of a v0 401 for a missing session. v0 is frozen, so routes that
+ * answered with a JWT-era `{ msg }` keep that shape.
+ */
+export const NO_SESSION_MSG = `No session. Sign in via ${SIGN_IN_ENDPOINTS}.`;
+
 /**
  * Resolves the current request's better-auth session (set on the context by
  * `authMiddleware`, which runs globally) to the user's legacy int id.
- *
- * This is the only session mechanism v1 routes recognize — see the v1 auth
- * decision in the API versioning plan. v0/unprefixed routes should keep
- * using `getSessionUserId` below, which additionally falls back to the
- * legacy JWT flow.
  */
-export async function getBetterAuthUserId(
+export async function getSessionUserId(
   c: Context<AppEnv>
 ): Promise<number | null> {
   const user = c.get("user");
@@ -50,37 +53,6 @@ export async function getBetterAuthUserId(
     .where(eq(users.id, user.id))
     .limit(1);
   return rows.length === 1 ? rows[0]!.id : null;
-}
-
-export async function getSessionUserId(
-  c: Context<AppEnv>
-): Promise<number | null> {
-  const betterAuthUserId = await getBetterAuthUserId(c);
-  if (betterAuthUserId != null) return betterAuthUserId;
-
-  // Fall back to the legacy JWT flow (Authorization header or access_token
-  // cookie). Not available to v1 routes; see `getBetterAuthUserId`.
-  const authHeader = c.req.header("Authorization");
-  const token = authHeader?.startsWith("Bearer ")
-    ? authHeader.slice(7)
-    : getCookieValue(c.req.header("cookie") ?? "", "access_token");
-
-  if (!token) return null;
-
-  const payload = await verifyToken(token);
-  if (!payload?.sub) return null;
-  return parseInt(payload.sub, 10) || null;
-}
-
-/** The cookie's decoded value, or null if it's missing or malformed. */
-function getCookieValue(cookieHeader: string, name: string): string | null {
-  const match = cookieHeader.match(new RegExp(`(?:^|;\\s*)${name}=([^;]*)`));
-  if (!match) return null;
-  try {
-    return decodeURIComponent(match[1]!);
-  } catch {
-    return null;
-  }
 }
 
 // ---------------------------------------------------------------------------

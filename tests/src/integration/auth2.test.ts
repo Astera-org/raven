@@ -1,13 +1,6 @@
 import { escape } from "mysql2";
 import { describe, expect, it } from "vitest";
-import {
-  execute,
-  makeUser,
-  markEmailVerified,
-  query,
-  registerUser,
-  TestApiClient,
-} from "./helpers.js";
+import { execute, markEmailVerified, query, TestApiClient } from "./helpers.js";
 
 function auth2User(username: string, overrides: Record<string, unknown> = {}) {
   const displayName = username[0]!.toUpperCase() + username.slice(1);
@@ -420,55 +413,6 @@ describe("auth2 and legacy API interop", () => {
     expect(resp.body.user.id).toBe(user.idInt);
     expect(resp.body.user.username).toBe("interopuser");
     expect(resp.body.user.first_name).toBe("Interopuser");
-  });
-});
-
-describe("password change interop between legacy and auth2", () => {
-  it("syncs a legacy password change to the better-auth credential account", async () => {
-    const client = new TestApiClient();
-    const user = await registerUser(client, makeUser("legacychangepw"));
-    await client.login(user.username, user.password);
-
-    const resp = await client.post("/api/auth/change_password").send({
-      current_password: user.password,
-      new_password: "new-password-456",
-    });
-    expect(resp.status).toBe(200);
-
-    const oldPasswordLogin = await new TestApiClient()
-      .post("/api/auth2/sign-in/email")
-      .send({ email: user.email, password: user.password });
-    expect(oldPasswordLogin.status).toBe(401);
-
-    const newPasswordLogin = await new TestApiClient()
-      .post("/api/auth2/sign-in/email")
-      .send({ email: user.email, password: "new-password-456" });
-    expect(newPasswordLogin.status).toBe(200);
-    expect(newPasswordLogin.body.user.username).toBe(user.username);
-  });
-
-  it("syncs an auth2 password change back to the legacy users table", async () => {
-    const client = new TestApiClient();
-    const user = auth2User("authchangepw");
-    const { token } = await signUpAuth2(client, user);
-    client.setToken(token);
-
-    const resp = await client.post("/api/auth2/change-password").send({
-      currentPassword: user.password,
-      newPassword: "new-password-456",
-    });
-    expect(resp.status).toBe(200);
-
-    const oldPasswordLogin = await new TestApiClient()
-      .post("/api/auth/login")
-      .send({ username: user.username, password: user.password });
-    expect(oldPasswordLogin.status).toBe(401);
-
-    const newPasswordLogin = await new TestApiClient()
-      .post("/api/auth/login")
-      .send({ username: user.username, password: "new-password-456" });
-    expect(newPasswordLogin.status).toBe(200);
-    expect(newPasswordLogin.body.user.username).toBe(user.username);
   });
 });
 

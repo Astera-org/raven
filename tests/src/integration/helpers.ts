@@ -53,20 +53,27 @@ export class TestApiClient {
     return this.auth(api().delete(path));
   }
 
-  async login(username: string, password: string) {
-    const resp = await this.post("/api/auth/login").send({
-      username,
-      password,
-    });
+  /** Signs in with a username or an email, keeping the session's token. */
+  async login(usernameOrEmail: string, password: string) {
+    this.clearToken();
+    const resp = usernameOrEmail.includes("@")
+      ? await this.post("/api/auth2/sign-in/email").send({
+          email: usernameOrEmail,
+          password,
+        })
+      : await this.post("/api/auth2/sign-in/username").send({
+          username: usernameOrEmail,
+          password,
+        });
     expect(resp.status).toBe(200);
-    this.setToken(resp.body.access_token);
+    this.setToken(resp.body.token);
     return resp.body;
   }
 
   async logout() {
-    const resp = await this.post("/api/auth/logout");
+    const resp = await this.post("/api/auth2/sign-out").send({});
     expect(resp.status).toBe(200);
-    expect(resp.body.msg).toBe("logged out");
+    expect(resp.body.success).toBe(true);
     this.clearToken();
     return resp.body;
   }

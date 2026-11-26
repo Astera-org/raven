@@ -9,7 +9,10 @@ import { getHandlerAuth } from "./lib/auth.js";
 import { logger } from "./lib/logger.js";
 import { authMiddleware } from "./lib/middleware/auth-context.js";
 import { jsonErrorsMiddleware } from "./lib/middleware/json-error.js";
-import { trustedOrigins } from "./lib/middleware/require-trusted-origin.js";
+import {
+  requireTrustedOrigin,
+  trustedOrigins,
+} from "./lib/middleware/require-trusted-origin.js";
 import { jsonValidationErrorsMiddleware } from "./lib/middleware/validation-errors.js";
 import { type AppEnv } from "./types/hono.js";
 
@@ -102,6 +105,10 @@ export function createApp() {
       credentials: true,
     })
   );
+
+  // Before authMiddleware and every route, so a cross-site write is refused
+  // before its session is looked up or its body is read.
+  app.use("*", requireTrustedOrigin);
 
   // Add Better Auth middleware. This adds `user` and `session` to the context
   app.use("*", authMiddleware);

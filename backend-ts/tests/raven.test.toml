@@ -2,6 +2,8 @@ DATABASE_URI = "mysql://raven_test:raven_test@db-test:3306/raven_test?charset=ut
 PG_DATABASE_URI = "postgres://raven_test:raven_test@pg-test:5432/raven_test" # trufflehog:ignore
 BASE_URL_WEB = "https://example.com"
 BASE_URL_API = "http://localhost:5000/api"
+# Must match PREVIEW_ORIGIN in tests/src/integration/trusted-origin.test.ts.
+EXTRA_ALLOWED_ORIGIN_PATTERN = "https://*-preview.example.com"
 ENVIRONMENT = "test"
 
 SERVER_HOST = "0.0.0.0"
