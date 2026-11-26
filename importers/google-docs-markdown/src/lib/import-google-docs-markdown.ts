@@ -472,9 +472,7 @@ class GoogleDocConverter {
     const lines = myst.split("\n");
     const minColons = 3;
     const fences: (
-      | { type: "open" | "close"; depth: number }
-      | { type: "stray" }
-      | null
+      { type: "open" | "close"; depth: number } | { type: "stray" } | null
     )[] = [];
     let depth = 0;
     let maxDepth = 4;

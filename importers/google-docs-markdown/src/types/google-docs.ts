@@ -117,10 +117,7 @@ interface GDocText {
 export type GDocChildNode = GDocElement | GDocText;
 
 type LooseDocumentMembers =
-  | "documentElement"
-  | "createElement"
-  | "querySelector"
-  | "querySelectorAll";
+  "documentElement" | "createElement" | "querySelector" | "querySelectorAll";
 
 export type GDocDocument = Omit<RawGDocDocument, LooseDocumentMembers> & {
   documentElement: GDocElement;

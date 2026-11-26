@@ -100,17 +100,15 @@ export async function searchUsers(
 ): Promise<UserResponse[]> {
   const results = await getSearchResults(identifier, options);
 
-  return results.map(
-    (r): UserResponse => ({
-      id: r.idInt,
-      username: r.username,
-      first_name: r.firstName,
-      last_name: r.lastName,
-      avatar: r.avatar,
-      orcid: r.orcid,
-      icon_color: generateColorFromId(r.id),
-    })
-  );
+  return results.map((r): UserResponse => ({
+    id: r.idInt,
+    username: r.username,
+    first_name: r.firstName,
+    last_name: r.lastName,
+    avatar: r.avatar,
+    orcid: r.orcid,
+    icon_color: generateColorFromId(r.id),
+  }));
 }
 
 interface SearchUsersResponse {

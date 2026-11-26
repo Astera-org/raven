@@ -286,9 +286,9 @@ async function findAllJobs(
     // pg-boss asserts "findJobs: after names a row that no longer exists"
     // when it deleted the previous page's last job mid-read; read once more
     // from the start.
-    if (
-      !(e instanceof AssertionError && e.message.startsWith("findJobs: after"))
-    ) {
+    if (!(
+      e instanceof AssertionError && e.message.startsWith("findJobs: after")
+    )) {
       throw e;
     }
     return readAllPages(name, options);

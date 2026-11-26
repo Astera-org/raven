@@ -1323,8 +1323,7 @@ export interface paths {
                     | null;
                   /** @description Fields changed by a draft edit since this import, so they no longer match the source document. Empty after an import or re-sync. Only on the draft; null elsewhere. */
                   editedFields:
-                    | ("title" | "subtitle" | "abstract" | "body")[]
-                    | null;
+                    ("title" | "subtitle" | "abstract" | "body")[] | null;
                 };
                 /** @description The format of the version's content, which tells clients how to render it. Absent when the version has no recorded format. */
                 content?: {
@@ -1740,8 +1739,7 @@ export interface paths {
                     | null;
                   /** @description Fields changed by a draft edit since this import, so they no longer match the source document. Empty after an import or re-sync. Only on the draft; null elsewhere. */
                   editedFields:
-                    | ("title" | "subtitle" | "abstract" | "body")[]
-                    | null;
+                    ("title" | "subtitle" | "abstract" | "body")[] | null;
                 };
                 /** @description The format of the version's content, which tells clients how to render it. Absent when the version has no recorded format. */
                 content?: {
@@ -2265,8 +2263,7 @@ export interface paths {
                     | null;
                   /** @description Fields changed by a draft edit since this import, so they no longer match the source document. Empty after an import or re-sync. Only on the draft; null elsewhere. */
                   editedFields:
-                    | ("title" | "subtitle" | "abstract" | "body")[]
-                    | null;
+                    ("title" | "subtitle" | "abstract" | "body")[] | null;
                 };
                 /** @description The format of the version's content, which tells clients how to render it. Absent when the version has no recorded format. */
                 content?: {
@@ -2933,8 +2930,7 @@ export interface paths {
                     | null;
                   /** @description Fields changed by a draft edit since this import, so they no longer match the source document. Empty after an import or re-sync. Only on the draft; null elsewhere. */
                   editedFields:
-                    | ("title" | "subtitle" | "abstract" | "body")[]
-                    | null;
+                    ("title" | "subtitle" | "abstract" | "body")[] | null;
                 };
                 /** @description The format of the version's content, which tells clients how to render it. Absent when the version has no recorded format. */
                 content?: {
@@ -4534,10 +4530,7 @@ export interface paths {
                 title?: string;
                 /** @enum {string} */
                 titleType?:
-                  | "AlternativeTitle"
-                  | "Subtitle"
-                  | "TranslatedTitle"
-                  | "Other";
+                  "AlternativeTitle" | "Subtitle" | "TranslatedTitle" | "Other";
                 lang?: string;
               }[];
               publisher?:
@@ -5005,11 +4998,7 @@ export interface paths {
                 funderIdentifier?: string;
                 /** @enum {string} */
                 funderIdentifierType?:
-                  | "Crossref Funder ID"
-                  | "GRID"
-                  | "ISNI"
-                  | "ROR"
-                  | "Other";
+                  "Crossref Funder ID" | "GRID" | "ISNI" | "ROR" | "Other";
                 awardNumber?: string;
                 awardUri?: string;
                 awardTitle?: string;
@@ -5881,8 +5870,7 @@ export interface paths {
                     | null;
                   /** @description Fields changed by a draft edit since this import, so they no longer match the source document. Empty after an import or re-sync. Only on the draft; null elsewhere. */
                   editedFields:
-                    | ("title" | "subtitle" | "abstract" | "body")[]
-                    | null;
+                    ("title" | "subtitle" | "abstract" | "body")[] | null;
                 };
                 /** @description The format of the version's content, which tells clients how to render it. Absent when the version has no recorded format. */
                 content?: {
@@ -6213,8 +6201,7 @@ export interface paths {
                     | null;
                   /** @description Fields changed by a draft edit since this import, so they no longer match the source document. Empty after an import or re-sync. Only on the draft; null elsewhere. */
                   editedFields:
-                    | ("title" | "subtitle" | "abstract" | "body")[]
-                    | null;
+                    ("title" | "subtitle" | "abstract" | "body")[] | null;
                 };
                 /** @description The format of the version's content, which tells clients how to render it. Absent when the version has no recorded format. */
                 content?: {
@@ -6565,8 +6552,7 @@ export interface paths {
                     | null;
                   /** @description Fields changed by a draft edit since this import, so they no longer match the source document. Empty after an import or re-sync. Only on the draft; null elsewhere. */
                   editedFields:
-                    | ("title" | "subtitle" | "abstract" | "body")[]
-                    | null;
+                    ("title" | "subtitle" | "abstract" | "body")[] | null;
                 };
                 /** @description The format of the version's content, which tells clients how to render it. Absent when the version has no recorded format. */
                 content?: {
@@ -8923,8 +8909,7 @@ export interface paths {
                     | null;
                   /** @description Fields changed by a draft edit since this import, so they no longer match the source document. Empty after an import or re-sync. Only on the draft; null elsewhere. */
                   editedFields:
-                    | ("title" | "subtitle" | "abstract" | "body")[]
-                    | null;
+                    ("title" | "subtitle" | "abstract" | "body")[] | null;
                 };
                 /** @description The format of the version's content, which tells clients how to render it. Absent when the version has no recorded format. */
                 content?: {
@@ -9214,8 +9199,7 @@ export interface paths {
                     | null;
                   /** @description Fields changed by a draft edit since this import, so they no longer match the source document. Empty after an import or re-sync. Only on the draft; null elsewhere. */
                   editedFields:
-                    | ("title" | "subtitle" | "abstract" | "body")[]
-                    | null;
+                    ("title" | "subtitle" | "abstract" | "body")[] | null;
                 };
                 /** @description The format of the version's content, which tells clients how to render it. Absent when the version has no recorded format. */
                 content?: {
@@ -9533,8 +9517,7 @@ export interface paths {
                     | null;
                   /** @description Fields changed by a draft edit since this import, so they no longer match the source document. Empty after an import or re-sync. Only on the draft; null elsewhere. */
                   editedFields:
-                    | ("title" | "subtitle" | "abstract" | "body")[]
-                    | null;
+                    ("title" | "subtitle" | "abstract" | "body")[] | null;
                 };
                 /** @description The format of the version's content, which tells clients how to render it. Absent when the version has no recorded format. */
                 content?: {

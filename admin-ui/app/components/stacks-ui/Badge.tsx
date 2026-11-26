@@ -1,12 +1,7 @@
 import { cn } from "~/lib/utils";
 
 type BadgeVariant =
-  | "success"
-  | "info"
-  | "neutral"
-  | "primary"
-  | "warning"
-  | "error";
+  "success" | "info" | "neutral" | "primary" | "warning" | "error";
 
 const variantClasses: Record<BadgeVariant, string> = {
   success: "bg-mint-green-300 text-mint-green-dark",

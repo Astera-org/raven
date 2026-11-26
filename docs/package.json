@@ -16,6 +16,6 @@
     "@eslint/markdown": "catalog:",
     "@raven/eslint-rules": "workspace:*",
     "eslint": "catalog:",
-    "mystmd": "1.11.0"
+    "mystmd": "1.13.0"
   }
 }

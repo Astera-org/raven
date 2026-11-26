@@ -15,8 +15,7 @@ import { createMiddleware } from "hono/factory";
  * active ADMIN of.
  */
 export type AdminScope =
-  | { kind: "site" }
-  | { kind: "org"; orgs: AdministeredOrgRow[] };
+  { kind: "site" } | { kind: "org"; orgs: AdministeredOrgRow[] };
 
 export function isOrgInAdminScope(scope: AdminScope, orgId: string): boolean {
   return scope.kind === "site" || scope.orgs.some((o) => o.id === orgId);

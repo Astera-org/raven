@@ -73,8 +73,7 @@ function extractComparableScalar(
   if (!metadata) return null;
   if (def.label === "title" || def.label === "subtitle") {
     const titles = metadata["titles"] as
-      | Array<{ title: string; titleType?: string }>
-      | undefined;
+      Array<{ title: string; titleType?: string }> | undefined;
     const entry =
       def.label === "title"
         ? titles?.find((t) => !t.titleType)
@@ -85,8 +84,7 @@ function extractComparableScalar(
     return (
       (
         metadata["descriptions"] as
-          | Array<{ description: string; descriptionType: string }>
-          | undefined
+          Array<{ description: string; descriptionType: string }> | undefined
       )?.find((d) => d.descriptionType === "Abstract")?.description ?? null
     );
   }
@@ -299,8 +297,7 @@ export default function DoiAuditCompare({ loaderData }: Route.ComponentProps) {
   const titleDef = COMPARABLE_FIELDS.find((def) => def.label === "title")!;
   const pubTitle =
     (extractComparableScalar(detail.stacksMetadata, titleDef) as
-      | string
-      | null) ?? detail.slug;
+      string | null) ?? detail.slug;
 
   const found = detail.found;
   const matches = detail.matches;

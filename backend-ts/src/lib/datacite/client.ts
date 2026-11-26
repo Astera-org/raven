@@ -96,8 +96,7 @@ type UpdateDraftVersionMetadataSubsequent = UpdateDraftVersionMetadataBase & {
 };
 
 type UpdateDraftVersionMetadata =
-  | UpdateDraftVersionMetadataFirst
-  | UpdateDraftVersionMetadataSubsequent;
+  UpdateDraftVersionMetadataFirst | UpdateDraftVersionMetadataSubsequent;
 
 export interface CanonicalMetadata {
   contributors: DataCitePerson[];
@@ -614,13 +613,11 @@ export async function buildCanonicalPayload(
   const related: z.infer<typeof RelatedIdentifierSchema>[] = [
     ...buildReferenceRelated(meta.references),
     ...buildSupplementRelated(meta.supplements),
-    ...meta.versionDois.map(
-      (doi): z.infer<typeof RelatedIdentifierSchema> => ({
-        relatedIdentifier: doi,
-        relatedIdentifierType: "DOI",
-        relationType: "HasVersion",
-      })
-    ),
+    ...meta.versionDois.map((doi): z.infer<typeof RelatedIdentifierSchema> => ({
+      relatedIdentifier: doi,
+      relatedIdentifierType: "DOI",
+      relationType: "HasVersion",
+    })),
   ];
 
   const cfg = getConfig();
@@ -1484,8 +1481,7 @@ async function updateDois(
     : null;
 
   let versionMeta:
-    | VersionMetadataSubsequent
-    | UpdateDraftVersionMetadataSubsequent;
+    VersionMetadataSubsequent | UpdateDraftVersionMetadataSubsequent;
   let canonicalMeta: CanonicalMetadata | UpdateDraftCanonicalMetadata;
   let prevRow: PublishedVersionRow | null = null;
   let allPublished: PublishedVersionRow[] = [];

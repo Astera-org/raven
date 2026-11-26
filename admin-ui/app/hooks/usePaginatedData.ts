@@ -34,8 +34,7 @@ type PagedGet = (
 
 /** Resolves to `unknown` (no-op) for valid endpoints, and to an impossible type otherwise. */
 type AssertPaginated<E extends AnyEndpoint> =
-  | "page"
-  | "perPage" extends keyof QueryOf<E>
+  "page" | "perPage" extends keyof QueryOf<E>
   ? PageData<E> extends Paginated<unknown>
     ? unknown
     : { __error: "endpoint's 2xx response is not Paginated" }

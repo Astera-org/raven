@@ -31,12 +31,7 @@ import {
 } from "vitest";
 
 type JobState =
-  | "created"
-  | "retry"
-  | "active"
-  | "completed"
-  | "cancelled"
-  | "failed";
+  "created" | "retry" | "active" | "completed" | "cancelled" | "failed";
 
 /** The fields of a pg-boss job row the audit reads. */
 interface StoredJob {

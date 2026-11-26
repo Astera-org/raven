@@ -397,8 +397,7 @@ export async function getNameFromOrcid(
     if (!resp.ok) return ["", ""];
     const data = (await resp.json()) as Record<string, unknown>;
     const name = data["name"] as
-      | Record<string, Record<string, string>>
-      | undefined;
+      Record<string, Record<string, string>> | undefined;
     return [
       name?.["given-names"]?.["value"] ?? "",
       name?.["family-name"]?.["value"] ?? "",

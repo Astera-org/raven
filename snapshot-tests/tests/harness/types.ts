@@ -6,13 +6,7 @@
  */
 
 export type HttpMethod =
-  | "GET"
-  | "POST"
-  | "PUT"
-  | "PATCH"
-  | "DELETE"
-  | "HEAD"
-  | "OPTIONS";
+  "GET" | "POST" | "PUT" | "PATCH" | "DELETE" | "HEAD" | "OPTIONS";
 
 /**
  * Tag used to replace a non-deterministic value in a snapshot. The value in
@@ -50,8 +44,7 @@ export type MaskField = string | { path: string; as?: MaskType };
  *                   Only implemented on backend-ts.
  */
 export type AuthDirective =
-  | { kind: "none" }
-  | { kind: "better-auth"; as: string };
+  { kind: "none" } | { kind: "better-auth"; as: string };
 
 export interface MultipartFile {
   filename: string;

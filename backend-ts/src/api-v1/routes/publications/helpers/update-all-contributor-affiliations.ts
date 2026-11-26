@@ -48,14 +48,12 @@ export async function updateAllContributorAffiliations(
     const foundIds = orgs.map((o) => o.id);
     const missingOrgs = toInsert.filter((orgId) => !foundIds.includes(orgId));
 
-    const issues = missingOrgs.map(
-      (orgId): ValidationIssue => ({
-        code: "custom",
-        input: orgId,
-        message: "Org not found",
-        path: [newAffiliations.findIndex((aff) => aff === orgId)],
-      })
-    );
+    const issues = missingOrgs.map((orgId): ValidationIssue => ({
+      code: "custom",
+      input: orgId,
+      message: "Org not found",
+      path: [newAffiliations.findIndex((aff) => aff === orgId)],
+    }));
 
     return [false, issues];
   }

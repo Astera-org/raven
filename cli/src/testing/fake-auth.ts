@@ -2,10 +2,7 @@ import type { PlainFetch, PlainRequestInit } from "#src/api/plain-fetch.js";
 import { jsonResponse } from "./test-runtime.js";
 
 export type DeviceTokenReply =
-  | "approved"
-  | "authorization_pending"
-  | "access_denied"
-  | "expired_token";
+  "approved" | "authorization_pending" | "access_denied" | "expired_token";
 
 export interface AuthCall {
   url: string;

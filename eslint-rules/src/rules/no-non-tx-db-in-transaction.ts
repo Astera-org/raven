@@ -5,8 +5,7 @@ import { containsDbType, isNonTxDbType } from "./db-types.js";
 type MessageIds = "nonTxDbInTransaction";
 
 type FunctionNode =
-  | TSESTree.ArrowFunctionExpression
-  | TSESTree.FunctionExpression;
+  TSESTree.ArrowFunctionExpression | TSESTree.FunctionExpression;
 
 const createRule = ESLintUtils.RuleCreator((name) => `internal-rule/${name}`);
 

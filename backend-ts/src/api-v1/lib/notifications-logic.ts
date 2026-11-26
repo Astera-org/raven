@@ -26,8 +26,7 @@ const knownNotifyTypes = new Set([
 ]);
 
 type DeliveryMethod =
-  | typeof DELIVERY_METHOD__EMAIL
-  | typeof DELIVERY_METHOD__IN_APP;
+  typeof DELIVERY_METHOD__EMAIL | typeof DELIVERY_METHOD__IN_APP;
 
 type Recipient = { id: string; info: UserInfo };
 

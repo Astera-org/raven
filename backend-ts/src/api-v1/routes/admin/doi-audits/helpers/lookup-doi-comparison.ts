@@ -21,8 +21,7 @@ export type DoiComparisonLookup =
 
 type DoiLookupFailure = Extract<DoiComparisonLookup, { ok: false }>["reason"];
 type DoiLookupError =
-  | { doi: { message: string } }
-  | { publication: { message: string } };
+  { doi: { message: string } } | { publication: { message: string } };
 
 /**
  * The errors for a failed lookup's 404, shared by the routes that look a DOI

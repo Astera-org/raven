@@ -100,14 +100,12 @@ export async function updateAllOrgs(
             ({ orgId }) => !foundIds.includes(orgId)
           );
 
-          const issues = missingOrgs.map(
-            ({ orgId }): ValidationIssue => ({
-              code: "custom",
-              input: orgId,
-              message: "Org not found",
-              path: ["orgs", resolved.orgIds.indexOf(orgId)],
-            })
-          );
+          const issues = missingOrgs.map(({ orgId }): ValidationIssue => ({
+            code: "custom",
+            input: orgId,
+            message: "Org not found",
+            path: ["orgs", resolved.orgIds.indexOf(orgId)],
+          }));
 
           throw new ValidationIssuesException(issues);
         }

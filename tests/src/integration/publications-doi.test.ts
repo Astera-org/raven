@@ -367,8 +367,7 @@ describe("DOI minting and metadata updates on a new version's publish", () => {
     expect(attrs(calls[0])?.["version"]).toBe("2");
     expect(calls[1]!.doi).toBe(canonicalDoi);
     const canonicalUpdateAttrs = attrs(calls[1]) as
-      | { relatedIdentifiers?: Array<{ relatedIdentifier: string }> }
-      | undefined;
+      { relatedIdentifiers?: Array<{ relatedIdentifier: string }> } | undefined;
     expect(
       canonicalUpdateAttrs?.relatedIdentifiers?.some(
         (r) => r.relatedIdentifier === v2VersionDoi

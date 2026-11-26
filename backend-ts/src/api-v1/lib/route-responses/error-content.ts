@@ -155,8 +155,7 @@ export function errorContent<TKeys extends string | number>(
               (prev, key): Record<TKeys, OptionalResponseErrorSchemaType> => {
                 const objectSchema = z.object({ message: z.string() });
                 const schema:
-                  | ResponseErrorSchemaType
-                  | OptionalResponseErrorSchemaType =
+                  ResponseErrorSchemaType | OptionalResponseErrorSchemaType =
                   keysArr.length === 1 ? objectSchema : objectSchema.optional();
                 const metadata = keyMetadata?.[key];
                 return {

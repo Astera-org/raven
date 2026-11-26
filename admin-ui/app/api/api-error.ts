@@ -4,11 +4,7 @@ import type { SuccessStatusCode } from "hono/utils/http-status";
 import { type $ZodIssue } from "zod/v4/core";
 
 export type ApiErrorKind =
-  | "validation"
-  | "http"
-  | "network"
-  | "aborted"
-  | "parse";
+  "validation" | "http" | "network" | "aborted" | "parse";
 
 export class ApiError extends Error {
   readonly kind: ApiErrorKind;

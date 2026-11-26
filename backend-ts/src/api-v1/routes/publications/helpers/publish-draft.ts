@@ -41,8 +41,7 @@ type PublishDraftResult =
       status: "error";
       code: 404;
       errors:
-        | { publication: { message: string } }
-        | { draft: { message: string } };
+        { publication: { message: string } } | { draft: { message: string } };
     };
 
 /**

@@ -127,18 +127,16 @@ export async function buildGetPublicationResponse(
   ]);
 
   const listedImportsById = new Map(listedImports.map((i) => [i.id, i]));
-  const versionList = versionRows.map(
-    (r): VersionListItemResponse => ({
-      id: r.id,
-      versionNumber: r.versionNumber,
-      versionDesc: r.versionDesc,
-      doi: r.doi,
-      createdAt: dbDateToIso8601(r.createdAt),
-      importDocument: buildVersionImportDocumentResponse(
-        r.currentImportId ? listedImportsById.get(r.currentImportId) : null
-      ),
-    })
-  );
+  const versionList = versionRows.map((r): VersionListItemResponse => ({
+    id: r.id,
+    versionNumber: r.versionNumber,
+    versionDesc: r.versionDesc,
+    doi: r.doi,
+    createdAt: dbDateToIso8601(r.createdAt),
+    importDocument: buildVersionImportDocumentResponse(
+      r.currentImportId ? listedImportsById.get(r.currentImportId) : null
+    ),
+  }));
 
   const orgs = orgRows.map((o) => ({
     // Guaranteed non-null: `orgPublicationMap.orgId` is a NOT NULL FK to

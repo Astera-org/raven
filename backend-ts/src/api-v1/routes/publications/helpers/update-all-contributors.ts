@@ -163,19 +163,15 @@ export async function updateAllContributors(
             (userId) => !foundIds.includes(userId)
           );
 
-          const issues = missingUserIds.map(
-            (userId): ValidationIssue => ({
-              code: "custom",
-              input: userId,
-              message: "User not found",
-              path: [
-                "contributors",
-                newContributors.findIndex(
-                  (contrib) => contrib.userId === userId
-                ),
-              ],
-            })
-          );
+          const issues = missingUserIds.map((userId): ValidationIssue => ({
+            code: "custom",
+            input: userId,
+            message: "User not found",
+            path: [
+              "contributors",
+              newContributors.findIndex((contrib) => contrib.userId === userId),
+            ],
+          }));
 
           if (issues.length) {
             throw new ValidationIssuesException(issues);
